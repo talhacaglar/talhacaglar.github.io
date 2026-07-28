@@ -1,0 +1,166 @@
+---
+import { translations, DEFAULT_LANG } from '../data/translations';
+const t = translations[DEFAULT_LANG];
+
+const experiences = [
+  {
+    company: 'İşbir Sentetik Dokuma Sanayi A.Ş.',
+    role: 'experience.role1',
+    date: 'experience.date1',
+    location: '',
+  },
+  {
+    company: 'Siber Vatan',
+    role: 'experience.role2',
+    date: 'experience.date2',
+    location: 'Sakarya, Türkiye',
+  },
+  {
+    company: 'EMA Security LTD',
+    role: 'experience.role3',
+    date: 'experience.date3',
+    location: '',
+  },
+];
+---
+
+<section class="section experience" id="experience">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label" data-i18n="experience.label">{t['experience.label'] || 'Experience'}</span>
+      <h2 class="section-title" data-i18n="experience.title">{t['experience.title'] || 'Professional Experience'}</h2>
+      <p class="section-subtitle" data-i18n="experience.subtitle">{t['experience.subtitle'] || 'My career journey'}</p>
+    </div>
+
+    <div class="timeline">
+      {experiences.map((exp, index) => (
+        <div class="timeline-item reveal" style={`--delay: ${0.1 * (index + 1)}s`}>
+          <div class="timeline-card glass">
+            <h3 class="company">{exp.company}</h3>
+            <p class="role" data-i18n={exp.role}>{t[exp.role as keyof typeof t] || exp.role}</p>
+            <div class="meta">
+              <span class="date" data-i18n={exp.date}>{t[exp.date as keyof typeof t] || exp.date}</span>
+              {exp.location && (
+                <span class="location">
+                  <span class="separator">•</span>
+                  {exp.location}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience {
+    position: relative;
+    background: var(--section-veil);
+    border-block: 1px solid var(--border);
+  }
+
+  .timeline {
+    margin-top: 3rem;
+    position: relative;
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 12px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 3.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 1.5rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--tint-strong);
+    transform: translateY(-50%);
+  }
+
+  .timeline-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition:
+      transform 0.55s var(--ease),
+      background-color 0.35s var(--ease-smooth),
+      box-shadow 0.55s var(--ease);
+  }
+
+  .timeline-card:hover {
+    transform: translateY(-4px);
+    background: var(--glass-bg-strong);
+    box-shadow: var(--glass-shadow-hover), var(--glass-rim);
+  }
+
+  .company {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .role {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .separator {
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 768px) {
+    .timeline::before {
+      left: 10px;
+    }
+    .timeline-item {
+      padding-left: 2.5rem;
+    }
+    .timeline-item::before {
+      left: 7px;
+    }
+    .meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+    .separator {
+      display: none;
+    }
+  }
+</style>

@@ -4,6 +4,8 @@ import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
 import Skills from '../components/Skills.astro';
+import Experience from '../components/Experience.astro';
+import Education from '../components/Education.astro';
 import Certifications from '../components/Certifications.astro';
 import Projects from '../components/Projects.astro';
 import { certifications } from '../data/certifications';
@@ -17,6 +19,8 @@ import Footer from '../components/Footer.astro';
     <Hero />
     <About />
     <Skills />
+    <Experience />
+    <Education />
     {certifications.length > 0 && <Certifications />}
     <Projects />
     <Contact />

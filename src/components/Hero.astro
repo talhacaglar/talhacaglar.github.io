@@ -29,6 +29,8 @@ const facts = [
       <span class="line accent" data-i18n="hero.titleLine2">{t['hero.titleLine2']}</span>
     </h1>
 
+    <p class="role" data-i18n="hero.role">{t['hero.role']}</p>
+
     <p class="subtitle" data-i18n="hero.subtitle">{t['hero.subtitle']}</p>
 
     <div class="actions">
@@ -194,6 +196,15 @@ const facts = [
     animation: rise 1.1s var(--ease) 0.3s both;
   }
 
+  .role {
+    margin-top: 1.25rem;
+    font-size: clamp(0.9375rem, 1.6vw, 1.0625rem);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--accent);
+    animation: rise 1.1s var(--ease) 0.22s both;
+  }
+
   .actions {
     margin-top: 2.25rem;
     display: flex;
@@ -294,6 +305,7 @@ const facts = [
   @media (prefers-reduced-motion: reduce) {
     .badge,
     .title,
+    .role,
     .subtitle,
     .actions,
     .facts,

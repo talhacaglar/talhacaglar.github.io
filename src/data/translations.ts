@@ -10,6 +10,8 @@ export const translations = {
     'nav.skills': 'Yetkinlikler',
     'nav.projects': 'Projeler',
     'nav.certifications': 'Sertifikalar',
+    'nav.experience': 'Deneyim',
+    'nav.education': 'Eğitim',
     'nav.contact': 'İletişim',
     'nav.langLabel': 'Dili değiştir',
     'nav.themeLabel': 'Tema',
@@ -17,6 +19,7 @@ export const translations = {
     'nav.themeDark': 'Karanlık tema',
 
     'hero.eyebrow': 'Yeni projelere açığım',
+    'hero.role': 'Bilgisayar Mühendisliği Öğrencisi · Bursa, Türkiye',
     'hero.titleLine1': 'Talha',
     'hero.titleLine2': 'Çağlar',
     'hero.subtitle':
@@ -78,6 +81,22 @@ export const translations = {
     'certifications.subtitle': 'Üzerinde çalıştığım alanlarda tamamladığım eğitimler.',
     'certifications.viewCredential': 'Kimlik bilgisini gör',
 
+    'experience.label': 'Deneyim',
+    'experience.title': 'İş Deneyimim',
+    'experience.subtitle': 'Güvenlik ve BT alanında kazandığım profesyonel deneyimler.',
+    'experience.role1': 'BT Stajyeri',
+    'experience.date1': 'Temmuz 2026 - Devam (1 ay)',
+    'experience.role2': 'Öğrenci',
+    'experience.date2': 'Aralık 2025 - Mart 2026 (4 ay)',
+    'experience.role3': 'Cyber Security Intern · Red Team Intern',
+    'experience.date3': 'Ekim 2025 - Mart 2026 (6 ay)',
+
+    'education.label': 'Eğitim',
+    'education.title': 'Eğitim Bilgilerim',
+    'education.university': 'Sakarya Uygulamalı Bilimler Üniversitesi',
+    'education.degree': 'Lisans Derecesi, Bilgisayar Mühendisliği',
+    'education.date': 'Ekim 2023 - Haziran 2027',
+
     'contact.label': 'İletişim',
     'contact.title': 'Bir fikrin mi var?',
     'contact.subtitle':
@@ -94,6 +113,9 @@ export const translations = {
     'nav.about': 'About',
     'nav.skills': 'Skills',
     'nav.projects': 'Projects',
+    'nav.certifications': 'Certifications',
+    'nav.experience': 'Experience',
+    'nav.education': 'Education',
     'nav.contact': 'Contact',
     'nav.langLabel': 'Switch language',
     'nav.themeLabel': 'Theme',
@@ -101,6 +123,7 @@ export const translations = {
     'nav.themeDark': 'Dark theme',
 
     'hero.eyebrow': 'Open to new projects',
+    'hero.role': 'Computer Engineering Student · Bursa, Türkiye',
     'hero.titleLine1': 'Talha',
     'hero.titleLine2': 'Çağlar',
     'hero.subtitle':
@@ -161,6 +184,22 @@ export const translations = {
     'certifications.title': 'Certifications',
     'certifications.subtitle': 'Courses I’ve completed in the areas I work in.',
     'certifications.viewCredential': 'View credential',
+
+    'experience.label': 'Experience',
+    'experience.title': 'Work Experience',
+    'experience.subtitle': 'Professional experience in security and IT.',
+    'experience.role1': 'IT Intern',
+    'experience.date1': 'July 2026 - Present (1 month)',
+    'experience.role2': 'Student',
+    'experience.date2': 'December 2025 - March 2026 (4 months)',
+    'experience.role3': 'Cyber Security Intern · Red Team Intern',
+    'experience.date3': 'October 2025 - March 2026 (6 months)',
+
+    'education.label': 'Education',
+    'education.title': 'Education',
+    'education.university': 'Sakarya University of Applied Sciences',
+    'education.degree': 'Bachelor\'s Degree, Computer Engineering',
+    'education.date': 'October 2023 - June 2027',
 
     'contact.label': 'Contact',
     'contact.title': 'Have something in mind?',
