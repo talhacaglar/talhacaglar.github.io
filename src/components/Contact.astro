@@ -4,23 +4,21 @@ import { translations, DEFAULT_LANG } from '../data/translations';
 const t = translations[DEFAULT_LANG];
 
 const socials = [
-  { name: 'GitHub', href: 'https://github.com/talhacaglar', tone: 'var(--indigo)' },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/talhacaglar1/', tone: 'var(--blue)' },
-  { name: 'Telegram', href: 'https://t.me/Cgllar', tone: 'var(--teal)' },
+  { name: 'GitHub', href: 'https://github.com/talhacaglar' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/talhacaglar1/' },
+  { name: 'Telegram', href: 'https://t.me/Cgllar' },
 ] as const;
 ---
 
 <section class="section contact" id="contact">
-  <div class="glow" aria-hidden="true">
-    <span class="orb orb-a"></span>
-    <span class="orb orb-b"></span>
+  <div class="lenses" aria-hidden="true">
+    <span class="lens lens-a"></span>
+    <span class="lens lens-b"></span>
   </div>
 
   <div class="container inner">
     <div class="reveal">
-      <span class="section-label" style="--tone: var(--orange)" data-i18n="contact.label">
-        {t['contact.label']}
-      </span>
+      <span class="section-label" data-i18n="contact.label">{t['contact.label']}</span>
       <h2 class="section-title title" data-i18n="contact.title">{t['contact.title']}</h2>
       <p class="section-subtitle subtitle" data-i18n="contact.subtitle">
         {t['contact.subtitle']}
@@ -37,13 +35,7 @@ const socials = [
       {
         socials.map((social) => (
           <li>
-            <a
-              class="social"
-              style={`--tone: ${social.tone}`}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a class="social glass" href={social.href} target="_blank" rel="noopener noreferrer">
               {social.name}
             </a>
           </li>
@@ -56,44 +48,39 @@ const socials = [
 <style>
   .contact {
     position: relative;
-    background: var(--bg-elevated);
+    background: var(--section-veil);
+    border-top: 1px solid var(--border);
     overflow: hidden;
   }
 
-  .glow {
+  .lenses {
     position: absolute;
     inset: 0;
     pointer-events: none;
   }
 
-  .orb {
+  .lens {
     position: absolute;
     border-radius: 50%;
-    filter: blur(70px);
+    background: var(--glass-bg-faint);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
   }
 
-  .orb-a {
-    top: -30%;
-    left: 8%;
-    width: min(620px, 70vw);
+  .lens-a {
+    top: 12%;
+    left: 6%;
+    width: min(220px, 24vw);
     aspect-ratio: 1;
-    background: radial-gradient(
-      circle,
-      color-mix(in oklab, var(--orange) var(--glow-strength), transparent) 0%,
-      transparent 66%
-    );
   }
 
-  .orb-b {
-    bottom: -35%;
-    right: 4%;
-    width: min(660px, 74vw);
+  .lens-b {
+    bottom: 8%;
+    right: 5%;
+    width: min(280px, 30vw);
     aspect-ratio: 1;
-    background: radial-gradient(
-      circle,
-      color-mix(in oklab, var(--pink) var(--glow-strength), transparent) 0%,
-      transparent 66%
-    );
   }
 
   .inner {
@@ -106,6 +93,7 @@ const socials = [
 
   .title {
     max-width: 16ch;
+    margin-inline: auto;
   }
 
   .subtitle {
@@ -133,15 +121,14 @@ const socials = [
     gap: 0.5rem;
     padding: 0.5625rem 1.25rem;
     border-radius: 980px;
-    background: color-mix(in oklab, var(--tone) var(--tint-strength), var(--card-bg));
-    border: 1px solid color-mix(in oklab, var(--tone) 22%, transparent);
     font-size: 0.9375rem;
     font-weight: 500;
-    color: var(--tone);
+    color: var(--text);
     transition:
       transform 0.45s var(--ease),
-      border-color 0.35s var(--ease-smooth),
-      background-color 0.35s var(--ease-smooth);
+      background-color 0.35s var(--ease-smooth),
+      color 0.3s var(--ease-smooth),
+      box-shadow 0.45s var(--ease);
   }
 
   .social::before {
@@ -149,12 +136,19 @@ const socials = [
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: currentColor;
+    background: var(--accent);
   }
 
   .social:hover {
     transform: translateY(-3px);
-    background: color-mix(in oklab, var(--tone) var(--tint-strength-strong), var(--card-bg));
-    border-color: color-mix(in oklab, var(--tone) 48%, transparent);
+    background: var(--glass-bg-strong);
+    color: var(--accent);
+    box-shadow: var(--glass-shadow-hover), inset 0 1px 0 var(--glass-highlight);
+  }
+
+  @media (max-width: 720px) {
+    .lens {
+      display: none;
+    }
   }
 </style>

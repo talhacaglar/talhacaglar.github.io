@@ -6,17 +6,14 @@ const t = translations[DEFAULT_LANG];
 const groups = [
   {
     key: 'skills.cat1',
-    tone: 'var(--blue)',
     items: ['Python', 'JavaScript', 'Java', 'Bash', 'F#', 'Dart', 'CSS'],
   },
   {
     key: 'skills.cat2',
-    tone: 'var(--violet)',
     items: ['Flutter', 'Electron', 'PyQt6', 'Firebase', 'SQLite', 'Git'],
   },
   {
     key: 'skills.cat3',
-    tone: 'var(--teal)',
     items: ['Linux', 'Arch Linux', 'Wayland', 'Hyprland', 'systemd', 'Networking'],
   },
 ] as const;
@@ -25,9 +22,7 @@ const groups = [
 <section class="section skills" id="skills">
   <div class="container">
     <div class="reveal">
-      <span class="section-label" style="--tone: var(--teal)" data-i18n="skills.label">
-        {t['skills.label']}
-      </span>
+      <span class="section-label" data-i18n="skills.label">{t['skills.label']}</span>
       <h2 class="section-title" data-i18n="skills.title">{t['skills.title']}</h2>
       <p class="section-subtitle" data-i18n="skills.subtitle">{t['skills.subtitle']}</p>
     </div>
@@ -35,10 +30,7 @@ const groups = [
     <div class="groups">
       {
         groups.map((group, i) => (
-          <div
-            class="group reveal"
-            style={`--tone: ${group.tone}; transition-delay: ${0.08 * (i + 1)}s`}
-          >
+          <div class="group glass reveal" style={`transition-delay: ${0.08 * (i + 1)}s`}>
             <h3 class="group-title" data-i18n={group.key}>
               {t[group.key]}
             </h3>
@@ -57,29 +49,8 @@ const groups = [
 <style>
   .skills {
     position: relative;
-    background: var(--bg-elevated);
-    overflow: hidden;
-  }
-
-  .skills::before {
-    content: '';
-    position: absolute;
-    top: -35%;
-    right: -10%;
-    width: min(720px, 80vw);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      color-mix(in oklab, var(--teal) var(--glow-strength), transparent) 0%,
-      transparent 66%
-    );
-    filter: blur(60px);
-    pointer-events: none;
-  }
-
-  .container {
-    position: relative;
+    background: var(--section-veil);
+    border-block: 1px solid var(--border);
   }
 
   .groups {
@@ -92,17 +63,17 @@ const groups = [
   .group {
     padding: 1.75rem;
     border-radius: var(--radius-lg);
-    background: color-mix(in oklab, var(--tone) var(--tint-strength), var(--card-bg));
-    border: 1px solid color-mix(in oklab, var(--tone) 20%, transparent);
     transition:
       transform 0.55s var(--ease),
-      border-color 0.35s var(--ease-smooth),
+      background-color 0.35s var(--ease-smooth),
+      box-shadow 0.55s var(--ease),
       opacity 0.9s var(--ease);
   }
 
   .group:hover {
     transform: translateY(-4px);
-    border-color: color-mix(in oklab, var(--tone) 42%, transparent);
+    background: var(--glass-bg-strong);
+    box-shadow: var(--glass-shadow-hover), inset 0 1px 0 var(--glass-highlight);
   }
 
   .group-title {
@@ -113,7 +84,7 @@ const groups = [
     font-weight: 600;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: var(--tone);
+    color: var(--accent);
     margin-bottom: 1.25rem;
   }
 
@@ -123,7 +94,7 @@ const groups = [
     height: 6px;
     border-radius: 50%;
     background: currentColor;
-    box-shadow: 0 0 0 3px color-mix(in oklab, currentColor 22%, transparent);
+    box-shadow: 0 0 0 3px var(--tint-strong);
   }
 
   .pills {
@@ -135,23 +106,22 @@ const groups = [
 
   .pill {
     padding: 0.4375rem 0.9375rem;
-    background: var(--pill-bg);
-    border: 1px solid var(--border);
+    background: var(--glass-bg-faint);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 var(--glass-highlight);
     border-radius: 980px;
     font-size: 0.875rem;
     letter-spacing: -0.005em;
     color: var(--text);
     transition:
       transform 0.4s var(--ease),
-      border-color 0.3s var(--ease-smooth),
       background-color 0.3s var(--ease-smooth),
       color 0.3s var(--ease-smooth);
   }
 
   .pill:hover {
     transform: translateY(-2px);
-    background: color-mix(in oklab, var(--tone) var(--tint-strength-strong), var(--pill-bg));
-    border-color: color-mix(in oklab, var(--tone) 45%, transparent);
-    color: var(--tone);
+    background: var(--tint-strong);
+    color: var(--accent);
   }
 </style>

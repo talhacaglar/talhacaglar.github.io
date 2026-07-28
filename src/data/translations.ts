@@ -21,7 +21,7 @@ export const translations = {
     'hero.ctaSecondary': 'İletişime geç',
     'hero.scroll': 'Aşağı kaydır',
 
-    'hero.fact1.value': 'Siber Güvenlik',
+    'hero.fact1.value': 'DevSecOps',
     'hero.fact1.label': 'Ana odak',
     'hero.fact2.value': 'Arch Linux',
     'hero.fact2.label': 'Günlük sürücü',
@@ -29,13 +29,13 @@ export const translations = {
     'hero.fact3.label': 'En sık yazdığım',
 
     'about.label': 'Hakkımda',
-    'about.title': 'Sadelik bir tercih, kısıtlama değil.',
+    'about.title': 'Güvenlikle uğraşan, Linux’tan pek çıkmayan bir yazılımcıyım.',
     'about.p1':
-      'Siber güvenlik ve sistem programlamaya odaklanıyorum. İşimin büyük kısmı Linux üzerinde geçiyor: araç yazmak, tekrar eden işleri otomatikleştirmek ve altyapıyı anlaşılır tutmak.',
+      'Genelde bir yerde açık bir terminal olur. Vaktimin çoğu güvenlik tarafında ve Linux üzerinde geçiyor.',
     'about.p2':
-      'Öğrenme biçimim gerçek şeyler inşa etmek. Bir problemi çözerken en az parça ile ilerlemeyi, karmaşıklık eklemek yerine kaldırmayı tercih ederim. Yazdığım yazılımın aylar sonra da okunabilir olması benim için performans kadar önemli.',
+      'Bir şeyi ancak yaparak öğrendiğimi fark ettim. O yüzden okumak yerine kurup bozmayı, gerçekten kullanacağım küçük araçlar yazmayı tercih ediyorum.',
     'about.p3':
-      'Şu an ilgi alanlarım: güvenlik otomasyonu, masaüstü Linux araçları ve yerel-öncelikli (local-first) uygulamalar.',
+      'Sade çözümleri seviyorum. Aylar sonra dönüp baktığımda hâlâ anlayabildiğim kod, benim için hızlı koddan daha kıymetli.',
 
     'about.focus1.title': 'Güvenlik',
     'about.focus1.desc':
@@ -76,7 +76,6 @@ export const translations = {
     'contact.email': 'E-posta gönder',
 
     'footer.rights': 'Tüm hakları saklıdır.',
-    'footer.built': 'Astro ile yapıldı.',
   },
   en: {
     'meta.title': 'Talha Çağlar — Security & Systems',
@@ -98,7 +97,7 @@ export const translations = {
     'hero.ctaSecondary': 'Get in touch',
     'hero.scroll': 'Scroll',
 
-    'hero.fact1.value': 'Cybersecurity',
+    'hero.fact1.value': 'DevSecOps',
     'hero.fact1.label': 'Main focus',
     'hero.fact2.value': 'Arch Linux',
     'hero.fact2.label': 'Daily driver',
@@ -106,13 +105,13 @@ export const translations = {
     'hero.fact3.label': 'Most written',
 
     'about.label': 'About',
-    'about.title': 'Restraint is a choice, not a limitation.',
+    'about.title': 'A developer into security who rarely leaves Linux.',
     'about.p1':
-      'I focus on cybersecurity and systems programming. Most of my work happens on Linux: writing tools, automating repetitive work, and keeping infrastructure understandable.',
+      'There’s usually a terminal open somewhere. Most of my time goes to security work and to Linux.',
     'about.p2':
-      'I learn by building real things. When solving a problem I prefer the fewest moving parts, and removing complexity over adding it. Code that still reads well months later matters to me as much as performance.',
+      'I’ve found I only really learn something by building it. So instead of reading about things I set them up, break them, and write small tools I’ll actually use.',
     'about.p3':
-      'Currently interested in: security automation, desktop Linux tooling, and local-first applications.',
+      'I like simple solutions. Code I can still follow months later is worth more to me than code that is merely fast.',
 
     'about.focus1.title': 'Security',
     'about.focus1.desc':
@@ -153,7 +152,6 @@ export const translations = {
     'contact.email': 'Send an email',
 
     'footer.rights': 'All rights reserved.',
-    'footer.built': 'Built with Astro.',
   },
 } as const;
 

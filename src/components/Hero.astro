@@ -4,17 +4,18 @@ import { translations, DEFAULT_LANG } from '../data/translations';
 const t = translations[DEFAULT_LANG];
 
 const facts = [
-  { value: 'hero.fact1.value', label: 'hero.fact1.label', tone: 'var(--blue)' },
-  { value: 'hero.fact2.value', label: 'hero.fact2.label', tone: 'var(--violet)' },
-  { value: 'hero.fact3.value', label: 'hero.fact3.label', tone: 'var(--teal)' },
+  { value: 'hero.fact1.value', label: 'hero.fact1.label' },
+  { value: 'hero.fact2.value', label: 'hero.fact2.label' },
+  { value: 'hero.fact3.value', label: 'hero.fact3.label' },
 ] as const;
 ---
 
 <section class="hero" id="top">
-  <div class="mesh" aria-hidden="true">
-    <span class="orb orb-1"></span>
-    <span class="orb orb-2"></span>
-    <span class="orb orb-3"></span>
+  <!-- Arka plandaki nokta dokusunu bulanıklaştıran cam mercekler -->
+  <div class="lenses" aria-hidden="true">
+    <span class="lens lens-1"></span>
+    <span class="lens lens-2"></span>
+    <span class="lens lens-3"></span>
   </div>
 
   <div class="container inner">
@@ -42,7 +43,7 @@ const facts = [
     <ul class="facts">
       {
         facts.map((fact) => (
-          <li class="fact" style={`--tone: ${fact.tone}`}>
+          <li class="fact glass">
             <span class="fact-value" data-i18n={fact.value}>
               {t[fact.value]}
             </span>
@@ -67,76 +68,65 @@ const facts = [
     padding-block: 7.5rem 4rem;
   }
 
-  /* ---------- Renkli mesh arka plan ---------- */
+  /* ---------- Cam mercekler ---------- */
 
-  .mesh {
+  .lenses {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    overflow: hidden;
   }
 
-  .orb {
+  .lens {
     position: absolute;
     border-radius: 50%;
-    filter: blur(70px);
-    opacity: 0.9;
+    background: var(--glass-bg-faint);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      var(--glass-shadow),
+      inset 0 1px 0 var(--glass-highlight);
   }
 
-  .orb-1 {
-    top: -18%;
-    left: 6%;
-    width: min(660px, 72vw);
+  .lens-1 {
+    top: 8%;
+    left: 4%;
+    width: min(320px, 34vw);
     aspect-ratio: 1;
-    background: radial-gradient(
-      circle,
-      color-mix(in oklab, var(--blue) var(--glow-strength), transparent) 0%,
-      transparent 68%
-    );
-    animation: float-1 20s ease-in-out infinite alternate;
+    animation: drift-1 22s ease-in-out infinite alternate;
   }
 
-  .orb-2 {
-    top: 2%;
-    right: 0%;
-    width: min(620px, 68vw);
+  .lens-2 {
+    top: 46%;
+    right: 3%;
+    width: min(240px, 26vw);
     aspect-ratio: 1;
-    background: radial-gradient(
-      circle,
-      color-mix(in oklab, var(--violet) var(--glow-strength), transparent) 0%,
-      transparent 68%
-    );
-    animation: float-2 24s ease-in-out infinite alternate;
+    animation: drift-2 26s ease-in-out infinite alternate;
   }
 
-  .orb-3 {
-    bottom: -22%;
-    left: 32%;
-    width: min(700px, 78vw);
+  .lens-3 {
+    bottom: 6%;
+    left: 24%;
+    width: min(160px, 18vw);
     aspect-ratio: 1;
-    background: radial-gradient(
-      circle,
-      color-mix(in oklab, var(--teal) var(--glow-strength), transparent) 0%,
-      transparent 68%
-    );
-    animation: float-3 28s ease-in-out infinite alternate;
+    animation: drift-3 19s ease-in-out infinite alternate;
   }
 
-  @keyframes float-1 {
+  @keyframes drift-1 {
     to {
-      transform: translate(9%, 7%) scale(1.14);
+      transform: translate(14%, 10%) scale(1.08);
     }
   }
 
-  @keyframes float-2 {
+  @keyframes drift-2 {
     to {
-      transform: translate(-11%, 9%) scale(1.1);
+      transform: translate(-16%, -12%) scale(1.12);
     }
   }
 
-  @keyframes float-3 {
+  @keyframes drift-3 {
     to {
-      transform: translate(7%, -9%) scale(1.16);
+      transform: translate(20%, -14%) scale(1.06);
     }
   }
 
@@ -156,10 +146,11 @@ const facts = [
     gap: 0.5rem;
     padding: 0.4375rem 1rem 0.4375rem 0.875rem;
     border-radius: 980px;
-    background: color-mix(in oklab, var(--card-bg) 72%, transparent);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(170%);
+    -webkit-backdrop-filter: blur(16px) saturate(170%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
     font-size: 0.8125rem;
     font-weight: 500;
     letter-spacing: -0.005em;
@@ -171,8 +162,8 @@ const facts = [
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #30d158;
-    box-shadow: 0 0 0 3px color-mix(in oklab, #30d158 25%, transparent);
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--tint-strong);
     animation: pulse 2.4s var(--ease-smooth) infinite;
   }
 
@@ -190,15 +181,7 @@ const facts = [
   }
 
   .line.accent {
-    background: linear-gradient(
-      100deg,
-      var(--blue) 0%,
-      var(--violet) 42%,
-      var(--pink) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--accent);
   }
 
   .subtitle {
@@ -237,23 +220,23 @@ const facts = [
     gap: 0.25rem;
     padding: 1.125rem 1.25rem;
     border-radius: var(--radius);
-    background: color-mix(in oklab, var(--tone) var(--tint-strength), var(--card-bg));
-    border: 1px solid color-mix(in oklab, var(--tone) 22%, transparent);
     transition:
       transform 0.5s var(--ease),
-      border-color 0.35s var(--ease-smooth);
+      background-color 0.35s var(--ease-smooth),
+      box-shadow 0.5s var(--ease);
   }
 
   .fact:hover {
     transform: translateY(-3px);
-    border-color: color-mix(in oklab, var(--tone) 45%, transparent);
+    background: var(--glass-bg-strong);
+    box-shadow: var(--glass-shadow-hover), inset 0 1px 0 var(--glass-highlight);
   }
 
   .fact-value {
     font-size: 0.9375rem;
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--tone);
+    color: var(--accent);
   }
 
   .fact-label {
@@ -279,11 +262,16 @@ const facts = [
       opacity: 1;
     }
     50% {
-      opacity: 0.45;
+      opacity: 0.4;
     }
   }
 
   @media (max-width: 720px) {
+    .lens-2,
+    .lens-3 {
+      display: none;
+    }
+
     .facts {
       grid-template-columns: 1fr;
       gap: 0.625rem;
@@ -310,7 +298,7 @@ const facts = [
     .actions,
     .facts,
     .dot,
-    .orb {
+    .lens {
       animation: none;
     }
   }

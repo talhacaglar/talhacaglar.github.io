@@ -13,8 +13,8 @@ const t = translations[DEFAULT_LANG];
     <meta name="generator" content={Astro.generator} />
     <title>{t['meta.title']}</title>
     <meta name="description" content={t['meta.description']} />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#eaf0f6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d151d" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <link rel="canonical" href={Astro.site?.href} />
 
@@ -25,6 +25,7 @@ const t = translations[DEFAULT_LANG];
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
+    <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
     <slot />
     <script>
       import '../scripts/i18n.js';
