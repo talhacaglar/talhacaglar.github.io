@@ -85,7 +85,7 @@ const facts = [
     border: 1px solid var(--glass-border);
     box-shadow:
       var(--glass-shadow),
-      inset 0 1px 0 var(--glass-highlight);
+      var(--glass-rim);
   }
 
   .lens-1 {
@@ -150,7 +150,7 @@ const facts = [
     backdrop-filter: blur(16px) saturate(170%);
     -webkit-backdrop-filter: blur(16px) saturate(170%);
     border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+    box-shadow: var(--glass-shadow), var(--glass-rim);
     font-size: 0.8125rem;
     font-weight: 500;
     letter-spacing: -0.005em;
@@ -229,7 +229,7 @@ const facts = [
   .fact:hover {
     transform: translateY(-3px);
     background: var(--glass-bg-strong);
-    box-shadow: var(--glass-shadow-hover), inset 0 1px 0 var(--glass-highlight);
+    box-shadow: var(--glass-shadow-hover), var(--glass-rim);
   }
 
   .fact-value {

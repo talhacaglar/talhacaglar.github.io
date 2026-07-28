@@ -13,17 +13,20 @@ const links = [
 
 <header class="nav" data-nav>
   <nav class="bar" aria-label="Main">
-    <ul class="links">
-      {
-        links.map((link) => (
-          <li>
-            <a href={link.href} data-i18n={link.key}>
-              {t[link.key]}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="links-wrap">
+      <span class="indicator" data-nav-indicator aria-hidden="true"></span>
+      <ul class="links" data-nav-links>
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href} data-i18n={link.key}>
+                {t[link.key]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
 
     <button
       class="lang"
@@ -52,43 +55,78 @@ const links = [
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    height: 56px;
-    padding: 0 0.625rem;
+    height: 60px;
+    padding: 0 0.5rem;
     border-radius: 980px;
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(190%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(190%);
     border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+    box-shadow: var(--glass-shadow), var(--glass-rim);
     transition:
+      height 0.5s var(--ease),
       background-color 0.4s var(--ease-smooth),
-      box-shadow 0.4s var(--ease);
+      box-shadow 0.5s var(--ease);
   }
 
+  /* Sayfa kaydıkça kapsül biraz toplanır ve zemine daha çok oturur */
   .nav.is-scrolled .bar {
+    height: 52px;
     background: var(--glass-bg-strong);
-    box-shadow: var(--glass-shadow-hover), inset 0 1px 0 var(--glass-highlight);
+    box-shadow: var(--glass-shadow-hover), var(--glass-rim);
   }
 
-  /* Logo yok: linkler kapsülün ortasında, dil düğmesi sağda durur */
-  .links {
+  .links-wrap {
+    position: relative;
     flex: 1;
     display: flex;
-    align-items: center;
     justify-content: center;
-    gap: clamp(1.25rem, 3vw, 2.25rem);
+    /* Sağdaki dil düğmesini dengeleyip linkleri kapsülün ortasına oturtur */
+    padding-left: 52px;
+  }
+
+  /* Aktif bölümün altında kayan cam hap */
+  .indicator {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0;
+    height: 36px;
+    border-radius: 980px;
+    background: var(--tint);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-rim);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition:
+      left 0.55s var(--ease),
+      width 0.55s var(--ease),
+      opacity 0.4s var(--ease-smooth);
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.25rem, 1.5vw, 0.75rem);
     list-style: none;
-    padding-left: 48px;
   }
 
   .links a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 36px;
+    padding: 0 0.9375rem;
+    border-radius: 980px;
     font-size: 0.875rem;
     font-weight: 400;
     color: var(--text-muted);
     transition: color 0.3s var(--ease-smooth);
   }
 
-  .links a:hover {
+  .links a:hover,
+  .links a[data-active] {
     color: var(--accent);
   }
 
@@ -97,32 +135,34 @@ const links = [
     align-items: center;
     justify-content: center;
     min-width: 48px;
-    height: 36px;
+    height: 40px;
     padding: 0 0.75rem;
     border-radius: 980px;
-    background: var(--tint);
+    background: var(--glass-bg-faint);
     border: 1px solid var(--glass-border);
-    box-shadow: inset 0 1px 0 var(--glass-highlight);
+    box-shadow: var(--glass-rim);
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.04em;
     color: var(--accent);
     transition:
       background-color 0.3s var(--ease-smooth),
+      box-shadow 0.4s var(--ease),
       transform 0.4s var(--ease);
   }
 
   .lang:hover {
     background: var(--tint-strong);
-    transform: scale(1.05);
+    box-shadow: var(--glass-shadow), var(--glass-rim);
+    transform: scale(1.06);
   }
 
   .lang:active {
-    transform: scale(0.96);
+    transform: scale(0.94);
   }
 
   @media (max-width: 640px) {
-    .links {
+    .links-wrap {
       display: none;
     }
 
