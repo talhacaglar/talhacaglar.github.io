@@ -63,35 +63,36 @@
   --section-pad: clamp(4.5rem, 8vw, 7.5rem);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --accent: var(--horizon-300);
-    --accent-hover: #b8d3e6;
-    --accent-contrast: #0e1620;
+/* Tema, <head>'deki satır içi betiğin boyadan önce yazdığı data-theme ile
+   seçilir. Betik, kayıtlı bir tercih yoksa sistem ayarını kullanır — böylece
+   koyu paleti media query ve manuel seçim için iki kez yazmaya gerek kalmaz. */
+:root[data-theme='dark'] {
+  --accent: var(--horizon-300);
+  --accent-hover: #b8d3e6;
+  --accent-contrast: #0e1620;
 
-    --bg: #0d151d;
-    --section-veil: rgba(255, 255, 255, 0.028);
-    --text: #e9eff5;
-    --text-muted: #97a7b5;
-    --text-faint: #82919f;
-    --border: rgba(255, 255, 255, 0.1);
+  --bg: #0d151d;
+  --section-veil: rgba(255, 255, 255, 0.028);
+  --text: #e9eff5;
+  --text-muted: #97a7b5;
+  --text-faint: #82919f;
+  --border: rgba(255, 255, 255, 0.1);
 
-    --glass-bg: rgba(255, 255, 255, 0.06);
-    --glass-bg-strong: rgba(255, 255, 255, 0.1);
-    --glass-bg-faint: rgba(255, 255, 255, 0.035);
-    --glass-border: rgba(255, 255, 255, 0.14);
-    --glass-highlight: rgba(255, 255, 255, 0.2);
-    --glass-underglow: rgba(255, 255, 255, 0.06);
-    --glass-shadow: 0 1px 1px rgba(0, 0, 0, 0.4),
-      0 12px 32px -12px rgba(0, 0, 0, 0.7);
-    --glass-shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.45),
-      0 26px 56px -16px rgba(0, 0, 0, 0.8);
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-strong: rgba(255, 255, 255, 0.1);
+  --glass-bg-faint: rgba(255, 255, 255, 0.035);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-highlight: rgba(255, 255, 255, 0.2);
+  --glass-underglow: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 1px 1px rgba(0, 0, 0, 0.4),
+    0 12px 32px -12px rgba(0, 0, 0, 0.7);
+  --glass-shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.45),
+    0 26px 56px -16px rgba(0, 0, 0, 0.8);
 
-    --dot: rgba(160, 192, 217, 0.15);
-    --ambient: rgba(74, 127, 165, 0.3);
-    --tint: rgba(160, 192, 217, 0.09);
-    --tint-strong: rgba(160, 192, 217, 0.16);
-  }
+  --dot: rgba(160, 192, 217, 0.15);
+  --ambient: rgba(74, 127, 165, 0.3);
+  --tint: rgba(160, 192, 217, 0.09);
+  --tint-strong: rgba(160, 192, 217, 0.16);
 }
 
 *,

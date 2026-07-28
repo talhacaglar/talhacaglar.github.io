@@ -13,9 +13,27 @@ const t = translations[DEFAULT_LANG];
     <meta name="generator" content={Astro.generator} />
     <title>{t['meta.title']}</title>
     <meta name="description" content={t['meta.description']} />
-    <meta name="theme-color" content="#eaf0f6" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0d151d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#eaf0f6" />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+
+    {/* Temayı ilk boyamadan önce yaz — aksi halde sayfa bir kare yanlış temada görünür */}
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem('theme');
+        const theme =
+          stored === 'light' || stored === 'dark'
+            ? stored
+            : matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+        document.documentElement.dataset.theme = theme;
+        if (theme === 'dark') {
+          document
+            .querySelector('meta[name="theme-color"]')
+            ?.setAttribute('content', '#0d151d');
+        }
+      })();
+    </script>
     <link rel="canonical" href={Astro.site?.href} />
 
     <meta property="og:type" content="website" />
@@ -31,6 +49,7 @@ const t = translations[DEFAULT_LANG];
       import '../scripts/i18n.js';
       import '../scripts/reveal.js';
       import '../scripts/nav.js';
+      import '../scripts/theme.js';
     </script>
   </body>
 </html>

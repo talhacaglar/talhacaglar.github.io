@@ -13,6 +13,40 @@ const links = [
 
 <header class="nav" data-nav>
   <nav class="bar" aria-label="Main">
+    <div
+      class="theme"
+      role="group"
+      data-i18n-attr="aria-label:nav.themeLabel"
+      aria-label={t['nav.themeLabel']}
+    >
+      <span class="theme-pill" aria-hidden="true"></span>
+
+      <button
+        class="theme-btn"
+        data-theme-set="light"
+        data-i18n-attr="aria-label:nav.themeLight"
+        aria-label={t['nav.themeLight']}
+        aria-pressed="true"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42" />
+        </svg>
+      </button>
+
+      <button
+        class="theme-btn"
+        data-theme-set="dark"
+        data-i18n-attr="aria-label:nav.themeDark"
+        aria-label={t['nav.themeDark']}
+        aria-pressed="false"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+        </svg>
+      </button>
+    </div>
+
     <div class="links-wrap">
       <span class="indicator" data-nav-indicator aria-hidden="true"></span>
       <ul class="links" data-nav-links>
@@ -51,6 +85,7 @@ const links = [
 
   /* Yüzen cam kapsül */
   .bar {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -76,13 +111,80 @@ const links = [
     box-shadow: var(--glass-shadow-hover), var(--glass-rim);
   }
 
-  .links-wrap {
+  /* ---------- Tema seçici ---------- */
+
+  .theme {
     position: relative;
-    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 980px;
+    background: var(--glass-bg-faint);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-rim);
+  }
+
+  /* Aktif temanın altındaki cam yuvarlak */
+  .theme-pill {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--tint-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-rim);
+    transition: transform 0.5s var(--ease);
+  }
+
+  :global(:root[data-theme='dark']) .theme-pill {
+    transform: translateX(36px);
+  }
+
+  .theme-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    color: var(--text-faint);
+    transition:
+      color 0.3s var(--ease-smooth),
+      transform 0.4s var(--ease);
+  }
+
+  .theme-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .theme-btn:hover {
+    color: var(--text-muted);
+  }
+
+  .theme-btn[aria-pressed='true'] {
+    color: var(--accent);
+  }
+
+  .theme-btn:active {
+    transform: scale(0.9);
+  }
+
+  /* ---------- Linkler ---------- */
+
+  /* Kapsülün iki yanındaki denetimler farklı genişlikte olduğu için linkleri
+     akıştan çıkarıp çubuğun tam ortasına sabitliyoruz */
+  .links-wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
-    /* Sağdaki dil düğmesini dengeleyip linkleri kapsülün ortasına oturtur */
-    padding-left: 52px;
   }
 
   /* Aktif bölümün altında kayan cam hap */
@@ -164,11 +266,6 @@ const links = [
   @media (max-width: 640px) {
     .links-wrap {
       display: none;
-    }
-
-    /* Tek çocuk kalınca dil düğmesi sağa yaslansın */
-    .lang {
-      margin-left: auto;
     }
   }
 </style>

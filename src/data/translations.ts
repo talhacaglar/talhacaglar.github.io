@@ -11,6 +11,9 @@ export const translations = {
     'nav.projects': 'Projeler',
     'nav.contact': 'İletişim',
     'nav.langLabel': 'Dili değiştir',
+    'nav.themeLabel': 'Tema',
+    'nav.themeLight': 'Aydınlık tema',
+    'nav.themeDark': 'Karanlık tema',
 
     'hero.eyebrow': 'Yeni projelere açığım',
     'hero.titleLine1': 'Talha',
@@ -87,6 +90,9 @@ export const translations = {
     'nav.projects': 'Projects',
     'nav.contact': 'Contact',
     'nav.langLabel': 'Switch language',
+    'nav.themeLabel': 'Theme',
+    'nav.themeLight': 'Light theme',
+    'nav.themeDark': 'Dark theme',
 
     'hero.eyebrow': 'Open to new projects',
     'hero.titleLine1': 'Talha',
