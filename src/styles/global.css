@@ -11,6 +11,15 @@
   --text-faint: #86868b;
   --accent: #0071e3;
   --accent-hover: #0077ed;
+
+  /* Renk paleti — bölümler ve kartlar bu tonlar arasında dönüşümlü kullanır */
+  --blue: #0071e3;
+  --indigo: #5e5ce6;
+  --violet: #8b5cf6;
+  --teal: #17a2b8;
+  --pink: #e8336d;
+  --orange: #f0820a;
+
   --border: rgba(0, 0, 0, 0.09);
   --nav-bg: rgba(255, 255, 255, 0.72);
   --card-bg: #ffffff;
@@ -19,13 +28,18 @@
   --card-shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.05),
     0 20px 48px rgba(0, 0, 0, 0.1);
 
+  /* Renkli yüzeylerde tint yoğunluğu — koyu temada yükselir */
+  --tint-strength: 7%;
+  --tint-strength-strong: 13%;
+  --glow-strength: 15%;
+
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-  --container: 1080px;
+  --container: 1120px;
   --radius-sm: 12px;
   --radius: 20px;
   --radius-lg: 28px;
-  --section-pad: clamp(6rem, 12vw, 11rem);
+  --section-pad: clamp(4.5rem, 8vw, 7.5rem);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,6 +52,14 @@
     --text-faint: #86868b;
     --accent: #2997ff;
     --accent-hover: #55aeff;
+
+    --blue: #2997ff;
+    --indigo: #7d7aff;
+    --violet: #a78bfa;
+    --teal: #2dd4e8;
+    --pink: #ff5e8a;
+    --orange: #ffa62b;
+
     --border: rgba(255, 255, 255, 0.11);
     --nav-bg: rgba(0, 0, 0, 0.68);
     --card-bg: #111113;
@@ -45,6 +67,10 @@
     --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     --card-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.6),
       0 24px 56px rgba(0, 0, 0, 0.5);
+
+    --tint-strength: 12%;
+    --tint-strength-strong: 20%;
+    --glow-strength: 22%;
   }
 }
 
@@ -109,13 +135,27 @@ button {
 }
 
 .section-label {
-  display: block;
-  font-size: 0.8125rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.875rem 0.375rem 0.75rem;
+  border-radius: 980px;
+  background: color-mix(in oklab, var(--tone, var(--accent)) var(--tint-strength), transparent);
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.25rem;
+  color: var(--tone, var(--accent));
+  margin-bottom: 1.5rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in oklab, currentColor 22%, transparent);
 }
 
 .section-title {

@@ -3,30 +3,59 @@ import { translations, DEFAULT_LANG } from '../data/translations';
 
 const t = translations[DEFAULT_LANG];
 
+const focus = [
+  { title: 'about.focus1.title', desc: 'about.focus1.desc', tone: 'var(--pink)' },
+  { title: 'about.focus2.title', desc: 'about.focus2.desc', tone: 'var(--orange)' },
+  { title: 'about.focus3.title', desc: 'about.focus3.desc', tone: 'var(--teal)' },
+] as const;
+
 const stats = [
-  { value: 'about.stat1.value', label: 'about.stat1.label' },
-  { value: 'about.stat2.value', label: 'about.stat2.label' },
-  { value: 'about.stat3.value', label: 'about.stat3.label' },
+  { value: 'about.stat1.value', label: 'about.stat1.label', tone: 'var(--blue)' },
+  { value: 'about.stat2.value', label: 'about.stat2.label', tone: 'var(--indigo)' },
+  { value: 'about.stat3.value', label: 'about.stat3.label', tone: 'var(--violet)' },
 ] as const;
 ---
 
 <section class="section" id="about">
   <div class="container">
-    <div class="reveal">
-      <span class="section-label" data-i18n="about.label">{t['about.label']}</span>
-      <h2 class="section-title" data-i18n="about.title">{t['about.title']}</h2>
-    </div>
+    <div class="split">
+      <div class="text reveal">
+        <span class="section-label" style="--tone: var(--indigo)" data-i18n="about.label">
+          {t['about.label']}
+        </span>
+        <h2 class="section-title" data-i18n="about.title">{t['about.title']}</h2>
 
-    <div class="body reveal">
-      <p data-i18n="about.p1">{t['about.p1']}</p>
-      <p data-i18n="about.p2">{t['about.p2']}</p>
-      <p data-i18n="about.p3">{t['about.p3']}</p>
+        <div class="paragraphs">
+          <p data-i18n="about.p1">{t['about.p1']}</p>
+          <p data-i18n="about.p2">{t['about.p2']}</p>
+          <p data-i18n="about.p3">{t['about.p3']}</p>
+        </div>
+      </div>
+
+      <ul class="focus">
+        {
+          focus.map((item, i) => (
+            <li
+              class="focus-card reveal"
+              style={`--tone: ${item.tone}; transition-delay: ${0.08 * (i + 1)}s`}
+            >
+              <span class="focus-bar" aria-hidden="true" />
+              <h3 class="focus-title" data-i18n={item.title}>
+                {t[item.title]}
+              </h3>
+              <p class="focus-desc" data-i18n={item.desc}>
+                {t[item.desc]}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
 
     <div class="stats reveal">
       {
         stats.map((stat) => (
-          <div class="stat">
+          <div class="stat" style={`--tone: ${stat.tone}`}>
             <span class="value" data-i18n={stat.value}>
               {t[stat.value]}
             </span>
@@ -41,49 +70,116 @@ const stats = [
 </section>
 
 <style>
-  .body {
-    margin-top: 2.75rem;
-    max-width: 62ch;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    transition-delay: 0.1s;
+  .split {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
   }
 
-  .body p {
-    font-size: clamp(1.0625rem, 1.9vw, 1.25rem);
-    line-height: 1.62;
+  .paragraphs {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .paragraphs p {
+    font-size: clamp(1rem, 1.7vw, 1.125rem);
+    line-height: 1.65;
     color: var(--text-muted);
     letter-spacing: -0.005em;
   }
 
+  /* ---------- Odak kartları ---------- */
+
+  .focus {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    list-style: none;
+  }
+
+  .focus-card {
+    position: relative;
+    padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+    border-radius: var(--radius);
+    background: color-mix(in oklab, var(--tone) var(--tint-strength), var(--card-bg));
+    border: 1px solid color-mix(in oklab, var(--tone) 20%, transparent);
+    overflow: hidden;
+    transition:
+      transform 0.55s var(--ease),
+      border-color 0.35s var(--ease-smooth),
+      opacity 0.9s var(--ease);
+  }
+
+  .focus-card:hover {
+    transform: translateX(4px);
+    border-color: color-mix(in oklab, var(--tone) 42%, transparent);
+  }
+
+  .focus-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--tone);
+    opacity: 0.8;
+  }
+
+  .focus-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--tone);
+  }
+
+  .focus-desc {
+    margin-top: 0.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  /* ---------- İstatistikler ---------- */
+
   .stats {
-    margin-top: 4.5rem;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    transition-delay: 0.2s;
+    transition-delay: 0.15s;
   }
 
   .stat {
-    padding: 2rem 1.5rem;
-    background: var(--bg-elevated);
+    padding: 1.75rem 1.5rem;
     border-radius: var(--radius);
+    background: linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--tone) var(--tint-strength-strong), var(--card-bg)) 0%,
+      color-mix(in oklab, var(--tone) var(--tint-strength), var(--card-bg)) 100%
+    );
+    border: 1px solid color-mix(in oklab, var(--tone) 20%, transparent);
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    transition: transform 0.5s var(--ease);
+    gap: 0.375rem;
+    transition:
+      transform 0.5s var(--ease),
+      border-color 0.35s var(--ease-smooth);
   }
 
   .stat:hover {
     transform: translateY(-4px);
+    border-color: color-mix(in oklab, var(--tone) 42%, transparent);
   }
 
   .value {
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-size: clamp(1.75rem, 3.5vw, 2.375rem);
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1;
+    color: var(--tone);
   }
 
   .label {
@@ -92,16 +188,23 @@ const stats = [
     letter-spacing: -0.005em;
   }
 
+  @media (max-width: 880px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 700px) {
     .stats {
       grid-template-columns: 1fr;
     }
 
     .stat {
-      padding: 1.5rem;
+      padding: 1.25rem 1.375rem;
       flex-direction: row;
       align-items: baseline;
-      gap: 0.875rem;
+      justify-content: space-between;
+      gap: 1rem;
     }
   }
 </style>

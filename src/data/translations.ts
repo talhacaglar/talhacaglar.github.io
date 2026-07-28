@@ -12,13 +12,21 @@ export const translations = {
     'nav.contact': 'İletişim',
     'nav.langLabel': 'Dili değiştir',
 
-    'hero.eyebrow': 'Güvenlik & Sistemler',
-    'hero.title': 'Talha Çağlar',
+    'hero.eyebrow': 'Yeni projelere açığım',
+    'hero.titleLine1': 'Talha',
+    'hero.titleLine2': 'Çağlar',
     'hero.subtitle':
       'Güvenlik ve sistemlerin kesiştiği yerde çalışıyorum. Linux araçları, otomasyon ve gerçek kullanımda temiz kalan yazılımlar.',
     'hero.ctaPrimary': 'Projelere göz at',
     'hero.ctaSecondary': 'İletişime geç',
     'hero.scroll': 'Aşağı kaydır',
+
+    'hero.fact1.value': 'Siber Güvenlik',
+    'hero.fact1.label': 'Ana odak',
+    'hero.fact2.value': 'Arch Linux',
+    'hero.fact2.label': 'Günlük sürücü',
+    'hero.fact3.value': 'Python · JS',
+    'hero.fact3.label': 'En sık yazdığım',
 
     'about.label': 'Hakkımda',
     'about.title': 'Sadelik bir tercih, kısıtlama değil.',
@@ -29,12 +37,22 @@ export const translations = {
     'about.p3':
       'Şu an ilgi alanlarım: güvenlik otomasyonu, masaüstü Linux araçları ve yerel-öncelikli (local-first) uygulamalar.',
 
+    'about.focus1.title': 'Güvenlik',
+    'about.focus1.desc':
+      'Sistemleri kırılma noktalarından anlamak; sertleştirme, denetim ve ISO 27001 uyumu.',
+    'about.focus2.title': 'Otomasyon',
+    'about.focus2.desc':
+      'Elle yapılan tekrarları betiğe çevirmek. Bash, Python ve systemd ile sessizce çalışan işler.',
+    'about.focus3.title': 'Local-first',
+    'about.focus3.desc':
+      'Veriyi kullanıcının cihazında tutan, internet olmadan da çalışan masaüstü araçlar.',
+
     'about.stat1.value': '15+',
     'about.stat1.label': 'Açık kaynak proje',
-    'about.stat2.value': 'Arch',
-    'about.stat2.label': 'Günlük sürücü',
-    'about.stat3.value': '6+',
-    'about.stat3.label': 'Aktif dil',
+    'about.stat2.value': '6+',
+    'about.stat2.label': 'Aktif dil',
+    'about.stat3.value': '2021',
+    'about.stat3.label': "GitHub'dan beri",
 
     'skills.label': 'Yetkinlikler',
     'skills.title': 'Kullandığım araçlar',
@@ -71,13 +89,21 @@ export const translations = {
     'nav.contact': 'Contact',
     'nav.langLabel': 'Switch language',
 
-    'hero.eyebrow': 'Security & Systems',
-    'hero.title': 'Talha Çağlar',
+    'hero.eyebrow': 'Open to new projects',
+    'hero.titleLine1': 'Talha',
+    'hero.titleLine2': 'Çağlar',
     'hero.subtitle':
       'I work in the space between security and systems — Linux tooling, automation, and software that stays clean under real use.',
     'hero.ctaPrimary': 'View projects',
     'hero.ctaSecondary': 'Get in touch',
     'hero.scroll': 'Scroll',
+
+    'hero.fact1.value': 'Cybersecurity',
+    'hero.fact1.label': 'Main focus',
+    'hero.fact2.value': 'Arch Linux',
+    'hero.fact2.label': 'Daily driver',
+    'hero.fact3.value': 'Python · JS',
+    'hero.fact3.label': 'Most written',
 
     'about.label': 'About',
     'about.title': 'Restraint is a choice, not a limitation.',
@@ -88,12 +114,22 @@ export const translations = {
     'about.p3':
       'Currently interested in: security automation, desktop Linux tooling, and local-first applications.',
 
+    'about.focus1.title': 'Security',
+    'about.focus1.desc':
+      'Understanding systems through their breaking points — hardening, auditing, and ISO 27001 compliance.',
+    'about.focus2.title': 'Automation',
+    'about.focus2.desc':
+      'Turning manual repetition into scripts. Work that runs quietly through Bash, Python, and systemd.',
+    'about.focus3.title': 'Local-first',
+    'about.focus3.desc':
+      'Desktop tools that keep data on the user’s machine and keep working without a connection.',
+
     'about.stat1.value': '15+',
     'about.stat1.label': 'Open source projects',
-    'about.stat2.value': 'Arch',
-    'about.stat2.label': 'Daily driver',
-    'about.stat3.value': '6+',
-    'about.stat3.label': 'Active languages',
+    'about.stat2.value': '6+',
+    'about.stat2.label': 'Active languages',
+    'about.stat3.value': '2021',
+    'about.stat3.label': 'On GitHub since',
 
     'skills.label': 'Skills',
     'skills.title': 'Tools of trade',
