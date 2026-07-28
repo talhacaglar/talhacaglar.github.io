@@ -9,6 +9,7 @@ export const translations = {
     'nav.about': 'Hakkımda',
     'nav.skills': 'Yetkinlikler',
     'nav.projects': 'Projeler',
+    'nav.certifications': 'Sertifikalar',
     'nav.contact': 'İletişim',
     'nav.langLabel': 'Dili değiştir',
     'nav.themeLabel': 'Tema',
@@ -71,6 +72,11 @@ export const translations = {
       'Gerçek bir ihtiyaçtan doğan, kullanılmak üzere yazılmış projeler.',
     'projects.viewAll': 'GitHub’da tümünü gör',
     'projects.viewRepo': 'Depoyu görüntüle',
+
+    'certifications.label': 'Sertifikalar',
+    'certifications.title': 'Aldığım sertifikalar',
+    'certifications.subtitle': 'Üzerinde çalıştığım alanlarda tamamladığım eğitimler.',
+    'certifications.viewCredential': 'Kimlik bilgisini gör',
 
     'contact.label': 'İletişim',
     'contact.title': 'Bir fikrin mi var?',
@@ -150,6 +156,11 @@ export const translations = {
       'Projects that came out of a real need and were written to be used.',
     'projects.viewAll': 'See everything on GitHub',
     'projects.viewRepo': 'View repository',
+
+    'certifications.label': 'Certifications',
+    'certifications.title': 'Certifications',
+    'certifications.subtitle': 'Courses I’ve completed in the areas I work in.',
+    'certifications.viewCredential': 'View credential',
 
     'contact.label': 'Contact',
     'contact.title': 'Have something in mind?',

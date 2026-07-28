@@ -1,11 +1,15 @@
 ---
 import { translations, DEFAULT_LANG } from '../data/translations';
+import { certifications } from '../data/certifications';
 
 const t = translations[DEFAULT_LANG];
 
 const links = [
   { href: '#about', key: 'nav.about' },
   { href: '#skills', key: 'nav.skills' },
+  ...(certifications.length > 0
+    ? [{ href: '#certifications', key: 'nav.certifications' } as const]
+    : []),
   { href: '#projects', key: 'nav.projects' },
   { href: '#contact', key: 'nav.contact' },
 ] as const;
