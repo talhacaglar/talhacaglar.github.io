@@ -1,0 +1,105 @@
+---
+import { translations, DEFAULT_LANG } from '../data/translations';
+
+const t = translations[DEFAULT_LANG];
+
+const socials = [
+  { name: 'GitHub', href: 'https://github.com/talhacaglar' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/talhacaglar1/' },
+  { name: 'Telegram', href: 'https://t.me/Cgllar' },
+] as const;
+---
+
+<section class="section contact" id="contact">
+  <div class="container inner">
+    <div class="reveal">
+      <span class="section-label" data-i18n="contact.label">{t['contact.label']}</span>
+      <h2 class="section-title title" data-i18n="contact.title">{t['contact.title']}</h2>
+      <p class="section-subtitle subtitle" data-i18n="contact.subtitle">
+        {t['contact.subtitle']}
+      </p>
+    </div>
+
+    <div class="actions reveal">
+      <a class="btn btn-primary" href="mailto:talhacaglarr@proton.me" data-i18n="contact.email">
+        {t['contact.email']}
+      </a>
+    </div>
+
+    <ul class="socials reveal">
+      {
+        socials.map((social) => (
+          <li>
+            <a href={social.href} target="_blank" rel="noopener noreferrer">
+              {social.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: var(--bg-elevated);
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .title {
+    max-width: 16ch;
+  }
+
+  .subtitle {
+    margin-inline: auto;
+  }
+
+  .actions {
+    margin-top: 2.5rem;
+    transition-delay: 0.1s;
+  }
+
+  .socials {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    transition-delay: 0.18s;
+  }
+
+  .socials a {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    transition: color 0.3s var(--ease-smooth);
+    position: relative;
+  }
+
+  .socials a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .socials a:hover {
+    color: var(--text);
+  }
+
+  .socials a:hover::after {
+    transform: scaleX(1);
+  }
+</style>

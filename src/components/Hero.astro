@@ -1,0 +1,191 @@
+---
+import { translations, DEFAULT_LANG } from '../data/translations';
+
+const t = translations[DEFAULT_LANG];
+---
+
+<section class="hero" id="top">
+  <div class="glow" aria-hidden="true"></div>
+
+  <div class="container inner">
+    <p class="eyebrow" data-i18n="hero.eyebrow">{t['hero.eyebrow']}</p>
+    <h1 class="title" data-i18n="hero.title">{t['hero.title']}</h1>
+    <p class="subtitle" data-i18n="hero.subtitle">{t['hero.subtitle']}</p>
+
+    <div class="actions">
+      <a href="#projects" class="btn btn-primary" data-i18n="hero.ctaPrimary">
+        {t['hero.ctaPrimary']}
+      </a>
+      <a href="#contact" class="btn btn-secondary" data-i18n="hero.ctaSecondary">
+        {t['hero.ctaSecondary']}
+      </a>
+    </div>
+  </div>
+
+  <a href="#about" class="scroll-hint" aria-hidden="true">
+    <span data-i18n="hero.scroll">{t['hero.scroll']}</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14M19 12l-7 7-7-7" />
+    </svg>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding-block: 8rem 6rem;
+  }
+
+  .glow {
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    width: min(1100px, 130vw);
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      circle at center,
+      color-mix(in oklab, var(--accent) 16%, transparent) 0%,
+      transparent 62%
+    );
+    pointer-events: none;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift {
+    from {
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+    to {
+      transform: translateX(-50%) translateY(4%) scale(1.08);
+    }
+  }
+
+  .inner {
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .eyebrow {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    animation: rise 1s var(--ease) 0.05s both;
+  }
+
+  .title {
+    margin-top: 1.5rem;
+    font-size: clamp(3rem, 11vw, 6.5rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+    background: linear-gradient(
+      180deg,
+      var(--text) 30%,
+      color-mix(in oklab, var(--text) 62%, var(--bg)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rise 1.1s var(--ease) 0.15s both;
+  }
+
+  .subtitle {
+    margin-top: 1.75rem;
+    max-width: 40ch;
+    font-size: clamp(1.0625rem, 2.2vw, 1.375rem);
+    line-height: 1.5;
+    color: var(--text-muted);
+    letter-spacing: -0.01em;
+    animation: rise 1.1s var(--ease) 0.3s both;
+  }
+
+  .actions {
+    margin-top: 2.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.875rem;
+    animation: rise 1.1s var(--ease) 0.45s both;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    animation: rise 1s var(--ease) 0.7s both;
+    transition: color 0.3s var(--ease-smooth);
+  }
+
+  .scroll-hint:hover {
+    color: var(--text-muted);
+  }
+
+  .scroll-hint svg {
+    animation: bob 2.4s var(--ease-smooth) infinite;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes bob {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateY(5px);
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .scroll-hint {
+      display: none;
+    }
+
+    .actions .btn {
+      flex: 1 1 auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eyebrow,
+    .title,
+    .subtitle,
+    .actions,
+    .scroll-hint,
+    .glow,
+    .scroll-hint svg {
+      animation: none;
+    }
+  }
+</style>

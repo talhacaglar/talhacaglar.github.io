@@ -1,0 +1,107 @@
+---
+import { translations, DEFAULT_LANG } from '../data/translations';
+
+const t = translations[DEFAULT_LANG];
+
+const stats = [
+  { value: 'about.stat1.value', label: 'about.stat1.label' },
+  { value: 'about.stat2.value', label: 'about.stat2.label' },
+  { value: 'about.stat3.value', label: 'about.stat3.label' },
+] as const;
+---
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label" data-i18n="about.label">{t['about.label']}</span>
+      <h2 class="section-title" data-i18n="about.title">{t['about.title']}</h2>
+    </div>
+
+    <div class="body reveal">
+      <p data-i18n="about.p1">{t['about.p1']}</p>
+      <p data-i18n="about.p2">{t['about.p2']}</p>
+      <p data-i18n="about.p3">{t['about.p3']}</p>
+    </div>
+
+    <div class="stats reveal">
+      {
+        stats.map((stat) => (
+          <div class="stat">
+            <span class="value" data-i18n={stat.value}>
+              {t[stat.value]}
+            </span>
+            <span class="label" data-i18n={stat.label}>
+              {t[stat.label]}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .body {
+    margin-top: 2.75rem;
+    max-width: 62ch;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition-delay: 0.1s;
+  }
+
+  .body p {
+    font-size: clamp(1.0625rem, 1.9vw, 1.25rem);
+    line-height: 1.62;
+    color: var(--text-muted);
+    letter-spacing: -0.005em;
+  }
+
+  .stats {
+    margin-top: 4.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    transition-delay: 0.2s;
+  }
+
+  .stat {
+    padding: 2rem 1.5rem;
+    background: var(--bg-elevated);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.5s var(--ease);
+  }
+
+  .stat:hover {
+    transform: translateY(-4px);
+  }
+
+  .value {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .label {
+    font-size: 0.875rem;
+    color: var(--text-faint);
+    letter-spacing: -0.005em;
+  }
+
+  @media (max-width: 700px) {
+    .stats {
+      grid-template-columns: 1fr;
+    }
+
+    .stat {
+      padding: 1.5rem;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.875rem;
+    }
+  }
+</style>

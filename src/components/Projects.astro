@@ -1,0 +1,180 @@
+---
+import { translations, DEFAULT_LANG } from '../data/translations';
+import { projects } from '../data/projects';
+
+const t = translations[DEFAULT_LANG];
+---
+
+<section class="section" id="projects">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label" data-i18n="projects.label">{t['projects.label']}</span>
+      <h2 class="section-title" data-i18n="projects.title">{t['projects.title']}</h2>
+      <p class="section-subtitle" data-i18n="projects.subtitle">{t['projects.subtitle']}</p>
+    </div>
+
+    <div class="grid">
+      {
+        projects.map((project, i) => (
+          <a
+            class="card reveal"
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={`transition-delay: ${0.07 * (i + 1)}s`}
+          >
+            <div class="card-head">
+              <h3 class="name">{project.name}</h3>
+              <svg
+                class="arrow"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M7 17L17 7M17 7H8M17 7v9" />
+              </svg>
+            </div>
+
+            <p class="desc" data-project-desc={i}>
+              {project.description.tr}
+            </p>
+
+            <ul class="tags">
+              {project.tags.map((tag) => (
+                <li class="tag">{tag}</li>
+              ))}
+            </ul>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="more reveal">
+      <a
+        class="btn btn-secondary"
+        href="https://github.com/talhacaglar?tab=repositories"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-i18n="projects.viewAll"
+      >
+        {t['projects.viewAll']}
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { projects } from '../data/projects';
+
+  // Proje açıklamaları data dosyasından geldiği için i18n.js'in
+  // data-i18n sözlüğüne değil, bu ayrı eşlemeye ihtiyaç duyar.
+  const sync = (lang) => {
+    document.querySelectorAll('[data-project-desc]').forEach((el) => {
+      const project = projects[Number(el.dataset.projectDesc)];
+      if (project) el.textContent = project.description[lang] ?? project.description.tr;
+    });
+  };
+
+  sync(document.documentElement.lang === 'en' ? 'en' : 'tr');
+
+  new MutationObserver(() =>
+    sync(document.documentElement.lang === 'en' ? 'en' : 'tr')
+  ).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+</script>
+
+<style>
+  .grid {
+    margin-top: 3.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow);
+    transition:
+      transform 0.55s var(--ease),
+      box-shadow 0.55s var(--ease),
+      border-color 0.4s var(--ease-smooth),
+      opacity 0.9s var(--ease);
+    will-change: transform;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: color-mix(in oklab, var(--accent) 30%, var(--border));
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .name {
+    font-size: 1.375rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .arrow {
+    flex-shrink: 0;
+    color: var(--text-faint);
+    transition:
+      transform 0.45s var(--ease),
+      color 0.3s var(--ease-smooth);
+  }
+
+  .card:hover .arrow {
+    transform: translate(3px, -3px);
+    color: var(--accent);
+  }
+
+  .desc {
+    margin-top: 0.875rem;
+    flex: 1;
+    font-size: 0.9688rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    letter-spacing: -0.005em;
+  }
+
+  .tags {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+  }
+
+  .tag {
+    padding: 0.3125rem 0.75rem;
+    background: var(--bg-tint);
+    border-radius: 980px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    color: var(--text-faint);
+  }
+
+  .more {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    transition-delay: 0.1s;
+  }
+</style>

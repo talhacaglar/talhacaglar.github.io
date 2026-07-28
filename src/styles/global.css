@@ -1,0 +1,217 @@
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display',
+    'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', monospace;
+
+  --bg: #ffffff;
+  --bg-elevated: #f5f5f7;
+  --bg-tint: rgba(0, 0, 0, 0.035);
+  --text: #1d1d1f;
+  --text-muted: #6e6e73;
+  --text-faint: #86868b;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --border: rgba(0, 0, 0, 0.09);
+  --nav-bg: rgba(255, 255, 255, 0.72);
+  --card-bg: #ffffff;
+  --pill-bg: #ffffff;
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.05),
+    0 20px 48px rgba(0, 0, 0, 0.1);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --container: 1080px;
+  --radius-sm: 12px;
+  --radius: 20px;
+  --radius-lg: 28px;
+  --section-pad: clamp(6rem, 12vw, 11rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --bg-elevated: #111113;
+    --bg-tint: rgba(255, 255, 255, 0.05);
+    --text: #f5f5f7;
+    --text-muted: #a1a1a6;
+    --text-faint: #86868b;
+    --accent: #2997ff;
+    --accent-hover: #55aeff;
+    --border: rgba(255, 255, 255, 0.11);
+    --nav-bg: rgba(0, 0, 0, 0.68);
+    --card-bg: #111113;
+    --pill-bg: #1d1d20;
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --card-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.6),
+      0 24px 56px rgba(0, 0, 0, 0.5);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- Layout ---------- */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-inline: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+.section {
+  padding-block: var(--section-pad);
+}
+
+.section-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  max-width: 20ch;
+}
+
+.section-subtitle {
+  margin-top: 1.25rem;
+  font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  color: var(--text-muted);
+  max-width: 48ch;
+  line-height: 1.55;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 980px;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition:
+    transform 0.4s var(--ease),
+    background-color 0.3s var(--ease-smooth),
+    border-color 0.3s var(--ease-smooth),
+    opacity 0.3s var(--ease-smooth);
+  will-change: transform;
+}
+
+.btn:hover {
+  transform: scale(1.035);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-secondary {
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: transparent;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-tint);
+}
+
+/* ---------- Scroll reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

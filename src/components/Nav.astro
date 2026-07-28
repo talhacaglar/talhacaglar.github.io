@@ -1,0 +1,137 @@
+---
+import { translations, DEFAULT_LANG } from '../data/translations';
+
+const t = translations[DEFAULT_LANG];
+
+const links = [
+  { href: '#about', key: 'nav.about' },
+  { href: '#skills', key: 'nav.skills' },
+  { href: '#projects', key: 'nav.projects' },
+  { href: '#contact', key: 'nav.contact' },
+] as const;
+---
+
+<header class="nav" data-nav>
+  <nav class="nav-inner" aria-label="Main">
+    <a href="#top" class="brand">TÇ</a>
+
+    <ul class="links">
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href} data-i18n={link.key}>
+              {t[link.key]}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <button
+      class="lang"
+      data-lang-toggle
+      data-i18n-attr="aria-label:nav.langLabel"
+      aria-label={t['nav.langLabel']}
+    >
+      <span data-lang-indicator>EN</span>
+    </button>
+  </nav>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color 0.4s var(--ease-smooth),
+      border-color 0.4s var(--ease-smooth),
+      backdrop-filter 0.4s var(--ease-smooth);
+  }
+
+  .nav.is-scrolled {
+    background: var(--nav-bg);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom-color: var(--border);
+  }
+
+  .nav-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 2.5rem);
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .brand {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: opacity 0.3s var(--ease-smooth);
+  }
+
+  .brand:hover {
+    opacity: 0.6;
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 3vw, 2.25rem);
+    list-style: none;
+  }
+
+  .links a {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    transition: color 0.3s var(--ease-smooth);
+  }
+
+  .links a:hover {
+    color: var(--text);
+  }
+
+  .lang {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 46px;
+    height: 30px;
+    padding: 0 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 980px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    transition:
+      background-color 0.3s var(--ease-smooth),
+      color 0.3s var(--ease-smooth),
+      transform 0.4s var(--ease);
+  }
+
+  .lang:hover {
+    background: var(--bg-tint);
+    color: var(--text);
+    transform: scale(1.05);
+  }
+
+  .lang:active {
+    transform: scale(0.96);
+  }
+
+  @media (max-width: 640px) {
+    .links {
+      display: none;
+    }
+  }
+</style>

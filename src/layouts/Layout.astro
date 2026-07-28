@@ -1,0 +1,34 @@
+---
+import '../styles/global.css';
+import { translations, DEFAULT_LANG } from '../data/translations';
+
+const t = translations[DEFAULT_LANG];
+---
+
+<!doctype html>
+<html lang={DEFAULT_LANG}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{t['meta.title']}</title>
+    <meta name="description" content={t['meta.description']} />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <link rel="canonical" href={Astro.site?.href} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t['meta.title']} />
+    <meta property="og:description" content={t['meta.description']} />
+    <meta property="og:url" content={Astro.site?.href} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/i18n.js';
+      import '../scripts/reveal.js';
+    </script>
+  </body>
+</html>
