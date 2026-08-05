@@ -24,6 +24,12 @@
 .DS_Store
 *.pem
 
+# local agent tooling and working notes, not site content
+/.claude/
+/.agents/
+/skills-lock.json
+/handoff.md
+
 # debug
 npm-debug.log*
 yarn-debug.log*
