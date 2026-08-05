@@ -8,6 +8,7 @@ import { GithubIcon, LinkedinIcon, TelegramIcon } from "@/components/ui/icons";
 const navLinks = [
   { href: "#projects", label: "Projects" },
   { href: "#certifications", label: "Certifications" },
+  { href: "#experience", label: "Experience" },
   { href: "#contact", label: "Contact" },
 ];
 
