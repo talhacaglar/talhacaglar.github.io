@@ -27,20 +27,20 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Talha Çağlar — Security & Systems",
-  description: "I work in the space between security and systems — Linux tooling, automation, and software that stays clean under real use.",
+  title: "Talha Çağlar — Computer Science Student",
+  description: "Computer Science student, Linux and security enthusiast. Linux tooling, automation, and software that stays clean under real use.",
   metadataBase: new URL("https://talhacaglar.github.io"),
   openGraph: {
-    title: "Talha Çağlar — Security & Systems",
-    description: "I work in the space between security and systems — Linux tooling, automation, and software that stays clean under real use.",
+    title: "Talha Çağlar — Computer Science Student",
+    description: "Computer Science student, Linux and security enthusiast. Linux tooling, automation, and software that stays clean under real use.",
     type: "website",
     locale: "en_US",
     siteName: "Talha Çağlar",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Talha Çağlar — Security & Systems",
-    description: "I work in the space between security and systems — Linux tooling, automation, and software that stays clean under real use.",
+    title: "Talha Çağlar — Computer Science Student",
+    description: "Computer Science student, Linux and security enthusiast. Linux tooling, automation, and software that stays clean under real use.",
   },
   robots: {
     index: true,

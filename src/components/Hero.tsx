@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const facts = [
-  { value: "DevSecOps", label: "Main Focus" },
+  { value: "Computer Science", label: "Studying" },
   { value: "Arch Linux", label: "Daily Driver" },
   { value: "Python · JS", label: "Most Written" },
 ];
@@ -69,7 +69,10 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 md:pt-24 pb-28 md:pb-24"
+      // Desktop padding tracks viewport height, not a fixed value: at 1366x768
+      // and 1280x800 — both very common laptops — fixed padding pushed the
+      // facts row past the fold. Mobile keeps a fixed pt for nav clearance.
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-28 md:pt-[clamp(5rem,9vh,6rem)] md:pb-[clamp(3.5rem,8vh,6rem)]"
     >
       {/* Ambient glass orbs */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
@@ -106,7 +109,7 @@ export function Hero() {
       <div className="relative z-10 w-full max-w-6xl px-6 md:px-8 text-center">
         {/* Badge */}
         <motion.div
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border-[var(--glass-border)] mb-8"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border-[var(--glass-border)] mb-8 md:mb-[clamp(1.25rem,3vh,2rem)]"
           {...fadeUp(0)}
         >
           <motion.span
@@ -122,12 +125,13 @@ export function Hero() {
 
         {/* Name - oversized */}
         <motion.h1
-          className="font-display font-semibold tracking-[-0.045em] leading-[0.92] mb-5"
+          className="font-display font-semibold tracking-[-0.045em] leading-[0.92] mb-5 md:mb-[clamp(0.75rem,2vh,1.25rem)]"
           {...fadeUp(0.1, 40)}
           style={{
-            // Capped at 8.5rem, not 10rem: two lines at 10rem push the facts
-            // row past the fold on a 900px-tall laptop.
-            fontSize: "clamp(3.75rem, 12vw, 8.5rem)",
+            // Two lines of display type dominate the hero's height, so it is
+            // bounded by viewport height as well as width — otherwise a short
+            // wide screen (1366x768) clips everything below it.
+            fontSize: "clamp(3.75rem, min(12vw, 13vh), 8.5rem)",
             willChange: "transform, opacity",
           }}
         >
@@ -137,26 +141,26 @@ export function Hero() {
 
         {/* Role */}
         <motion.p
-          className="text-[var(--accent)] font-medium tracking-wide mb-4"
+          className="text-[var(--accent)] font-medium tracking-wide mb-4 md:mb-[clamp(0.5rem,1.5vh,1rem)]"
           {...fadeUp(0.3)}
           style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)" }}
         >
-          Security &amp; Systems Engineer · Bursa, Türkiye
+          Computer Science Student · Linux &amp; Security Enthusiast
         </motion.p>
 
         {/* Subtitle */}
         <motion.p
-          className="max-w-2xl mx-auto text-[var(--text-muted)] mb-8"
+          className="max-w-2xl mx-auto text-[var(--text-muted)] mb-8 md:mb-[clamp(1.5rem,3.5vh,2rem)]"
           {...fadeUp(0.4)}
           style={{ fontSize: "clamp(1.125rem, 2.5vw, 1.375rem)", lineHeight: 1.6 }}
         >
-          I work in the space between security and systems — Linux tooling,
-          automation, and software that stays clean under real use.
+          I spend my time in the space between security and systems — Linux
+          tooling, automation, and software that stays clean under real use.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 md:mb-[clamp(2rem,4.5vh,3rem)]"
           {...fadeUp(0.5)}
         >
           <Button
@@ -204,7 +208,10 @@ export function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden lg:flex flex-col items-center gap-3 text-[var(--text-faint)]"
+        // Gated on height as well as width. `lg:` alone only checks width, so
+        // on any short laptop (1366x768, 1440x900) this sat on top of the
+        // facts row. It only earns its place when the hero has room to spare.
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden [@media(min-width:1024px)_and_(min-height:1000px)]:flex flex-col items-center gap-3 text-[var(--text-faint)]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: reduce ? 0 : 1.2, duration: 0.8, ease: EASE }}
