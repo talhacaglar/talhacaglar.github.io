@@ -1,26 +1,209 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-display-face), system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* Cooled near-black. Not #000: a true black flattens the glass surfaces,
+     which need something to actually sit on top of. Each step keeps the
+     same violet cast as the accent family. */
+  --bg: #07060a;
+  --bg-elevated: #0d0b12;
+  --bg-card: #14111c;
+
+  /* Purple accent family. --accent and --accent-deep are a matched
+     temperature pair, used as gradients rather than two flat fills. */
+  --accent: #a855f7;
+  --accent-glow: #c084fc;
+  --accent-deep: #7e22ce;
+  --accent-neon: #d8b4fe;
+  --accent-gradient: linear-gradient(135deg, var(--accent-glow) 0%, var(--accent) 45%, var(--accent-deep) 100%);
+
+  /* Glassmorphism layers */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-strong: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.14);
+  --glass-blur: 24px;
+
+  /* Typography */
+  --text: #ffffff;
+  --text-muted: #a1a1aa;
+  --text-faint: #71717a;
+
+  /* Water-smooth easing curves */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base element styles live in @layer base so Tailwind utilities,
+   which sit in the later `utilities` layer, always win. An unlayered
+   rule here would silently beat every utility class on the page. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-faint);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-strong {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid var(--glass-highlight);
+  }
+
+  /* The accent pair as a gradient rather than a flat fill. Falls back to a
+     solid accent where background-clip: text is unsupported. */
+  .text-gradient {
+    color: var(--accent);
+  }
+
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .text-gradient {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      /* Descenders on ğ/ç get clipped without a little breathing room. */
+      padding-bottom: 0.08em;
+    }
+  }
+
+  .ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(168, 85, 247, 0.22) 0%,
+      rgba(126, 34, 206, 0.1) 45%,
+      transparent 70%
+    );
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  /* Bento grid: 4 columns on desktop, collapsing to 2 then 1.
+     `dense` lets compact cards backfill gaps left by featured tiles. */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(200px, auto);
+    gap: 1rem;
+    grid-auto-flow: dense;
+  }
+
+  .bento-featured {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .bento-standard {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .bento-compact {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  @media (max-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .bento-featured,
+    .bento-standard {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .bento-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .bento-featured,
+    .bento-standard,
+    .bento-compact {
+      grid-column: span 1;
+    }
+  }
+}
+
+/* Respect the OS reduced-motion preference across every animation,
+   including the Framer Motion transforms applied via inline styles. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
