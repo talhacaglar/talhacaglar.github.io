@@ -100,15 +100,15 @@
 @layer components {
   .glass {
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     border: 1px solid var(--glass-border);
   }
 
   .glass-strong {
     background: var(--glass-bg-strong);
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     border: 1px solid var(--glass-highlight);
   }
 
@@ -126,6 +126,31 @@
       color: transparent;
       /* Descenders on ğ/ç get clipped without a little breathing room. */
       padding-bottom: 0.08em;
+    }
+  }
+
+  /* The nav floats over live content, so it cannot use the same near-clear
+     white tint as the cards — text scrolling underneath showed straight
+     through it. A dark tint plus a heavier blur keeps it readable. */
+  .glass-nav {
+    background: rgba(13, 11, 18, 0.72);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-nav-strong {
+    background: rgba(13, 11, 18, 0.9);
+    -webkit-backdrop-filter: blur(36px) saturate(180%);
+    backdrop-filter: blur(36px) saturate(180%);
+    border: 1px solid var(--glass-highlight);
+  }
+
+  /* Without backdrop-filter the tint alone must carry it, so go nearly solid. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass-nav,
+    .glass-nav-strong {
+      background: rgba(13, 11, 18, 0.97);
     }
   }
 

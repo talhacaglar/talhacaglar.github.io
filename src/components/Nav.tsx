@@ -7,6 +7,7 @@ import { GithubIcon, LinkedinIcon, TelegramIcon } from "@/components/ui/icons";
 
 const navLinks = [
   { href: "#projects", label: "Projects" },
+  { href: "#certifications", label: "Certifications" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -48,7 +49,11 @@ export function Nav() {
           }
         });
       },
-      { threshold: 0.3, rootMargin: "-20% 0px -70% 0px" }
+      // A thin band across the middle of the viewport: whichever section
+      // crosses it is the active one. threshold must stay 0 — the band is
+      // ~10% of the viewport, so a full-height section can never have 30% of
+      // *itself* inside it, and the indicator would simply never update.
+      { threshold: 0, rootMargin: "-45% 0px -45% 0px" }
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -84,25 +89,16 @@ export function Nav() {
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-[calc(100%-3rem)] md:px-0 transition-all duration-500">
       <motion.nav
-        className={`relative flex items-center justify-between gap-4 h-14 md:h-16 rounded-full glass border-[var(--glass-border)] px-4 md:px-5 ${
-          isScrolled ? "h-14 glass-strong shadow-[0_8px_32px_-8px_rgba(7,6,10,0.65)]" : ""
+        className={`relative flex items-center justify-end gap-4 h-14 md:h-16 rounded-full px-4 md:px-5 ${
+          isScrolled
+            ? "h-14 glass-nav-strong shadow-[0_8px_32px_-8px_rgba(7,6,10,0.65)]"
+            : "glass-nav"
         }`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         style={{ willChange: "transform, opacity" }}
       >
-        <div className="flex items-center gap-2 md:gap-4" style={{ zIndex: 1 }}>
-          <motion.span
-            className="font-display font-semibold text-lg md:text-xl text-[var(--text)] tracking-tight"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            TC
-          </motion.span>
-        </div>
-
         <AnimatePresence mode="wait">
           {isMobileMenuOpen ? (
             <motion.div
@@ -149,8 +145,11 @@ export function Nav() {
           ) : null}
         </AnimatePresence>
 
+        {/* Centred against the nav itself, not against whatever happens to sit
+            either side of it — in flex flow these links only look centred when
+            the left and right groups are the same width, which they are not. */}
         <div
-          className="relative hidden md:flex items-center gap-1"
+          className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-1"
           ref={linksRef}
           style={{ zIndex: 1 }}
         >
