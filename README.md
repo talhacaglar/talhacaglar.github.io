@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# talhacaglar.github.io — source
 
-## Getting Started
+Personal portfolio. Next.js 16 (App Router) + Tailwind v4 + Framer Motion,
+built as a static export.
 
-First, run the development server:
+Live at **https://talhacaglar.github.io/**
+
+## Why there are two repositories
+
+| Repo | Visibility | Contents |
+|---|---|---|
+| `talhacaglar/portfolio` | **private** | this source |
+| `talhacaglar/talhacaglar.github.io` | public | build output only |
+
+GitHub Pages on the Free plan can only serve from a public repository, so the
+public one exists purely to be served: it holds the compiled HTML, CSS and JS
+and nothing else. Production source maps are off, so no `.tsx` is published.
+
+If the account ever moves to GitHub Pro — free through the
+[Student Developer Pack](https://education.github.com/pack) — Pages can serve
+straight from a private repo and the two can be collapsed back into one.
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Verify before deploying
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`npm run build` passing is not sufficient — it will not catch a clipped hero or
+a stripped CSS property. Serve the real export and look at it:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npx serve@latest out -p 4321
+```
 
-## Learn More
+Walk 390 / 768 / 1440 and check: no console errors, no horizontal overflow,
+Turkish glyphs (`Ç ğ ı ş`) render in the display face, every project and
+certificate link resolves, card hover tilts, the nav indicator follows the
+section, and reduced motion still shows every card.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+./scripts/deploy.sh -n   # build and list what would be published
+./scripts/deploy.sh      # build and force-push out/ to the public repo
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The published branch is a build artefact, so each deploy replaces it.
 
-## Deploy on Vercel
+## Content lives in `src/data/`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`projects.ts`, `certifications.ts`, `background.ts`. Everything shown on the
+site must map to something real and checkable — `lang` and `updated` on a
+project mirror the GitHub API, so keep them in step with the repo.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Gotchas
+
+- **Never add an unlayered rule to `globals.css`.** Tailwind v4 puts utilities
+  in `@layer utilities`; an unlayered rule outranks every one of them. Base
+  rules go in `@layer base`, component classes in `@layer components`.
+- **Write `-webkit-backdrop-filter` before `backdrop-filter`.** Lightning CSS
+  deduplicates the pair against its browser targets and keeps the last one; with
+  the standard property first it drops it, and every glass surface silently
+  loses its blur.
+- **All fonts need `latin-ext`**, or Turkish characters fall back to a system
+  face.
+- `lucide-react` no longer ships brand icons — GitHub/LinkedIn/Telegram are
+  hand-written SVGs in `src/components/ui/icons.tsx`.
