@@ -37,6 +37,21 @@
   /* Water-smooth easing curves */
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Mobile viewport units — use small viewport (svh) for initial paint,
+     dynamic (dvh) for runtime, large (lvh) for landscape. */
+  --vh-s: 100svh;
+  --vh-d: 100dvh;
+  --vh-l: 100lvh;
+
+  /* Safe-area insets for notched devices */
+  --safe-top: env(safe-area-inset-top, 0);
+  --safe-right: env(safe-area-inset-right, 0);
+  --safe-bottom: env(safe-area-inset-bottom, 0);
+  --safe-left: env(safe-area-inset-left, 0);
+
+  /* Nav height for scroll-padding sync */
+  --nav-height: 56px; /* 14rem = 56px at base 16px */
 }
 
 /* Base element styles live in @layer base so Tailwind utilities,
@@ -46,6 +61,18 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* The nav is fixed, so an anchor jump would otherwise land a section's
+       top edge underneath it. Covers the nav's own height plus its top
+       offset, with a little air left over. Uses CSS variable for sync. */
+    scroll-padding-top: calc(var(--nav-height) + 1rem);
+    /* Prevent pull-to-refresh on mobile from interfering with scroll */
+    overscroll-behavior: none;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: calc(var(--nav-height) + 1.5rem);
+    }
   }
 
   body {
@@ -56,6 +83,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    /* Ensure full viewport height on mobile without browser UI interference */
+    min-height: 100vh;
+    min-height: var(--vh-s);
   }
 
   a {
@@ -65,6 +95,8 @@
 
   button {
     cursor: pointer;
+    /* Improve touch response on mobile */
+    touch-action: manipulation;
   }
 
   ::selection {
@@ -215,6 +247,94 @@
       grid-column: span 1;
     }
   }
+
+  {/* Extra small mobile breakpoint (~480px and below) */}
+  @media (max-width: 480px) {
+    .bento-grid {
+      gap: 0.75rem;
+      grid-auto-rows: minmax(180px, auto);
+    }
+  }
+
+  /* Touch-friendly button minimum sizes - applies to all interactive elements */
+  @media (pointer: coarse) {
+    button,
+    [role="button"],
+    a.button,
+    .button {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
+  /* Ensure focus styles work on mobile too */
+  @media (pointer: coarse) {
+    :focus-visible {
+      outline-width: 3px;
+      outline-offset: 4px;
+    }
+  }
+}
+
+/* Utility classes for mobile viewport heights */
+.min-h-svh {
+  min-height: 100svh;
+}
+
+.min-h-dvh {
+  min-height: 100dvh;
+}
+
+.min-h-lvh {
+  min-height: 100lvh;
+}
+
+/* Mobile-first fluid spacing utilities */
+.space-y-fluid > * + * {
+  margin-top: clamp(0.75rem, 2vh, 1.5rem);
+}
+
+.space-x-fluid > * + * {
+  margin-left: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+/* Safe area utilities */
+.safe-top {
+  padding-top: var(--safe-top);
+}
+
+.safe-bottom {
+  padding-bottom: var(--safe-bottom);
+}
+
+.safe-left {
+  padding-left: var(--safe-left);
+}
+
+.safe-right {
+  padding-right: var(--safe-right);
+}
+
+.safe-x {
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+}
+
+.safe-y {
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+/* Touch target minimum size */
+.min-touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Prevent text scaling on mobile orientation change */
+.no-text-size-adjust {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* Respect the OS reduced-motion preference across every animation,

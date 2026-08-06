@@ -29,6 +29,7 @@
 /.agents/
 /skills-lock.json
 /handoff.md
+/linkedin/
 
 # debug
 npm-debug.log*

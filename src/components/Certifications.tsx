@@ -39,25 +39,25 @@ export function Certifications() {
           </p>
         </motion.div>
 
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-4 sm:gap-5 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {certifications.map((cert, i) => {
             const verifiable = Boolean(cert.url);
 
             const card = (
               <>
                 {/* Preview of the certificate itself. */}
-                <div className="relative aspect-[900/502] overflow-hidden rounded-2xl border border-[var(--glass-border)] bg-[var(--bg-elevated)]">
+                <div className="relative aspect-[1000/644] sm:aspect-[4/3] overflow-hidden rounded-2xl border border-[var(--glass-border)] bg-[var(--bg-elevated)] mb-4">
                   <Image
                     src={cert.thumbnail}
                     alt={`${cert.name} certificate issued by ${cert.issuer}`}
-                    width={900}
-                    height={502}
+                    width={1000}
+                    height={644}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
 
-                <div className="flex items-start justify-between gap-3 mt-5">
+                <div className="flex items-start justify-between gap-3">
                   <span className="font-mono text-[0.6875rem] font-medium tracking-tight text-[var(--accent)] px-2.5 py-1 rounded-lg bg-[rgba(168,85,247,0.12)] border border-[rgba(168,85,247,0.2)] whitespace-nowrap">
                     {cert.date}
                   </span>
@@ -69,13 +69,13 @@ export function Certifications() {
                   )}
                 </div>
 
-                <h3 className="font-display font-semibold text-lg md:text-xl tracking-tight text-[var(--text)] mt-3">
+                <h3 className="font-display font-semibold text-base sm:text-lg md:text-xl tracking-tight text-[var(--text)]">
                   {cert.name}
                 </h3>
-                <p className="text-sm text-[var(--text-muted)] mt-1.5">{cert.issuer}</p>
+                <p className="text-sm text-[var(--text-muted)] mt-1">{cert.issuer}</p>
 
                 {cert.credentialId && (
-                  <p className="font-mono text-[0.6875rem] text-[var(--text-faint)] mt-3 break-all">
+                  <p className="font-mono text-[0.6875rem] text-[var(--text-faint)] mt-2 break-all">
                     {cert.credentialId}
                   </p>
                 )}
@@ -99,13 +99,13 @@ export function Certifications() {
                     href={cert.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex flex-col h-full rounded-3xl glass border-[var(--glass-border)] p-5 md:p-6 transition-all duration-300 hover:border-[rgba(192,132,252,0.45)] hover:shadow-[0_0_50px_-12px_rgba(168,85,247,0.35)]"
+                    className="group flex flex-col h-full rounded-3xl glass border-[var(--glass-border)] p-4 sm:p-5 md:p-6 transition-all duration-300 hover:border-[rgba(192,132,252,0.45)] hover:shadow-[0_0_50px_-12px_rgba(168,85,247,0.35)]"
                   >
                     {card}
                   </a>
                 ) : (
                   // No verification page published, so this one is not a link.
-                  <div className="group flex flex-col h-full rounded-3xl glass border-[var(--glass-border)] p-5 md:p-6">
+                  <div className="group flex flex-col h-full rounded-3xl glass border-[var(--glass-border)] p-4 sm:p-5 md:p-6">
                     {card}
                   </div>
                 )}

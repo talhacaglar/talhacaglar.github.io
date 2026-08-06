@@ -50,10 +50,6 @@ export function Nav() {
           }
         });
       },
-      // A thin band across the middle of the viewport: whichever section
-      // crosses it is the active one. threshold must stay 0 — the band is
-      // ~10% of the viewport, so a full-height section can never have 30% of
-      // *itself* inside it, and the indicator would simply never update.
       { threshold: 0, rootMargin: "-45% 0px -45% 0px" }
     );
 
@@ -87,68 +83,37 @@ export function Nav() {
     }
   };
 
+  // Sync nav height CSS variable for scroll-padding
+  useEffect(() => {
+    const nav = document.querySelector("header nav");
+    if (nav) {
+      const height = nav.getBoundingClientRect().height;
+      document.documentElement.style.setProperty("--nav-height", `${height}px`);
+    }
+    const handleResize = () => {
+      const navEl = document.querySelector("header nav");
+      if (navEl) {
+        document.documentElement.style.setProperty("--nav-height", `${navEl.getBoundingClientRect().height}px`);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-[calc(100%-3rem)] md:px-0 transition-all duration-500">
+    <header className="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-full max-w-screen-xl px-4 md:px-0 transition-all duration-500 safe-top">
       <motion.nav
-        className={`relative flex items-center justify-end gap-4 h-14 md:h-16 rounded-full px-4 md:px-5 ${
+        className={`relative flex items-center justify-between gap-4 h-14 md:h-16 rounded-full px-4 md:px-5 ${
           isScrolled
             ? "h-14 glass-nav-strong shadow-[0_8px_32px_-8px_rgba(7,6,10,0.65)]"
             : "glass-nav"
-        }`}
+        } mt-4 md:mt-0`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         style={{ willChange: "transform, opacity" }}
       >
-        <AnimatePresence mode="wait">
-          {isMobileMenuOpen ? (
-            <motion.div
-              key="mobile-menu"
-              className="absolute top-full left-0 right-0 mt-3 rounded-2xl glass-strong p-4 md:hidden flex flex-col gap-2"
-              initial={{ opacity: 0, y: -20, height: 0 }}
-              animate={{ opacity: 1, y: 0, height: "auto" }}
-              exit={{ opacity: 0, y: -20, height: 0 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {navLinks.map((link, i) => (
-                <motion.button
-                  key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className={`w-full px-4 py-3 rounded-xl text-left font-medium transition-colors ${
-                    activeSection === link.href.replace("#", "")
-                      ? "text-[var(--accent)] bg-[var(--glass-bg)]"
-                      : "text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--glass-bg)]"
-                  }`}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * (i + 1), duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  {link.label}
-                </motion.button>
-              ))}
-              <div className="border-t border-[var(--glass-border)] my-2" />
-              {socialLinks.map((social, i) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-[var(--text-muted)] hover:text-[var(--accent)] hover:bg-[var(--glass-bg)] transition-colors"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * (i + 1 + navLinks.length), duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <social.icon className="w-5 h-5" aria-hidden="true" />
-                  <span>{social.label}</span>
-                </motion.a>
-              ))}
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-
-        {/* Centred against the nav itself, not against whatever happens to sit
-            either side of it — in flex flow these links only look centred when
-            the left and right groups are the same width, which they are not. */}
+        {/* Desktop navigation links */}
         <div
           className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-1"
           ref={linksRef}
@@ -199,7 +164,9 @@ export function Nav() {
           </ul>
         </div>
 
-        <div className="flex items-center gap-2 md:gap-3" style={{ zIndex: 1 }}>
+        {/* Right side: desktop socials + mobile menu button */}
+        <div className="flex items-center gap-2 md:gap-3 flex-shrink-0" style={{ zIndex: 1 }}>
+          {/* Desktop social icons */}
           <div className="hidden md:flex items-center gap-2">
             {socialLinks.map((social, i) => (
               <motion.a
@@ -207,12 +174,13 @@ export function Nav() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-full glass border-[var(--glass-border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:glass-strong hover:border-[var(--glass-highlight)] transition-all duration-200"
+                className="p-2 rounded-full glass border-[var(--glass-border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:glass-strong hover:border-[var(--glass-highlight)] transition-[color,background-color,border-color] duration-200"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.9 }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + 0.05 * i, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                style={{ willChange: "transform" }}
                 aria-label={social.label}
               >
                 <social.icon className="w-5 h-5" aria-hidden="true" />
@@ -220,8 +188,9 @@ export function Nav() {
             ))}
           </div>
 
+          {/* Mobile menu toggle button — 44px minimum touch target */}
           <motion.button
-            className="md:hidden p-2 rounded-full glass border-[var(--glass-border)] text-[var(--text)] hover:glass-strong transition-all"
+            className="md:hidden flex items-center justify-center min-w-[44px] min-h-[44px] p-2 rounded-full glass border-[var(--glass-border)] text-[var(--text)] hover:glass-strong transition-[color,background-color,border-color]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -234,6 +203,94 @@ export function Nav() {
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </motion.button>
         </div>
+
+        {/* Mobile menu overlay — fixed inset instead of absolute top-full */}
+        <AnimatePresence mode="wait">
+          {isMobileMenuOpen && (
+            <motion.div
+              key="mobile-menu-overlay"
+              className="fixed inset-0 z-40 md:hidden safe-top safe-bottom safe-right"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation menu"
+            >
+              {/* Backdrop */}
+              <div
+                className="absolute inset-0 bg-[var(--bg)]/60 backdrop-blur-sm"
+                aria-hidden="true"
+              />
+              {/* Menu panel — slides from right */}
+              <motion.div
+                className="absolute top-0 right-0 bottom-0 w-full max-w-sm flex flex-col"
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="flex flex-col h-full p-6">
+                  {/* Close button at top right */}
+                  <motion.button
+                    className="self-end min-w-[44px] min-h-[44px] p-2 rounded-full glass border-[var(--glass-border)] text-[var(--text-muted)] hover:text-[var(--text)] hover:glass-strong transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label="Close menu"
+                  >
+                    <X className="w-6 h-6" />
+                  </motion.button>
+
+                  <div className="flex-1 flex flex-col justify-center gap-6 mt-8">
+                    {/* Nav links — 44px minimum touch targets */}
+                    <nav className="flex flex-col gap-3">
+                      {navLinks.map((link, i) => (
+                        <motion.button
+                          key={link.href}
+                          onClick={() => scrollToSection(link.href)}
+                          className={`w-full px-6 py-4 rounded-xl text-left font-medium text-lg transition-colors min-h-[48px] ${
+                            activeSection === link.href.replace("#", "")
+                              ? "text-[var(--accent)] bg-[var(--glass-bg)]"
+                              : "text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--glass-bg)]"
+                          }`}
+                          initial={{ opacity: 0, x: 30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.08 * (i + 1), duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                          {link.label}
+                        </motion.button>
+                      ))}
+                    </nav>
+
+                    <div className="border-t border-[var(--glass-border)] my-4" />
+
+                    {/* Social links — larger touch targets */}
+                    <div className="flex flex-col gap-3">
+                      {socialLinks.map((social, i) => (
+                        <motion.a
+                          key={social.label}
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-4 px-6 py-4 rounded-xl text-[var(--text-muted)] hover:text-[var(--accent)] hover:bg-[var(--glass-bg)] transition-colors min-h-[48px]"
+                          initial={{ opacity: 0, x: 30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.08 * (i + 1 + navLinks.length), duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                          <social.icon className="w-6 h-6 shrink-0" aria-hidden="true" />
+                          <span className="text-lg font-medium">{social.label}</span>
+                        </motion.a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
     </header>
   );

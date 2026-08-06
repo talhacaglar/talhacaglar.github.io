@@ -53,6 +53,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -66,8 +67,9 @@ export default function RootLayout({
       {/* next/font self-hosts every face, so there is nothing to preconnect to. */}
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
-      <body className="min-h-screen flex flex-col">{children}</body>
+      <body className="min-h-[100svh] flex flex-col -webkit-text-size-adjust-none text-size-adjust-none">{children}</body>
     </html>
   );
 }

@@ -33,7 +33,7 @@ export function Experience() {
 
         {/* Timeline. The rail is decorative, so it is drawn on the list itself
             rather than as an extra element in the accessibility tree. */}
-        <ol className="relative border-l border-[var(--glass-border)] ml-2 pl-6 md:pl-8 flex flex-col gap-5">
+        <ol className="relative border-l border-[var(--glass-border)] ml-2 pl-4 md:pl-6 sm:pl-8 flex flex-col gap-4 sm:gap-5">
           {roles.map((role, i) => (
             <motion.li
               key={role.id}
@@ -49,13 +49,13 @@ export function Experience() {
             >
               {/* Node on the rail */}
               <span
-                className={`absolute -left-[calc(1.5rem+5px)] md:-left-[calc(2rem+5px)] top-7 w-2.5 h-2.5 rounded-full border-2 border-[var(--bg)] ${
+                className={`absolute -left-[calc(1rem+5px)] sm:-left-[calc(1.5rem+5px)] md:-left-[calc(2rem+5px)] top-7 w-2.5 h-2.5 rounded-full border-2 border-[var(--bg)] ${
                   role.current ? "bg-[var(--accent)]" : "bg-[var(--text-faint)]"
                 }`}
                 aria-hidden="true"
               />
 
-              <div className="glass border-[var(--glass-border)] rounded-2xl p-5 md:p-6 transition-colors duration-300 hover:border-[rgba(192,132,252,0.35)]">
+              <div className="glass border-[var(--glass-border)] rounded-2xl p-4 sm:p-5 md:p-6 transition-colors duration-300 hover:border-[rgba(192,132,252,0.35)]">
                 <div className="flex flex-wrap items-center gap-2 mb-3">
                   <span className="font-mono text-[0.6875rem] font-medium tracking-tight text-[var(--accent)] px-2.5 py-1 rounded-lg bg-[rgba(168,85,247,0.12)] border border-[rgba(168,85,247,0.2)]">
                     {role.date}
@@ -98,7 +98,7 @@ export function Experience() {
           <h3 className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-[var(--text-faint)] mb-4">
             Education
           </h3>
-          <div className="glass border-[var(--glass-border)] rounded-2xl p-5 md:p-6 flex items-start gap-4">
+          <div className="glass border-[var(--glass-border)] rounded-2xl p-4 sm:p-5 md:p-6 flex items-start gap-4">
             <span
               className="shrink-0 flex items-center justify-center w-10 h-10 rounded-xl bg-[rgba(168,85,247,0.12)] border border-[rgba(168,85,247,0.2)] text-[var(--accent)]"
               aria-hidden="true"

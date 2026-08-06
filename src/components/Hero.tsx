@@ -1,51 +1,52 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, MousePointer2 } from "lucide-react";
+import { ArrowDown, MousePointer2, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const facts = [
-  { value: "Computer Science", label: "Studying" },
+  { value: "Computer Engineering", label: "Student" },
   { value: "Arch Linux", label: "Daily Driver" },
-  { value: "Python · JS", label: "Most Written" },
+  { value: "Cyber Security", label: "Focus" },
 ];
 
+// Mobile-first orb sizes — responsive using clamp for fluid scaling
 const orbs = [
   {
-    size: "min(500px, 60vw)",
+    size: "clamp(160px, 45vw, 400px)",
     position: { top: "5%", left: "-10%" },
-    x: [0, 40, -30, 20, 0],
-    y: [0, -30, 40, -20, 0],
-    scale: [1, 1.08, 0.95, 1.03, 1],
+    x: [0, 30, -20, 10, 0],
+    y: [0, -20, 30, -10, 0],
+    scale: [1, 1.05, 0.97, 1.02, 1],
     duration: 20,
     delay: 0,
   },
   {
-    size: "min(400px, 50vw)",
+    size: "clamp(140px, 40vw, 320px)",
     position: { top: "30%", right: "-15%" },
-    x: [0, -35, 25, -15, 0],
-    y: [0, 25, -35, 15, 0],
-    scale: [1, 1.05, 0.98, 1.02, 1],
+    x: [0, -25, 15, -10, 0],
+    y: [0, 15, -25, 10, 0],
+    scale: [1, 1.03, 0.98, 1.01, 1],
     duration: 24,
     delay: 2,
   },
   {
-    size: "min(350px, 45vw)",
-    position: { bottom: "10%", left: "20%" },
-    x: [0, 30, -25, 15, 0],
-    y: [0, -20, 30, -10, 0],
-    scale: [1, 1.03, 0.97, 1.01, 1],
+    size: "clamp(120px, 35vw, 280px)",
+    position: { bottom: "10%", left: "15%" },
+    x: [0, 20, -15, 10, 0],
+    y: [0, -15, 20, -5, 0],
+    scale: [1, 1.02, 0.98, 1.01, 1],
     duration: 18,
     delay: 4,
   },
   {
-    size: "min(300px, 35vw)",
-    position: { bottom: "5%", right: "10%" },
-    x: [0, -25, 20, -10, 0],
-    y: [0, 15, -25, 5, 0],
-    scale: [1, 1.04, 0.96, 1.02, 1],
+    size: "clamp(100px, 30vw, 240px)",
+    position: { bottom: "5%", right: "5%" },
+    x: [0, -15, 10, -5, 0],
+    y: [0, 10, -15, 5, 0],
+    scale: [1, 1.02, 0.98, 1.01, 1],
     duration: 22,
     delay: 6,
   },
@@ -54,8 +55,6 @@ const orbs = [
 export function Hero() {
   const reduce = useReducedMotion();
 
-  // Elegant staggered entrance: slight delay per element, disabled when the
-  // visitor prefers reduced motion.
   const fadeUp = (delay: number, distance = 30) => ({
     initial: { opacity: 0, y: reduce ? 0 : distance },
     animate: { opacity: 1, y: 0 },
@@ -69,12 +68,9 @@ export function Hero() {
   return (
     <section
       id="top"
-      // Desktop padding tracks viewport height, not a fixed value: at 1366x768
-      // and 1280x800 — both very common laptops — fixed padding pushed the
-      // facts row past the fold. Mobile keeps a fixed pt for nav clearance.
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-28 md:pt-[clamp(5rem,9vh,6rem)] md:pb-[clamp(3.5rem,8vh,6rem)]"
+      className="relative min-h-svh flex flex-col items-center justify-center overflow-hidden pt-20 pb-12 md:pt-[clamp(5rem,9vh,6rem)] md:pb-[clamp(3.5rem,8vh,6rem)] safe-top safe-bottom"
     >
-      {/* Ambient glass orbs */}
+      {/* Ambient glass orbs — responsive sizes */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
         {orbs.map((orb, i) => (
           <motion.div
@@ -106,10 +102,10 @@ export function Hero() {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-6xl px-6 md:px-8 text-center">
+      <div className="relative z-10 w-full max-w-6xl px-4 md:px-8 text-center">
         {/* Badge */}
         <motion.div
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border-[var(--glass-border)] mb-8 md:mb-[clamp(1.25rem,3vh,2rem)]"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border-[var(--glass-border)] mb-6 md:mb-[clamp(1.25rem,3vh,2rem)]"
           {...fadeUp(0)}
         >
           <motion.span
@@ -123,15 +119,12 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* Name - oversized */}
+        {/* Name - oversized, responsive clamp using svh */}
         <motion.h1
-          className="font-display font-semibold tracking-[-0.045em] leading-[0.92] mb-5 md:mb-[clamp(0.75rem,2vh,1.25rem)]"
+          className="font-display font-semibold tracking-[-0.045em] leading-[0.92] mb-4 md:mb-[clamp(0.75rem,2vh,1.25rem)]"
           {...fadeUp(0.1, 40)}
           style={{
-            // Two lines of display type dominate the hero's height, so it is
-            // bounded by viewport height as well as width — otherwise a short
-            // wide screen (1366x768) clips everything below it.
-            fontSize: "clamp(3.75rem, min(12vw, 13vh), 8.5rem)",
+            fontSize: "clamp(2.5rem, min(10vw, 10svh), 6rem)",
             willChange: "transform, opacity",
           }}
         >
@@ -141,30 +134,31 @@ export function Hero() {
 
         {/* Role */}
         <motion.p
-          className="text-[var(--accent)] font-medium tracking-wide mb-4 md:mb-[clamp(0.5rem,1.5vh,1rem)]"
+          className="text-[var(--accent)] font-medium tracking-wide mb-3 md:mb-[clamp(0.5rem,1.5vh,1rem)]"
           {...fadeUp(0.3)}
-          style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)" }}
+          style={{ fontSize: "clamp(0.9375rem, 2.5vw, 1.125rem)" }}
         >
-          Computer Science Student · Linux &amp; Security Enthusiast
+          Computer Science Student · Linux & Security Enthusiast
         </motion.p>
 
         {/* Subtitle */}
         <motion.p
-          className="max-w-2xl mx-auto text-[var(--text-muted)] mb-8 md:mb-[clamp(1.5rem,3.5vh,2rem)]"
+          className="max-w-2xl mx-auto text-[var(--text-muted)] mb-6 md:mb-[clamp(1.5rem,3.5vh,2rem)]"
           {...fadeUp(0.4)}
-          style={{ fontSize: "clamp(1.125rem, 2.5vw, 1.375rem)", lineHeight: 1.6 }}
+          style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", lineHeight: 1.6 }}
         >
           I spend my time in the space between security and systems — Linux
           tooling, automation, and software that stays clean under real use.
         </motion.p>
 
-        {/* CTAs */}
+        {/* CTAs — full width on mobile, auto on desktop */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 md:mb-[clamp(2rem,4.5vh,3rem)]"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8 md:mb-[clamp(2rem,4.5vh,3rem)] safe-x"
           {...fadeUp(0.5)}
         >
           <Button
             size="lg"
+            className="w-full sm:w-auto"
             onClick={() =>
               document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
             }
@@ -175,6 +169,7 @@ export function Hero() {
           <Button
             variant="secondary"
             size="lg"
+            className="w-full sm:w-auto"
             onClick={() =>
               document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
             }
@@ -184,21 +179,21 @@ export function Hero() {
           </Button>
         </motion.div>
 
-        {/* Facts */}
+        {/* Facts — tighter spacing on mobile */}
         <motion.ul
-          className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-3xl mx-auto"
           {...fadeUp(0.6)}
           aria-label="Key facts"
         >
           {facts.map((fact) => (
             <li
-              key={fact.value}
-              className="glass border-[var(--glass-border)] p-5 md:p-6 rounded-2xl flex items-baseline justify-between sm:block gap-3"
+              key={fact.label}
+              className="glass border-[var(--glass-border)] p-4 sm:p-5 md:p-6 rounded-2xl flex items-baseline justify-between gap-2 sm:gap-3 sm:flex-col sm:items-stretch sm:justify-center sm:gap-0"
             >
-              <span className="block font-display text-2xl md:text-3xl font-semibold text-[var(--accent)] tracking-tight">
+              <span className="block font-display text-xl sm:text-2xl md:text-3xl font-semibold text-[var(--accent)] tracking-tight">
                 {fact.value}
               </span>
-              <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-[var(--text-faint)] sm:mt-1.5">
+              <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-[var(--text-faint)] sm:mt-1">
                 {fact.label}
               </span>
             </li>
@@ -206,11 +201,24 @@ export function Hero() {
         </motion.ul>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — mobile version (subtle chevron) + desktop version */}
       <motion.div
-        // Gated on height as well as width. `lg:` alone only checks width, so
-        // on any short laptop (1366x768, 1440x900) this sat on top of the
-        // facts row. It only earns its place when the hero has room to spare.
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[var(--text-faint)] md:hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: reduce ? 0 : 1.2, duration: 0.8, ease: EASE }}
+        aria-hidden="true"
+      >
+        <motion.span animate={reduce ? undefined : { y: [0, 8] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
+          <ChevronDown className="w-5 h-5" />
+        </motion.span>
+        <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] font-medium">
+          Scroll
+        </span>
+      </motion.div>
+
+      {/* Desktop scroll indicator */}
+      <motion.div
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden [@media(min-width:1024px)_and_(min-height:1000px)]:flex flex-col items-center gap-3 text-[var(--text-faint)]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

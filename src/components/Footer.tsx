@@ -14,7 +14,7 @@ export function Footer() {
     <footer className="relative border-t border-[var(--glass-border)] py-10 px-6 md:px-8">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <motion.p
-          className="font-mono text-xs text-[var(--text-faint)] tracking-tight"
+          className="font-mono text-xs sm:text-sm text-[var(--text-faint)] tracking-tight"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -36,7 +36,7 @@ export function Footer() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-10 h-10 rounded-full glass border-[var(--glass-border)] text-[var(--text-muted)] transition-colors duration-300 hover:text-[var(--accent)] hover:border-[rgba(192,132,252,0.4)]"
+                className="flex items-center justify-center w-10 h-10 sm:w-10 sm:h-10 rounded-full glass border-[var(--glass-border)] text-[var(--text-muted)] transition-colors duration-300 hover:text-[var(--accent)] hover:border-[rgba(192,132,252,0.4)] min-touch-target"
                 whileHover={{ y: -3, scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={social.label}

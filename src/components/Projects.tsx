@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import {
   motion,
   useMotionValue,
@@ -21,8 +21,29 @@ const sizeClasses: Record<Project["size"], string> = {
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const reduce = useReducedMotion();
+  const [isTouch, setIsTouch] = useState(false);
 
-  // 3D tilt via pointer position
+  // Detect touch/coarse pointer device
+  useEffect(() => {
+    const checkTouch = () => {
+      setIsTouch(
+        window.matchMedia("(pointer: coarse)").matches ||
+        window.matchMedia("(hover: none)").matches
+      );
+    };
+    checkTouch();
+    const mql1 = window.matchMedia("(pointer: coarse)");
+    const mql2 = window.matchMedia("(hover: none)");
+    const handler = () => checkTouch();
+    mql1.addEventListener?.("change", handler);
+    mql2.addEventListener?.("change", handler);
+    return () => {
+      mql1.removeEventListener?.("change", handler);
+      mql2.removeEventListener?.("change", handler);
+    };
+  }, []);
+
+  // 3D tilt via pointer position — only on non-touch, non-reduced-motion
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -31,7 +52,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (reduce) return;
+    if (reduce || isTouch) return;
     const rect = cardRef.current?.getBoundingClientRect();
     if (!rect) return;
     mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
@@ -39,11 +60,23 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   };
 
   const handleMouseLeave = () => {
+    if (isTouch) return;
     mouseX.set(0);
     mouseY.set(0);
   };
 
   const isFeatured = project.size === "featured";
+
+  // Transform styles — only apply 3D on desktop
+  const transformStyles = isTouch || reduce
+    ? { willChange: "transform" }
+    : {
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d" as const,
+        transformPerspective: 1000,
+        willChange: "transform",
+      };
 
   return (
     <motion.a
@@ -51,7 +84,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group relative flex flex-col overflow-hidden rounded-3xl glass border-[var(--glass-border)] p-6 md:p-8 ${sizeClasses[project.size]}`}
+      className={`group relative flex flex-col overflow-hidden rounded-3xl glass border-[var(--glass-border)] p-4 md:p-6 lg:p-8 ${sizeClasses[project.size]} touch-pan-y min-h-[200px] sm:min-h-[220px] md:min-h-[240px] lg:min-h-[260px]`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       initial={{ opacity: 0, y: reduce ? 0 : 40, scale: reduce ? 1 : 0.95 }}
@@ -62,24 +95,20 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         delay: reduce ? 0 : index * 0.08,
         ease: [0.16, 1, 0.3, 1],
       }}
-      whileHover={{
+      // Use whileTap for touch devices, whileHover for desktop
+      whileTap={{ scale: 0.98 }}
+      whileHover={!isTouch ? {
         scale: reduce ? 1 : 1.02,
         borderColor: "rgba(192, 132, 252, 0.5)",
         boxShadow:
           "0 0 60px -10px rgba(168, 85, 247, 0.4), 0 20px 40px -20px rgba(7, 6, 10, 0.75)",
         zIndex: 10,
-      }}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-        transformPerspective: 1000,
-        willChange: "transform",
-      }}
+      } : undefined}
+      style={transformStyles}
     >
-      {/* Purple glow accent that intensifies on hover */}
+      {/* Purple glow accent that intensifies on hover — desktop only */}
       <div
-        className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none hidden md:block"
         style={{
           background:
             "radial-gradient(600px circle at 50% 0%, rgba(168, 85, 247, 0.12), transparent 60%)",
@@ -88,8 +117,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       />
 
       <div className="relative flex items-start justify-between gap-4 mb-4" style={{ transform: "translateZ(30px)" }}>
-        {/* Last push and primary language, straight from the GitHub API —
-            a counter here would encode nothing you could check. */}
         <span className="font-mono text-[0.6875rem] font-medium tracking-tight text-[var(--accent)] px-2.5 py-1 rounded-lg bg-[rgba(168,85,247,0.12)] border border-[rgba(168,85,247,0.2)] whitespace-nowrap">
           {project.updated} · {project.lang}
         </span>
@@ -101,7 +128,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
       <h3
         className={`font-display font-semibold tracking-tight text-[var(--text)] mb-3 ${
-          isFeatured ? "text-3xl md:text-4xl" : "text-xl md:text-2xl"
+          isFeatured ? "text-2xl md:text-3xl lg:text-4xl" : "text-lg md:text-xl lg:text-2xl"
         }`}
         style={{ transform: "translateZ(40px)" }}
       >
@@ -110,15 +137,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
       <p
         className={`text-[var(--text-muted)] leading-relaxed ${
-          isFeatured ? "text-base md:text-lg mb-6" : "text-sm md:text-base flex-1 mb-6"
+          isFeatured ? "text-sm md:text-base lg:text-lg mb-6" : "text-sm md:text-base flex-1 mb-6"
         }`}
         style={{ transform: "translateZ(20px)" }}
       >
         {project.description}
       </p>
 
-      {/* Featured tiles get twice the area, so they carry real detail rather
-          than the same two lines stretched over it. */}
       {project.highlights && (
         <ul
           className="flex-1 flex flex-col gap-2.5 mb-6 text-sm md:text-[0.9375rem] text-[var(--text-faint)]"
@@ -152,10 +177,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function Projects() {
   return (
-    <section id="projects" className="relative py-24 md:py-32 px-6 md:px-8">
+    <section id="projects" className="relative py-16 md:py-24 lg:py-32 px-4 md:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          className="mb-12 md:mb-16"
+          className="mb-10 md:mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -167,11 +192,11 @@ export function Projects() {
           </span>
           <h2
             className="font-display font-semibold tracking-[-0.03em] leading-[1.08] text-[var(--text)] mb-5"
-            style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}
+            style={{ fontSize: "clamp(2rem, 6vw, 4rem)" }}
           >
             What I&apos;ve been building
           </h2>
-          <p className="max-w-2xl text-[var(--text-muted)]" style={{ fontSize: "clamp(1.0625rem, 2vw, 1.25rem)" }}>
+          <p className="max-w-2xl text-[var(--text-muted)]" style={{ fontSize: "clamp(1rem, 2vw, 1.125rem)" }}>
             Projects that came out of a real need and were written to be used.
           </p>
         </motion.div>
@@ -183,7 +208,7 @@ export function Projects() {
         </div>
 
         <motion.div
-          className="flex justify-center mt-12 md:mt-16"
+          className="flex justify-center mt-10 md:mt-12 lg:mt-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -193,7 +218,7 @@ export function Projects() {
             href="https://github.com/talhacaglar?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full glass border-[var(--glass-border)] font-medium text-[var(--text)] transition-all duration-300 hover:glass-strong hover:border-[rgba(192,132,252,0.4)]"
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full glass border-[var(--glass-border)] font-medium text-[var(--text)] transition-all duration-300 hover:glass-strong hover:border-[rgba(192,132,252,0.4)] min-h-[44px] min-touch-target"
             whileHover={{ scale: 1.04, y: -2 }}
             whileTap={{ scale: 0.97 }}
           >

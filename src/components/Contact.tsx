@@ -72,8 +72,8 @@ export function Contact() {
         <motion.div
           className="ambient-orb"
           style={{
-            width: "min(400px, 50vw)",
-            height: "min(400px, 50vw)",
+            width: "clamp(200px, 45vw, 350px)",
+            height: "clamp(200px, 45vw, 350px)",
             top: "10%",
             left: "5%",
           }}
@@ -83,8 +83,8 @@ export function Contact() {
         <motion.div
           className="ambient-orb"
           style={{
-            width: "min(350px, 45vw)",
-            height: "min(350px, 45vw)",
+            width: "clamp(180px, 40vw, 300px)",
+            height: "clamp(180px, 40vw, 300px)",
             bottom: "5%",
             right: "8%",
           }}
@@ -186,7 +186,7 @@ export function Contact() {
               status === "success"
                 ? "border-[rgba(168,85,247,0.4)] text-[var(--text)]"
                 : "border-red-500/40 text-red-300"
-            }`}
+            } safe-bottom safe-x`}
             initial={{ opacity: 0, y: 40, x: "-50%" }}
             animate={{ opacity: 1, y: 0, x: "-50%" }}
             exit={{ opacity: 0, y: 20, x: "-50%" }}
