@@ -226,7 +226,7 @@ export function Nav() {
               />
               {/* Menu panel — slides from right */}
               <motion.div
-                className="absolute top-0 right-0 bottom-0 w-full max-w-sm flex flex-col"
+                className="absolute top-0 right-0 bottom-0 w-full max-w-sm flex flex-col glass"
                 initial={{ x: "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
