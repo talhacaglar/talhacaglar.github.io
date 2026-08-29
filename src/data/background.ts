@@ -18,6 +18,12 @@ export const roles: Role[] = [
     current: true,
   },
   {
+    id: 'ptt-kule',
+    company: 'PTT KULE AŞ.',
+    role: 'IT Intern',
+    date: 'August 11, 2026 — September 7, 2026 · 4 weeks',
+  },
+  {
     id: 'siber-vatan',
     company: 'Siber Vatan',
     role: 'Student',

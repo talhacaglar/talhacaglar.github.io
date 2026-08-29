@@ -1,241 +1,86 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, MousePointer2, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/Button";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 const facts = [
-  { value: "Computer Engineering", label: "Student" },
-  { value: "Arch Linux", label: "Daily Driver" },
-  { value: "Cyber Security", label: "Focus" },
-];
-
-// Mobile-first orb sizes — responsive using clamp for fluid scaling
-const orbs = [
-  {
-    size: "clamp(160px, 45vw, 400px)",
-    position: { top: "5%", left: "-10%" },
-    x: [0, 30, -20, 10, 0],
-    y: [0, -20, 30, -10, 0],
-    scale: [1, 1.05, 0.97, 1.02, 1],
-    duration: 20,
-    delay: 0,
-  },
-  {
-    size: "clamp(140px, 40vw, 320px)",
-    position: { top: "30%", right: "-15%" },
-    x: [0, -25, 15, -10, 0],
-    y: [0, 15, -25, 10, 0],
-    scale: [1, 1.03, 0.98, 1.01, 1],
-    duration: 24,
-    delay: 2,
-  },
-  {
-    size: "clamp(120px, 35vw, 280px)",
-    position: { bottom: "10%", left: "15%" },
-    x: [0, 20, -15, 10, 0],
-    y: [0, -15, 20, -5, 0],
-    scale: [1, 1.02, 0.98, 1.01, 1],
-    duration: 18,
-    delay: 4,
-  },
-  {
-    size: "clamp(100px, 30vw, 240px)",
-    position: { bottom: "5%", right: "5%" },
-    x: [0, -15, 10, -5, 0],
-    y: [0, 10, -15, 5, 0],
-    scale: [1, 1.02, 0.98, 1.01, 1],
-    duration: 22,
-    delay: 6,
-  },
+  { value: "Computer Engineering", label: "Studying" },
+  { value: "Arch Linux", label: "Daily setup" },
+  { value: "Security", label: "Learning" },
 ];
 
 export function Hero() {
-  const reduce = useReducedMotion();
-
-  const fadeUp = (delay: number, distance = 30) => ({
-    initial: { opacity: 0, y: reduce ? 0 : distance },
-    animate: { opacity: 1, y: 0 },
-    transition: {
-      delay: reduce ? 0 : delay,
-      duration: reduce ? 0.2 : 0.9,
-      ease: EASE,
-    },
-  });
-
   return (
     <section
       id="top"
-      className="relative min-h-svh flex flex-col items-center justify-center overflow-hidden pt-20 pb-12 md:pt-[clamp(5rem,9vh,6rem)] md:pb-[clamp(3.5rem,8vh,6rem)] safe-top safe-bottom"
+      className="technical-grid relative flex min-h-[100svh] items-stretch overflow-hidden border-b hairline pt-[calc(var(--nav-height)+var(--safe-top))]"
     >
-      {/* Ambient glass orbs — responsive sizes */}
-      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-        {orbs.map((orb, i) => (
-          <motion.div
-            key={i}
-            className="ambient-orb"
-            style={{ width: orb.size, height: orb.size, ...orb.position }}
-            animate={
-              reduce
-                ? undefined
-                : { x: orb.x, y: orb.y, scale: orb.scale }
-            }
-            transition={{
-              duration: orb.duration,
-              ease: "easeInOut",
-              repeat: Infinity,
-              delay: orb.delay,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Subtle grid pattern overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0 opacity-20"
-        aria-hidden="true"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 60 0 L 0 0 0 60' fill='none' stroke='%23a855f7' stroke-width='0.5'/%3E%3C/svg%3E")`,
-          backgroundSize: "60px 60px",
-        }}
-      />
-
-      <div className="relative z-10 w-full max-w-6xl px-4 md:px-8 text-center">
-        {/* Badge */}
-        <motion.div
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border-[var(--glass-border)] mb-6 md:mb-[clamp(1.25rem,3vh,2rem)]"
-          {...fadeUp(0)}
-        >
-          <motion.span
-            className="w-2 h-2 rounded-full bg-[var(--accent)]"
-            animate={reduce ? undefined : { scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            aria-hidden="true"
-          />
-          <span className="text-sm font-medium text-[var(--text-muted)] tracking-tight">
-            Open to new projects
+      <div className="site-shell flex min-h-[calc(100svh-var(--nav-height)-var(--safe-top))] flex-col">
+        <div className="hero-reveal hero-reveal-1 flex items-center justify-between border-x border-b hairline px-4 py-4 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.14em] sm:px-6">
+          <span>Portfolio / 2026</span>
+          <span className="flex items-center gap-2 text-[var(--oxide)]">
+            <span className="h-2 w-2 bg-current" aria-hidden="true" />
+            Available for new work
           </span>
-        </motion.div>
+        </div>
 
-        {/* Name - oversized, responsive clamp using svh */}
-        <motion.h1
-          className="font-display font-semibold tracking-[-0.045em] leading-[0.92] mb-4 md:mb-[clamp(0.75rem,2vh,1.25rem)]"
-          {...fadeUp(0.1, 40)}
-          style={{
-            fontSize: "clamp(2.5rem, min(10vw, 10svh), 6rem)",
-            willChange: "transform, opacity",
-          }}
-        >
-          <span className="block text-[var(--text)]">Talha</span>
-          <span className="block text-gradient">Çağlar</span>
-        </motion.h1>
+        <div className="grid flex-1 border-x hairline lg:grid-cols-[minmax(0,1.65fr)_minmax(20rem,0.65fr)]">
+          <div className="relative flex min-h-[52svh] items-end overflow-hidden border-b hairline px-4 py-10 sm:px-6 lg:min-h-0 lg:items-center lg:border-b-0 lg:border-r lg:py-14">
+            <div
+              className="absolute right-0 top-0 h-24 w-3 bg-[var(--oxide)] sm:h-32 sm:w-4"
+              aria-hidden="true"
+            />
+            <h1 className="hero-reveal hero-reveal-2 pb-[0.06em] font-display text-[clamp(5.5rem,19vw,15rem)] font-extrabold uppercase leading-[0.76] tracking-[-0.06em] lg:-translate-y-5 xl:-translate-y-8">
+              <span className="block">Talha</span>
+              <span className="block text-[var(--oxide)]">Çağlar</span>
+            </h1>
+          </div>
 
-        {/* Role */}
-        <motion.p
-          className="text-[var(--accent)] font-medium tracking-wide mb-3 md:mb-[clamp(0.5rem,1.5vh,1rem)]"
-          {...fadeUp(0.3)}
-          style={{ fontSize: "clamp(0.9375rem, 2.5vw, 1.125rem)" }}
-        >
-          Computer Science Student · Linux & Security Enthusiast
-        </motion.p>
+          <div className="hero-reveal hero-reveal-3 flex flex-col justify-between px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-14">
+            <div>
+              <p className="section-kicker text-[var(--oxide)]">Linux / Security</p>
+              <p className="mt-8 max-w-md font-display text-[clamp(1.8rem,3.5vw,3rem)] font-semibold leading-none tracking-[-0.025em]">
+                Computer engineering student
+              </p>
+              <p className="mt-7 max-w-md text-base leading-7 text-[var(--ink-soft)] sm:text-lg">
+                I build small tools around Linux, security and everyday problems.
+              </p>
+            </div>
 
-        {/* Subtitle */}
-        <motion.p
-          className="max-w-2xl mx-auto text-[var(--text-muted)] mb-6 md:mb-[clamp(1.5rem,3.5vh,2rem)]"
-          {...fadeUp(0.4)}
-          style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", lineHeight: 1.6 }}
-        >
-          I spend my time in the space between security and systems — Linux
-          tooling, automation, and software that stays clean under real use.
-        </motion.p>
+            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4 border-t hairline pt-6">
+              <a
+                href="#projects"
+                className="group inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em]"
+              >
+                See my work
+                <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
+              </a>
+              <a
+                href="#contact"
+                className="group inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
+              >
+                Say hello
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </div>
 
-        {/* CTAs — full width on mobile, auto on desktop */}
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8 md:mb-[clamp(2rem,4.5vh,3rem)] safe-x"
-          {...fadeUp(0.5)}
-        >
-          <Button
-            size="lg"
-            className="w-full sm:w-auto"
-            onClick={() =>
-              document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            View Projects
-            <ArrowDown className="w-5 h-5" aria-hidden="true" />
-          </Button>
-          <Button
-            variant="secondary"
-            size="lg"
-            className="w-full sm:w-auto"
-            onClick={() =>
-              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            Get in Touch
-            <MousePointer2 className="w-5 h-5" aria-hidden="true" />
-          </Button>
-        </motion.div>
-
-        {/* Facts — tighter spacing on mobile */}
-        <motion.ul
-          className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-3xl mx-auto"
-          {...fadeUp(0.6)}
-          aria-label="Key facts"
-        >
-          {facts.map((fact) => (
+        <ul className="hero-reveal hero-reveal-4 grid border-x border-t hairline sm:grid-cols-3" aria-label="Key facts">
+          {facts.map((fact, index) => (
             <li
               key={fact.label}
-              className="glass border-[var(--glass-border)] p-4 sm:p-5 md:p-6 rounded-2xl flex items-baseline justify-between gap-2 sm:gap-3 sm:flex-col sm:items-stretch sm:justify-center sm:gap-0"
+              className={`flex items-baseline justify-between gap-4 border-b hairline px-4 py-5 sm:min-h-28 sm:flex-col sm:items-start sm:justify-between sm:border-b-0 sm:px-6 sm:py-6 ${
+                index < facts.length - 1 ? "sm:border-r" : ""
+              }`}
             >
-              <span className="block font-display text-xl sm:text-2xl md:text-3xl font-semibold text-[var(--accent)] tracking-tight">
+              <span className="font-display text-2xl font-bold uppercase leading-none tracking-[-0.02em] sm:text-3xl">
                 {fact.value}
               </span>
-              <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-[var(--text-faint)] sm:mt-1">
+              <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-[var(--steel-dark)]">
                 {fact.label}
               </span>
             </li>
           ))}
-        </motion.ul>
+        </ul>
       </div>
-
-      {/* Scroll indicator — mobile version (subtle chevron) + desktop version */}
-      <motion.div
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[var(--text-faint)] md:hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: reduce ? 0 : 1.2, duration: 0.8, ease: EASE }}
-        aria-hidden="true"
-      >
-        <motion.span animate={reduce ? undefined : { y: [0, 8] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
-          <ChevronDown className="w-5 h-5" />
-        </motion.span>
-        <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] font-medium">
-          Scroll
-        </span>
-      </motion.div>
-
-      {/* Desktop scroll indicator */}
-      <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 hidden [@media(min-width:1024px)_and_(min-height:1000px)]:flex flex-col items-center gap-3 text-[var(--text-faint)]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: reduce ? 0 : 1.2, duration: 0.8, ease: EASE }}
-        aria-hidden="true"
-      >
-        <span className="font-mono text-[0.6875rem] uppercase tracking-[0.2em] font-medium">
-          Scroll
-        </span>
-        <div className="relative w-[3px] h-10 rounded-full bg-[var(--glass-border)] overflow-hidden">
-          <motion.div
-            className="absolute inset-x-0 h-4 rounded-full bg-[var(--accent)]"
-            animate={reduce ? undefined : { y: [-16, 40], opacity: [0, 1, 1, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </div>
-      </motion.div>
     </section>
   );
 }

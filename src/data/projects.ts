@@ -22,7 +22,7 @@ export const projects: Project[] = [
     id: 'lexis',
     name: 'Lexis',
     description:
-      'AI-assisted offline dictionary with spaced repetition. Learn words you look up, permanently.',
+      'AI-assisted offline dictionary with spaced repetition for words you look up.',
     tags: ['Python', 'PyQt6', 'SQLite', 'Local-first'],
     url: 'https://github.com/talhacaglar/Lexis',
     lang: 'Python',
@@ -39,7 +39,7 @@ export const projects: Project[] = [
     id: 'printhub',
     name: 'PrintHub',
     description:
-      'Enterprise printer management with toner cost tracking, stock management, Active Directory integration, and ISO 27001 compliance reporting.',
+      'Printer management with toner costs, stock tracking, Active Directory integration, and ISO 27001 reporting.',
     tags: ['Electron', 'JavaScript', 'Active Directory', 'ISO 27001'],
     url: 'https://github.com/talhacaglar/PrintHub',
     lang: 'JavaScript',
@@ -83,7 +83,7 @@ export const projects: Project[] = [
     id: 'tui-translator',
     name: 'TUI Anlık Çevirmen',
     description:
-      'Lightweight terminal UI for instant translation without leaving the shell. Powered by DeepL.',
+      'A small terminal interface for translation without leaving the shell. Uses DeepL.',
     tags: ['Python', 'TUI', 'DeepL'],
     url: 'https://github.com/talhacaglar/TUI-Anlik-Cevirmen',
     lang: 'Python',

@@ -1,46 +1,42 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
+import { Barlow_Condensed, IBM_Plex_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 
-// Three type roles. `latin-ext` is required on all of them, not optional:
-// without it "Çağlar", "Anlık" and "Türkiye" fall back to a system face.
-
-/** Display — headlines only. */
-const bricolage = Bricolage_Grotesque({
+const barlow = Barlow_Condensed({
   variable: "--font-display-face",
   subsets: ["latin", "latin-ext"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
-/** Text — body copy, the quiet one. */
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-body-face",
   subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
-/** Mono — labels and repo data. */
-const jetbrains = JetBrains_Mono({
+const plexMono = IBM_Plex_Mono({
   variable: "--font-mono-face",
   subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Talha Çağlar — Computer Science Student",
-  description: "Computer Science student, Linux and security enthusiast. Linux tooling, automation, and software that stays clean under real use.",
+  title: "Talha Çağlar — Computer Engineering Student",
+  description: "Computer engineering student building tools around Linux, security and everyday problems.",
   metadataBase: new URL("https://talhacaglar.github.io"),
   openGraph: {
-    title: "Talha Çağlar — Computer Science Student",
-    description: "Computer Science student, Linux and security enthusiast. Linux tooling, automation, and software that stays clean under real use.",
+    title: "Talha Çağlar — Computer Engineering Student",
+    description: "Computer engineering student building tools around Linux, security and everyday problems.",
     type: "website",
     locale: "en_US",
     siteName: "Talha Çağlar",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Talha Çağlar — Computer Science Student",
-    description: "Computer Science student, Linux and security enthusiast. Linux tooling, automation, and software that stays clean under real use.",
+    title: "Talha Çağlar — Computer Engineering Student",
+    description: "Computer engineering student building tools around Linux, security and everyday problems.",
   },
   robots: {
     index: true,
@@ -49,7 +45,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07060A",
+  themeColor: "#111312",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -62,14 +58,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${inter.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${barlow.variable} ${manrope.variable} ${plexMono.variable} h-full antialiased`}
     >
-      {/* next/font self-hosts every face, so there is nothing to preconnect to. */}
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
-      <body className="min-h-[100svh] flex flex-col -webkit-text-size-adjust-none text-size-adjust-none">{children}</body>
+      <body className="min-h-[100svh] flex flex-col">{children}</body>
     </html>
   );
 }

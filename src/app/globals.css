@@ -1,91 +1,54 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-display-face), system-ui, sans-serif;
+  --font-sans: var(--font-body-face), system-ui, sans-serif;
+  --font-display: var(--font-display-face), "Arial Narrow", sans-serif;
   --font-mono: var(--font-mono-face), ui-monospace, monospace;
 }
 
 :root {
-  /* Cooled near-black. Not #000: a true black flattens the glass surfaces,
-     which need something to actually sit on top of. Each step keeps the
-     same violet cast as the accent family. */
-  --bg: #07060a;
-  --bg-elevated: #0d0b12;
-  --bg-card: #14111c;
-
-  /* Purple accent family. --accent and --accent-deep are a matched
-     temperature pair, used as gradients rather than two flat fills. */
-  --accent: #a855f7;
-  --accent-glow: #c084fc;
-  --accent-deep: #7e22ce;
-  --accent-neon: #d8b4fe;
-  --accent-gradient: linear-gradient(135deg, var(--accent-glow) 0%, var(--accent) 45%, var(--accent-deep) 100%);
-
-  /* Glassmorphism layers */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-bg-strong: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-highlight: rgba(255, 255, 255, 0.14);
-  --glass-blur: 24px;
-
-  /* Typography */
-  --text: #ffffff;
-  --text-muted: #a1a1aa;
-  --text-faint: #71717a;
-
-  /* Water-smooth easing curves */
-  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Mobile viewport units — use small viewport (svh) for initial paint,
-     dynamic (dvh) for runtime, large (lvh) for landscape. */
-  --vh-s: 100svh;
-  --vh-d: 100dvh;
-  --vh-l: 100lvh;
-
-  /* Safe-area insets for notched devices */
-  --safe-top: env(safe-area-inset-top, 0);
-  --safe-right: env(safe-area-inset-right, 0);
-  --safe-bottom: env(safe-area-inset-bottom, 0);
-  --safe-left: env(safe-area-inset-left, 0);
-
-  /* Nav height for scroll-padding sync */
-  --nav-height: 56px; /* 14rem = 56px at base 16px */
+  --canvas: #111312;
+  --paper: #eeeee9;
+  --ink: #090b0a;
+  --ink-soft: #c5cac6;
+  --surface: #191c1a;
+  --surface-soft: #222623;
+  --steel: #aeb5b0;
+  --steel-dark: #909a93;
+  --oxide: #aa774f;
+  --cobalt: #eeeee9;
+  --line: rgba(238, 238, 233, 0.12);
+  --line-dark: rgba(238, 238, 233, 0.16);
+  --nav-height: 68px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Base element styles live in @layer base so Tailwind utilities,
-   which sit in the later `utilities` layer, always win. An unlayered
-   rule here would silently beat every utility class on the page. */
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-    /* The nav is fixed, so an anchor jump would otherwise land a section's
-       top edge underneath it. Covers the nav's own height plus its top
-       offset, with a little air left over. Uses CSS variable for sync. */
-    scroll-padding-top: calc(var(--nav-height) + 1rem);
-    /* Prevent pull-to-refresh on mobile from interfering with scroll */
-    overscroll-behavior: none;
+  * {
+    box-sizing: border-box;
   }
 
-  @media (min-width: 768px) {
-    html {
-      scroll-padding-top: calc(var(--nav-height) + 1.5rem);
-    }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-height) + 1rem);
+    background: var(--canvas);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
-    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
     overflow-x: hidden;
-    /* Ensure full viewport height on mobile without browser UI interference */
-    min-height: 100vh;
-    min-height: var(--vh-s);
+    background: var(--canvas);
+    color: var(--paper);
+    font-family: var(--font-body-face), system-ui, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   a {
@@ -94,251 +57,129 @@
   }
 
   button {
-    cursor: pointer;
-    /* Improve touch response on mobile */
-    touch-action: manipulation;
+    color: inherit;
+    font: inherit;
   }
 
   ::selection {
-    background: var(--accent);
-    color: var(--bg);
+    background: var(--oxide);
+    color: var(--ink);
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 6px;
-  }
-
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--bg);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--glass-border);
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-faint);
+    outline: 2px solid var(--cobalt);
+    outline-offset: 4px;
   }
 }
 
 @layer components {
-  .glass {
-    background: var(--glass-bg);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    border: 1px solid var(--glass-border);
+  .site-shell {
+    width: min(100%, 96rem);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 4.5rem);
   }
 
-  .glass-strong {
-    background: var(--glass-bg-strong);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    border: 1px solid var(--glass-highlight);
+  .section-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: var(--font-mono-face), monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
   }
 
-  /* The accent pair as a gradient rather than a flat fill. Falls back to a
-     solid accent where background-clip: text is unsupported. */
-  .text-gradient {
-    color: var(--accent);
+  .section-kicker::before {
+    width: 1.75rem;
+    height: 2px;
+    background: currentColor;
+    content: "";
   }
 
-  @supports (background-clip: text) or (-webkit-background-clip: text) {
-    .text-gradient {
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      /* Descenders on ğ/ç get clipped without a little breathing room. */
-      padding-bottom: 0.08em;
-    }
+  .display-title {
+    font-family: var(--font-display-face), "Arial Narrow", sans-serif;
+    font-size: clamp(3.2rem, 7vw, 6.5rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 0.86;
+    text-transform: uppercase;
   }
 
-  /* The nav floats over live content, so it cannot use the same near-clear
-     white tint as the cards — text scrolling underneath showed straight
-     through it. A dark tint plus a heavier blur keeps it readable. */
-  .glass-nav {
-    background: rgba(13, 11, 18, 0.72);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    backdrop-filter: blur(32px) saturate(180%);
-    border: 1px solid var(--glass-border);
+  .hairline {
+    border-color: var(--line);
   }
 
-  .glass-nav-strong {
-    background: rgba(13, 11, 18, 0.9);
-    -webkit-backdrop-filter: blur(36px) saturate(180%);
-    backdrop-filter: blur(36px) saturate(180%);
-    border: 1px solid var(--glass-highlight);
+  .dark-hairline {
+    border-color: var(--line-dark);
   }
 
-  /* Without backdrop-filter the tint alone must carry it, so go nearly solid. */
-  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .glass-nav,
-    .glass-nav-strong {
-      background: rgba(13, 11, 18, 0.97);
-    }
+  .safe-top {
+    padding-top: var(--safe-top);
   }
 
-  .ambient-orb {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle at 30% 30%,
-      rgba(168, 85, 247, 0.22) 0%,
-      rgba(126, 34, 206, 0.1) 45%,
-      transparent 70%
-    );
-    filter: blur(80px);
-    pointer-events: none;
+  .safe-bottom {
+    padding-bottom: var(--safe-bottom);
   }
 
-  /* Bento grid: 4 columns on desktop, collapsing to 2 then 1.
-     `dense` lets compact cards backfill gaps left by featured tiles. */
-  .bento-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-auto-rows: minmax(200px, auto);
-    gap: 1rem;
-    grid-auto-flow: dense;
+  .technical-grid {
+    background-image:
+      linear-gradient(to right, rgba(238, 238, 233, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(238, 238, 233, 0.025) 1px, transparent 1px);
+    background-position: center;
+    background-size: clamp(4rem, 8vw, 8rem) clamp(4rem, 8vw, 8rem);
   }
 
-  .bento-featured {
-    grid-column: span 2;
-    grid-row: span 2;
+  .project-inspector {
+    clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 0 100%);
   }
 
-  .bento-standard {
-    grid-column: span 2;
-    grid-row: span 1;
+  .hero-reveal {
+    animation: hero-reveal 0.9s var(--ease-out) both;
   }
 
-  .bento-compact {
-    grid-column: span 1;
-    grid-row: span 1;
+  .hero-reveal-1 {
+    animation-delay: 0.02s;
   }
 
-  @media (max-width: 1024px) {
-    .bento-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .bento-featured,
-    .bento-standard {
-      grid-column: span 2;
-      grid-row: span 1;
-    }
+  .hero-reveal-2 {
+    animation-delay: 0.1s;
   }
 
-  @media (max-width: 640px) {
-    .bento-grid {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .bento-featured,
-    .bento-standard,
-    .bento-compact {
-      grid-column: span 1;
-    }
+  .hero-reveal-3 {
+    animation-delay: 0.2s;
   }
 
-  {/* Extra small mobile breakpoint (~480px and below) */}
-  @media (max-width: 480px) {
-    .bento-grid {
-      gap: 0.75rem;
-      grid-auto-rows: minmax(180px, auto);
-    }
+  .hero-reveal-4 {
+    animation-delay: 0.3s;
   }
 
-  /* Touch-friendly button minimum sizes - applies to all interactive elements */
-  @media (pointer: coarse) {
-    button,
-    [role="button"],
-    a.button,
-    .button {
-      min-height: 44px;
-      min-width: 44px;
-    }
+  .certificate-frame { box-shadow: 0 1.25rem 2.5rem -2rem rgba(0, 0, 0, 0.7); }
+}
+
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
   }
 
-  /* Ensure focus styles work on mobile too */
-  @media (pointer: coarse) {
-    :focus-visible {
-      outline-width: 3px;
-      outline-offset: 4px;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Utility classes for mobile viewport heights */
-.min-h-svh {
-  min-height: 100svh;
+@media (max-width: 767px) {
+  :root {
+    --nav-height: 60px;
+  }
+
+  .technical-grid {
+    background-size: 4rem 4rem;
+  }
 }
 
-.min-h-dvh {
-  min-height: 100dvh;
-}
-
-.min-h-lvh {
-  min-height: 100lvh;
-}
-
-/* Mobile-first fluid spacing utilities */
-.space-y-fluid > * + * {
-  margin-top: clamp(0.75rem, 2vh, 1.5rem);
-}
-
-.space-x-fluid > * + * {
-  margin-left: clamp(0.5rem, 1.5vw, 1rem);
-}
-
-/* Safe area utilities */
-.safe-top {
-  padding-top: var(--safe-top);
-}
-
-.safe-bottom {
-  padding-bottom: var(--safe-bottom);
-}
-
-.safe-left {
-  padding-left: var(--safe-left);
-}
-
-.safe-right {
-  padding-right: var(--safe-right);
-}
-
-.safe-x {
-  padding-left: var(--safe-left);
-  padding-right: var(--safe-right);
-}
-
-.safe-y {
-  padding-top: var(--safe-top);
-  padding-bottom: var(--safe-bottom);
-}
-
-/* Touch target minimum size */
-.min-touch-target {
-  min-height: 44px;
-  min-width: 44px;
-}
-
-/* Prevent text scaling on mobile orientation change */
-.no-text-size-adjust {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
-
-/* Respect the OS reduced-motion preference across every animation,
-   including the Framer Motion transforms applied via inline styles. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -349,6 +190,7 @@
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
 }
