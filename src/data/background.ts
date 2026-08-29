@@ -11,17 +11,17 @@ export interface Role {
 /** Most recent first. */
 export const roles: Role[] = [
   {
-    id: 'isbir',
-    company: 'İşbir Sentetik Dokuma Sanayi A.Ş.',
-    role: 'IT Intern',
-    date: 'July 2026 — Present',
-    current: true,
-  },
-  {
     id: 'ptt-kule',
     company: 'PTT KULE AŞ.',
     role: 'IT Intern',
-    date: 'August 11, 2026 — September 7, 2026 · 4 weeks',
+    date: 'August 11, 2026 — Present',
+    current: true,
+  },
+  {
+    id: 'isbir',
+    company: 'İşbir Sentetik Dokuma Sanayi A.Ş.',
+    role: 'IT Intern',
+    date: 'July 2026 — August 10, 2026',
   },
   {
     id: 'siber-vatan',
