@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUpRight, FileDown } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { ArtifactStack } from "@/components/ArtifactStack";
 
 const facts = [
@@ -54,21 +54,13 @@ export function Hero() {
               <p className="max-w-sm text-sm leading-6 text-[var(--steel)]">
                 Real interfaces from selected projects. Move across the stack to inspect its depth.
               </p>
-              <div className="flex flex-wrap gap-x-6 gap-y-3">
+              <div>
                 <a
                   href="#projects"
                   className="group inline-flex min-h-11 items-center gap-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]"
                 >
                   See the work
                   <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
-                </a>
-                <a
-                  href="/resume/talha-caglar-resume.pdf"
-                  download
-                  className="group inline-flex min-h-11 items-center gap-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
-                >
-                  Résumé
-                  <FileDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
                 </a>
               </div>
             </div>

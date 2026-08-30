@@ -29,7 +29,7 @@ The site is a warm, dark systems dossier rather than a card-based portfolio.
 - Certifications are a document archive; experience is a chronological rail
 - Copy stays short, conversational and factual
 - Motion respects reduced-motion preferences and degrades to static depth
-- Résumé, Open Graph image, sitemap and structured data ship with the export
+- Open Graph image, sitemap and structured data ship with the export
 
 Personal facts and work records live in `src/data/`. Keep them factual and do
 not add decorative or invented claims.
