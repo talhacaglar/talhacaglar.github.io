@@ -18,13 +18,13 @@ export function Contact() {
           <div>
             <p className="section-kicker text-[var(--oxide-ink)]">Bursa · UTC+3</p>
             <h2 className="mt-8 max-w-5xl font-display text-[clamp(4rem,9vw,8.5rem)] font-extrabold uppercase leading-[0.82] tracking-[-0.05em]">
-              Build something useful?
+              Get in touch
             </h2>
           </div>
 
           <div className="flex flex-col justify-end">
             <p className="max-w-lg text-lg leading-8 text-[color:color-mix(in_srgb,var(--ink)_74%,transparent)]">
-              Send me a note about Linux, security or something useful we could build.
+              For project discussions, collaboration, or questions about my work, send me an email.
             </p>
             <a
               href={`mailto:${EMAIL}`}

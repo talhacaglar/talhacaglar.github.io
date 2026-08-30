@@ -2,9 +2,9 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { ArtifactStack } from "@/components/ArtifactStack";
 
 const facts = [
-  { value: "Computer Engineering", label: "Studying" },
-  { value: "Arch Linux", label: "Daily system" },
-  { value: "Security", label: "Building depth" },
+  { value: "Computer Engineering", label: "Degree" },
+  { value: "Arch Linux", label: "Primary environment" },
+  { value: "Security", label: "Area of interest" },
 ];
 
 export function Hero() {
@@ -19,7 +19,7 @@ export function Hero() {
           <span>Portfolio / 2026</span>
           <span className="flex items-center gap-2 text-[var(--oxide)]">
             <span className="status-pulse h-2 w-2 bg-current" aria-hidden="true" />
-            Available for new work
+            Open to opportunities
           </span>
         </div>
 
@@ -38,10 +38,10 @@ export function Hero() {
               <p className="section-kicker self-start text-[var(--oxide)]">Linux / Security</p>
               <div>
                 <p className="max-w-lg font-display text-[clamp(1.8rem,3.1vw,2.75rem)] font-semibold leading-[0.98] tracking-[-0.025em]">
-                  Computer engineering student building useful systems.
+                  Computer engineering student focused on Linux, security, and desktop software.
                 </p>
                 <p className="mt-5 max-w-lg text-base leading-7 text-[var(--ink-soft)]">
-                  Local-first desktop tools, terminal workflows, and security-minded infrastructure.
+                  I work on local-first applications, terminal tools, and security-focused systems.
                 </p>
               </div>
             </div>
@@ -52,14 +52,14 @@ export function Hero() {
 
             <div className="mt-5 grid gap-4 border-t hairline pt-5 sm:grid-cols-[1fr_auto] sm:items-center">
               <p className="max-w-sm text-sm leading-6 text-[var(--steel)]">
-                Real interfaces from selected projects. Move across the stack to inspect its depth.
+                Interface previews from selected projects.
               </p>
               <div>
                 <a
                   href="#projects"
                   className="group inline-flex min-h-11 items-center gap-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]"
                 >
-                  See the work
+                  View projects
                   <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
                 </a>
               </div>

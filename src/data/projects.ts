@@ -6,7 +6,7 @@ export interface Project {
   url: string;
   /** A factual system category used by the visual index. */
   category: string;
-  /** Short proof label shown in the project list. */
+  /** Short technical label shown in the project list. */
   signal: string;
   /** Primary language by bytes, as GitHub reports it. */
   lang: string;

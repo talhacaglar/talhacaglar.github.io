@@ -9,10 +9,10 @@ export function Certifications() {
         <div className="grid gap-8 border-b hairline pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.55fr)] lg:items-end">
           <div>
             <p className="section-kicker text-[var(--oxide)]">Certificates · {certifications.length}</p>
-            <h2 className="display-title mt-7">What I&apos;ve learned</h2>
+            <h2 className="display-title mt-7">Training and certifications</h2>
           </div>
           <p className="max-w-xl text-base leading-7 text-[var(--steel-dark)] lg:pb-1 lg:text-lg">
-            Courses and certificates from the areas I keep learning about.
+            Completed coursework and certifications in security and networking.
           </p>
         </div>
 

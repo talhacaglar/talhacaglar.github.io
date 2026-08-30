@@ -84,7 +84,7 @@ function ProjectDetails({ project, index }: { project: Project; index: number })
       <div className="mt-8 flex flex-col gap-6 border-b dark-hairline pb-7 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.13em] text-[var(--oxide)]">
-            Selected work / 0{index + 1}
+            Project / 0{index + 1}
           </p>
           <h3 className="mt-3 font-display text-[clamp(3.7rem,6vw,6.6rem)] font-bold uppercase leading-[0.8] tracking-[-0.045em]">
             {project.name}
@@ -187,18 +187,18 @@ export function Projects() {
       <div className="site-shell">
         <div className="grid gap-8 border-b dark-hairline pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.55fr)] lg:items-end">
           <div>
-            <p className="section-kicker text-[var(--oxide)]">Selected systems · {projects.length}</p>
-            <h2 className="display-title mt-7 max-w-5xl">Proof, not promises</h2>
+            <p className="section-kicker text-[var(--oxide)]">Selected projects · {projects.length}</p>
+            <h2 className="display-title mt-7 max-w-5xl">Projects and tools</h2>
           </div>
           <p className="max-w-xl text-base leading-7 text-[var(--steel)] lg:pb-1 lg:text-lg">
-            Interfaces, decisions, and source code from tools built to solve a concrete problem.
+            A selection of interfaces, technical decisions, and source code from recent work.
           </p>
         </div>
 
         <div className="hidden gap-10 pt-14 lg:grid lg:grid-cols-[minmax(19rem,0.62fr)_minmax(32rem,1.38fr)] xl:gap-16">
           <div>
             <p className="mb-5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.13em] text-[var(--steel)]">
-              Work index / Hover or select
+              Project index / Select a project
             </p>
             <ol className="border-t dark-hairline">
               {projects.map((project, index) => {
@@ -264,7 +264,7 @@ export function Projects() {
             className="group inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em]"
           >
             <GithubIcon className="h-5 w-5" aria-hidden="true" />
-            More on GitHub
+            View GitHub profile
             <ArrowUpRight className="h-4 w-4 text-[var(--oxide)] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
           </a>
         </div>
