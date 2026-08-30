@@ -34,9 +34,6 @@ function ProjectVisual({ project, priority = false }: { project: Project; priori
       </div>
       <div className="project-schematic-body">
         <div className="project-schematic-mark" aria-hidden="true">{project.name.slice(0, 2)}</div>
-        <div className="project-schematic-route" aria-hidden="true">
-          <i /><i /><i /><i />
-        </div>
         <div className="project-schematic-stack">
           {project.tags.slice(0, 4).map((tag, index) => (
             <span key={tag}><b>0{index + 1}</b>{tag}</span>

@@ -432,30 +432,6 @@
     text-transform: uppercase;
   }
 
-  .project-schematic-route {
-    position: absolute;
-    top: 50%;
-    right: 26%;
-    left: 28%;
-    height: 1px;
-    background: var(--oxide);
-  }
-
-  .project-schematic-route i {
-    position: absolute;
-    top: 50%;
-    width: 0.55rem;
-    height: 0.55rem;
-    border: 1px solid var(--oxide);
-    background: var(--surface);
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  .project-schematic-route i:nth-child(1) { left: 0; }
-  .project-schematic-route i:nth-child(2) { left: 33%; }
-  .project-schematic-route i:nth-child(3) { left: 66%; }
-  .project-schematic-route i:nth-child(4) { left: 100%; background: var(--oxide); }
-
   .project-schematic-stack {
     position: relative;
     z-index: 2;
@@ -606,9 +582,6 @@
     font-size: 5.5rem;
   }
 
-  .project-schematic-route {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
