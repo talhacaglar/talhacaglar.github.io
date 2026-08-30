@@ -22,7 +22,8 @@ The site is a warm, dark systems dossier rather than a card-based portfolio.
 - Neutral graphite surfaces, chalk-white type and a restrained copper accent;
   no purple, gradients or glass effects
 - Barlow Condensed for identity, Manrope for body copy, IBM Plex Mono for data
-- A CSS-3D artifact stack uses real project interfaces as the hero's signature
+- The two-line name block, technical grid and restrained copper markers carry
+  the hero's visual identity
 - A desktop Work Index drives a sticky Project Inspector; mobile uses native,
   accessible case-study accordions
 - Projects show factual problem / decision / result evidence

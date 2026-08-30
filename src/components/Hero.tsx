@@ -1,5 +1,4 @@
-import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { ArtifactStack } from "@/components/ArtifactStack";
+import { ArrowUpRight } from "lucide-react";
 
 const facts = [
   { value: "Computer Engineering", label: "Degree" },
@@ -23,8 +22,8 @@ export function Hero() {
           </span>
         </div>
 
-        <div className="grid flex-1 border-x hairline lg:grid-cols-[minmax(0,1.04fr)_minmax(28rem,0.96fr)]">
-          <div className="relative flex min-h-[56svh] flex-col justify-between overflow-hidden border-b hairline px-4 py-9 sm:px-6 sm:py-11 lg:min-h-0 lg:border-b-0 lg:border-r lg:py-14">
+        <div className="flex flex-1 border-x hairline">
+          <div className="relative flex min-h-[56svh] w-full flex-col justify-between overflow-hidden px-4 py-9 sm:px-6 sm:py-11 lg:min-h-0 lg:py-14">
             <div
               className="absolute right-0 top-0 h-24 w-3 bg-[var(--oxide)] sm:h-32 sm:w-4"
               aria-hidden="true"
@@ -34,7 +33,7 @@ export function Hero() {
               <span className="block text-[var(--oxide)]">Çağlar</span>
             </h1>
 
-            <div className="hero-reveal hero-reveal-3 mt-12 grid gap-8 border-t hairline pt-7 sm:grid-cols-[minmax(11rem,0.55fr)_minmax(0,1fr)] lg:mt-8">
+            <div className="hero-reveal hero-reveal-3 mt-12 grid max-w-5xl gap-8 border-t hairline pt-7 sm:grid-cols-[minmax(11rem,0.55fr)_minmax(0,1fr)] lg:mt-8">
               <p className="section-kicker self-start text-[var(--oxide)]">Linux / Security</p>
               <div>
                 <p className="max-w-lg font-display text-[clamp(1.8rem,3.1vw,2.75rem)] font-semibold leading-[0.98] tracking-[-0.025em]">
@@ -43,25 +42,6 @@ export function Hero() {
                 <p className="mt-5 max-w-lg text-base leading-7 text-[var(--ink-soft)]">
                   I work on local-first applications, terminal tools, and security-focused systems.
                 </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="hero-reveal hero-reveal-3 flex min-h-[33rem] flex-col border-b hairline p-4 sm:p-6 lg:min-h-0 lg:border-b-0 lg:p-8 xl:p-10">
-            <ArtifactStack />
-
-            <div className="mt-5 grid gap-4 border-t hairline pt-5 sm:grid-cols-[1fr_auto] sm:items-center">
-              <p className="max-w-sm text-sm leading-6 text-[var(--steel)]">
-                Interface previews from selected projects.
-              </p>
-              <div>
-                <a
-                  href="#projects"
-                  className="group inline-flex min-h-11 items-center gap-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]"
-                >
-                  View projects
-                  <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
-                </a>
               </div>
             </div>
           </div>
