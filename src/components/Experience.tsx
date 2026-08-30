@@ -9,13 +9,16 @@ export function Experience() {
           <h2 className="display-title mt-7">Work and education</h2>
         </div>
 
-        <ol>
+        <ol className="experience-timeline" aria-label="Work experience in reverse chronological order">
           {roles.map((role, index) => (
             <li
               key={role.id}
-              className="grid gap-5 border-b hairline py-8 sm:grid-cols-[2.5rem_minmax(11rem,0.55fr)_minmax(0,1fr)] sm:gap-8 sm:py-10"
+              className="experience-entry grid gap-5 border-b hairline py-8 sm:grid-cols-[3rem_minmax(11rem,0.55fr)_minmax(0,1fr)] sm:gap-8 sm:py-10"
             >
-              <span className="font-mono text-[0.65rem] font-semibold text-[var(--oxide)]">0{index + 1}</span>
+              <span className="timeline-node" aria-hidden="true">
+                <i className={role.current ? "timeline-node-current" : ""} />
+                <b>{String(roles.length - index).padStart(2, "0")}</b>
+              </span>
               <div>
                 <p className="font-mono text-[0.65rem] font-semibold uppercase leading-5 tracking-[0.1em] text-[var(--steel-dark)]">
                   {role.date}

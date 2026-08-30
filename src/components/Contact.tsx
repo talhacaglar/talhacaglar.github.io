@@ -1,4 +1,5 @@
 import { ArrowUpRight, Mail } from "lucide-react";
+import { ContactActions } from "@/components/ContactActions";
 import { GithubIcon, LinkedinIcon, TelegramIcon } from "@/components/ui/icons";
 
 const EMAIL = "talhacaglarr@proton.me";
@@ -15,9 +16,9 @@ export function Contact() {
       <div className="site-shell">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(18rem,0.7fr)] lg:gap-20">
           <div>
-            <p className="section-kicker text-[var(--oxide)]">Bursa · UTC+3</p>
+            <p className="section-kicker text-[var(--oxide-ink)]">Bursa · UTC+3</p>
             <h2 className="mt-8 max-w-5xl font-display text-[clamp(4rem,9vw,8.5rem)] font-extrabold uppercase leading-[0.82] tracking-[-0.05em]">
-              Have an idea?
+              Build something useful?
             </h2>
           </div>
 
@@ -35,6 +36,7 @@ export function Contact() {
               </span>
               <ArrowUpRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
             </a>
+            <ContactActions />
           </div>
         </div>
 

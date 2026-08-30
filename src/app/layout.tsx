@@ -26,17 +26,41 @@ export const metadata: Metadata = {
   title: "Talha Çağlar — Computer Engineering Student",
   description: "Computer engineering student building tools around Linux, security and everyday problems.",
   metadataBase: new URL("https://talhacaglar.github.io"),
+  alternates: {
+    canonical: "/",
+  },
+  authors: [{ name: "Talha Çağlar", url: "https://talhacaglar.github.io" }],
+  creator: "Talha Çağlar",
+  keywords: [
+    "Talha Çağlar",
+    "computer engineering",
+    "Linux",
+    "Arch Linux",
+    "cyber security",
+    "Python",
+    "open source",
+  ],
   openGraph: {
     title: "Talha Çağlar — Computer Engineering Student",
     description: "Computer engineering student building tools around Linux, security and everyday problems.",
     type: "website",
     locale: "en_US",
     siteName: "Talha Çağlar",
+    url: "/",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Talha Çağlar — Computer Engineering, Linux and Security",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Talha Çağlar — Computer Engineering Student",
     description: "Computer engineering student building tools around Linux, security and everyday problems.",
+    images: ["/opengraph-image.png"],
   },
   robots: {
     index: true,

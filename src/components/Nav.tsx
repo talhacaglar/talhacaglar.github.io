@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { FileDown, Menu, X } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TelegramIcon } from "@/components/ui/icons";
 
 const navLinks = [
@@ -19,30 +19,78 @@ const socialLinks = [
 ];
 
 export function Nav() {
-  const [activeSection, setActiveSection] = useState("projects");
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuPanelRef = useRef<HTMLDivElement>(null);
+  const menuWasOpen = useRef(false);
 
   useEffect(() => {
-    const sections = navLinks
-      .map((link) => document.querySelector(link.href))
+    const sections = ["top", ...navLinks.map((link) => link.href.slice(1))]
+      .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) setActiveSection(visible.target.id);
+        if (visible) setActiveSection(visible.target.id === "top" ? null : visible.target.id);
       },
-      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+      { rootMargin: "-38% 0px -52% 0px", threshold: 0 }
     );
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    if (!menuOpen) return;
-    const previousOverflow = document.body.style.overflow;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const range = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(range > 0 ? Math.min(1, Math.max(0, window.scrollY / range)) : 0);
     };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      if (menuWasOpen.current) menuButtonRef.current?.focus();
+      menuWasOpen.current = false;
+      return;
+    }
+
+    menuWasOpen.current = true;
+    const previousOverflow = document.body.style.overflow;
+    const panel = menuPanelRef.current;
+    const focusable = panel?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+    focusable?.[0]?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        return;
+      }
+      if (event.key !== "Tab" || !focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -87,6 +135,15 @@ export function Nav() {
         </nav>
 
         <div className="hidden h-full items-center border-x hairline md:flex">
+          <a
+            href="/resume/talha-caglar-resume.pdf"
+            download
+            className="flex h-full w-12 items-center justify-center border-r hairline text-[var(--oxide)] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)]"
+            aria-label="Download résumé"
+            title="Download résumé"
+          >
+            <FileDown className="h-[18px] w-[18px]" aria-hidden="true" />
+          </a>
           {socialLinks.map((social) => (
             <a
               key={social.label}
@@ -102,6 +159,7 @@ export function Nav() {
         </div>
 
         <button
+          ref={menuButtonRef}
           type="button"
           className="flex h-full min-w-14 items-center justify-center border-x hairline md:hidden"
           onClick={() => setMenuOpen((open) => !open)}
@@ -113,10 +171,21 @@ export function Nav() {
         </button>
       </div>
 
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[color:color-mix(in_srgb,var(--paper)_14%,transparent)]" aria-hidden="true">
+        <span
+          className="block h-full origin-left bg-[var(--oxide)]"
+          style={{ transform: `scaleX(${scrollProgress})` }}
+        />
+      </div>
+
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            ref={menuPanelRef}
             id="mobile-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
             className="fixed inset-0 top-[calc(var(--nav-height)+var(--safe-top))] z-40 bg-[var(--ink)] text-[var(--paper)] md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -140,18 +209,28 @@ export function Nav() {
                   </motion.a>
                 ))}
               </div>
-              <div className="safe-bottom flex items-center gap-6 pt-8">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--steel)]"
-                  >
-                    {social.label}
-                  </a>
-                ))}
+              <div className="safe-bottom border-t dark-hairline pt-7">
+                <a
+                  href="/resume/talha-caglar-resume.pdf"
+                  download
+                  className="inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
+                >
+                  <FileDown className="h-4 w-4" aria-hidden="true" />
+                  Download résumé
+                </a>
+                <div className="mt-5 flex flex-wrap items-center gap-6">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--steel)]"
+                    >
+                      {social.label}
+                    </a>
+                  ))}
+                </div>
               </div>
             </nav>
           </motion.div>

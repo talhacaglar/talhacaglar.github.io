@@ -16,6 +16,7 @@
   --steel: #aeb5b0;
   --steel-dark: #909a93;
   --oxide: #aa774f;
+  --oxide-ink: #7d4d2f;
   --cobalt: #eeeee9;
   --line: rgba(238, 238, 233, 0.12);
   --line-dark: rgba(238, 238, 233, 0.16);
@@ -155,7 +156,384 @@
     animation-delay: 0.3s;
   }
 
-  .certificate-frame { box-shadow: 0 1.25rem 2.5rem -2rem rgba(0, 0, 0, 0.7); }
+  .certificate-frame {
+    box-shadow: 0 1.25rem 2.5rem -2rem rgba(0, 0, 0, 0.7);
+  }
+
+  .certificate-frame::after {
+    position: absolute;
+    inset: 0.65rem;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--oxide), var(--oxide)) left top / 1.25rem 1px no-repeat,
+      linear-gradient(var(--oxide), var(--oxide)) left top / 1px 1.25rem no-repeat,
+      linear-gradient(var(--oxide), var(--oxide)) right bottom / 1.25rem 1px no-repeat,
+      linear-gradient(var(--oxide), var(--oxide)) right bottom / 1px 1.25rem no-repeat;
+    content: "";
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 350ms var(--ease-out);
+  }
+
+  .group:hover .certificate-frame::after,
+  .group:focus-visible .certificate-frame::after {
+    opacity: 0.8;
+  }
+
+  .hero-scan {
+    position: absolute;
+    inset: var(--nav-height) 0 auto;
+    z-index: 0;
+    height: 13rem;
+    background: linear-gradient(to bottom, transparent, rgba(170, 119, 79, 0.055), transparent);
+    opacity: 0.75;
+    pointer-events: none;
+    animation: hero-scan 10s linear infinite;
+  }
+
+  .status-pulse {
+    animation: status-pulse 2.4s ease-in-out infinite;
+  }
+
+  .artifact-stage {
+    position: relative;
+    display: flex;
+    flex: 1;
+    min-height: 29rem;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background:
+      linear-gradient(to right, rgba(238, 238, 233, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(238, 238, 233, 0.035) 1px, transparent 1px),
+      color-mix(in srgb, var(--surface) 72%, var(--canvas));
+    background-size: 3rem 3rem;
+    isolation: isolate;
+  }
+
+  .artifact-stage::before {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(circle at 68% 44%, rgba(170, 119, 79, 0.13), transparent 43%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .artifact-stage-header,
+  .artifact-stage-footer {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    border-color: var(--line);
+    font-family: var(--font-mono-face), monospace;
+    font-size: 0.59rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .artifact-stage-header {
+    border-bottom-width: 1px;
+  }
+
+  .artifact-stage-footer {
+    border-top-width: 1px;
+    color: var(--steel-dark);
+  }
+
+  .artifact-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--oxide);
+  }
+
+  .artifact-live i {
+    width: 0.4rem;
+    height: 0.4rem;
+    background: currentColor;
+  }
+
+  .artifact-perspective {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    min-height: 24rem;
+    transform-style: preserve-3d;
+    perspective: 1100px;
+    will-change: transform;
+  }
+
+  .artifact-axis {
+    position: absolute;
+    z-index: 0;
+    background: rgba(170, 119, 79, 0.34);
+    pointer-events: none;
+  }
+
+  .artifact-axis-x {
+    top: 50%;
+    left: 5%;
+    width: 90%;
+    height: 1px;
+  }
+
+  .artifact-axis-y {
+    top: 7%;
+    left: 50%;
+    width: 1px;
+    height: 86%;
+  }
+
+  .artifact-card {
+    position: absolute;
+    width: min(82%, 33rem);
+    overflow: hidden;
+    border: 1px solid rgba(238, 238, 233, 0.24);
+    background: var(--canvas);
+    box-shadow: 0 1.5rem 3rem -1.35rem rgba(0, 0, 0, 0.9);
+    transform-style: preserve-3d;
+  }
+
+  .artifact-card-lexis {
+    top: 9%;
+    left: 7%;
+    z-index: 3;
+    transform: translate3d(0, 0, 6.5rem) rotate(-1.7deg);
+  }
+
+  .artifact-card-focus {
+    top: 28%;
+    right: 5%;
+    z-index: 2;
+    transform: translate3d(0, 0, 2.25rem) rotate(2deg);
+  }
+
+  .artifact-card-translator {
+    top: 48%;
+    left: 10%;
+    z-index: 1;
+    transform: translate3d(0, 0, -1.75rem) rotate(-0.8deg);
+  }
+
+  .artifact-windowbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: 1.85rem;
+    padding-inline: 0.7rem;
+    border-bottom: 1px solid rgba(238, 238, 233, 0.18);
+    color: var(--steel);
+    font-family: var(--font-mono-face), monospace;
+    font-size: 0.53rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .artifact-image {
+    position: relative;
+    aspect-ratio: 16 / 8.4;
+    overflow: hidden;
+  }
+
+  .artifact-image img {
+    filter: saturate(0.72) brightness(0.78) contrast(1.08);
+  }
+
+  .project-visual {
+    position: relative;
+    aspect-ratio: 16 / 8.8;
+    min-height: 16rem;
+    overflow: hidden;
+  }
+
+  .project-visual-image::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(9, 11, 10, 0.56), transparent 45%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .project-visual-scan {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(to bottom, transparent 49%, rgba(170, 119, 79, 0.2) 50%, transparent 51%);
+    background-size: 100% 4rem;
+    mix-blend-mode: screen;
+    opacity: 0.26;
+    pointer-events: none;
+  }
+
+  .project-schematic {
+    display: flex;
+    flex-direction: column;
+    background: color-mix(in srgb, var(--surface) 76%, var(--canvas));
+  }
+
+  .project-schematic-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(238, 238, 233, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(238, 238, 233, 0.04) 1px, transparent 1px);
+    background-size: 2.75rem 2.75rem;
+    pointer-events: none;
+  }
+
+  .project-schematic-head,
+  .project-schematic-foot {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    border-color: var(--line-dark);
+    color: var(--steel);
+    font-family: var(--font-mono-face), monospace;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .project-schematic-head { border-bottom-width: 1px; }
+  .project-schematic-foot { border-top-width: 1px; }
+
+  .project-schematic-body {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    flex: 1;
+    grid-template-columns: 0.7fr 1.3fr;
+    align-items: center;
+    gap: 2rem;
+    padding: 2.4rem;
+  }
+
+  .project-schematic-mark {
+    color: color-mix(in srgb, var(--paper) 10%, transparent);
+    font-family: var(--font-display-face), sans-serif;
+    font-size: clamp(7rem, 13vw, 11rem);
+    font-weight: 800;
+    letter-spacing: -0.06em;
+    line-height: 0.7;
+    text-transform: uppercase;
+  }
+
+  .project-schematic-route {
+    position: absolute;
+    top: 50%;
+    right: 26%;
+    left: 28%;
+    height: 1px;
+    background: var(--oxide);
+  }
+
+  .project-schematic-route i {
+    position: absolute;
+    top: 50%;
+    width: 0.55rem;
+    height: 0.55rem;
+    border: 1px solid var(--oxide);
+    background: var(--surface);
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .project-schematic-route i:nth-child(1) { left: 0; }
+  .project-schematic-route i:nth-child(2) { left: 33%; }
+  .project-schematic-route i:nth-child(3) { left: 66%; }
+  .project-schematic-route i:nth-child(4) { left: 100%; background: var(--oxide); }
+
+  .project-schematic-stack {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .project-schematic-stack span {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr;
+    border: 1px solid var(--line-dark);
+    background: color-mix(in srgb, var(--canvas) 88%, transparent);
+    padding: 0.7rem;
+    font-family: var(--font-mono-face), monospace;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .project-schematic-stack b {
+    color: var(--oxide);
+    font-weight: 600;
+  }
+
+  .experience-timeline {
+    position: relative;
+  }
+
+  .experience-entry {
+    position: relative;
+  }
+
+  .timeline-node {
+    position: relative;
+    display: flex;
+    min-height: 2.5rem;
+    align-items: flex-start;
+    gap: 0.65rem;
+    color: var(--steel-dark);
+    font-family: var(--font-mono-face), monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+  }
+
+  .timeline-node::after {
+    position: absolute;
+    top: 1.15rem;
+    bottom: -3.75rem;
+    left: 0.31rem;
+    width: 1px;
+    background: var(--line-dark);
+    content: "";
+  }
+
+  .experience-entry:last-child .timeline-node::after {
+    display: none;
+  }
+
+  .timeline-node i {
+    position: relative;
+    z-index: 1;
+    width: 0.7rem;
+    height: 0.7rem;
+    flex: 0 0 auto;
+    border: 1px solid var(--oxide);
+    background: var(--canvas);
+    transform: rotate(45deg);
+  }
+
+  .timeline-node i.timeline-node-current {
+    background: var(--oxide);
+    box-shadow: 0 0 0 0.3rem rgba(170, 119, 79, 0.12);
+  }
+
+  .timeline-node b {
+    font-weight: 600;
+  }
 }
 
 @keyframes hero-reveal {
@@ -170,6 +548,16 @@
   }
 }
 
+@keyframes hero-scan {
+  from { transform: translateY(-14rem); }
+  to { transform: translateY(calc(100svh + 14rem)); }
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.82); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
 @media (max-width: 767px) {
   :root {
     --nav-height: 60px;
@@ -177,6 +565,49 @@
 
   .technical-grid {
     background-size: 4rem 4rem;
+  }
+
+  .artifact-stage {
+    min-height: 23rem;
+  }
+
+  .artifact-perspective {
+    min-height: 18.5rem;
+  }
+
+  .artifact-card {
+    width: 82%;
+  }
+
+  .artifact-card-lexis { top: 7%; left: 5%; }
+  .artifact-card-focus { top: 31%; right: 4%; }
+  .artifact-card-translator { top: 54%; left: 7%; }
+
+  .artifact-windowbar {
+    height: 1.45rem;
+    font-size: 0.45rem;
+  }
+
+  .artifact-stage-footer {
+    display: none;
+  }
+
+  .project-visual {
+    min-height: 12.5rem;
+  }
+
+  .project-schematic-body {
+    grid-template-columns: 0.55fr 1.45fr;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .project-schematic-mark {
+    font-size: 5.5rem;
+  }
+
+  .project-schematic-route {
+    display: none;
   }
 }
 
