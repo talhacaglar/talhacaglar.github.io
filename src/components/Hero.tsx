@@ -28,7 +28,7 @@ export function Hero() {
               className="absolute right-0 top-0 h-24 w-3 bg-[var(--oxide)] sm:h-32 sm:w-4"
               aria-hidden="true"
             />
-            <h1 className="hero-reveal hero-reveal-2 max-w-4xl pb-[0.06em] font-display text-[clamp(5.15rem,12.5vw,12.5rem)] font-extrabold uppercase leading-[0.74] tracking-[-0.06em]">
+            <h1 className="hero-reveal hero-reveal-2 mx-auto max-w-4xl pb-[0.06em] text-center font-display text-[clamp(5.15rem,12.5vw,12.5rem)] font-extrabold uppercase leading-[0.74] tracking-[-0.06em]">
               <span className="block">Talha</span>
               <span className="block text-[var(--oxide)]">Çağlar</span>
             </h1>
