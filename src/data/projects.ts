@@ -45,7 +45,7 @@ export const projects: Project[] = [
     updated: '2026.07',
     media: {
       src: '/projects/lexis.webp',
-      alt: 'Lexis desktop dictionary showing its local vocabulary workspace',
+      alt: 'Lexis vocabulary library with search, learning states, and nine sample entries',
       position: 'center',
     },
     caseStudy: {
@@ -92,7 +92,7 @@ export const projects: Project[] = [
     updated: '2026.07',
     media: {
       src: '/projects/clar-focus.webp',
-      alt: 'Clar Focus terminal dashboard with tasks, pomodoro state, and productivity statistics',
+      alt: 'Clar Focus dashboard showing the next task and a queue of sample tasks',
       position: 'center',
     },
     caseStudy: {
@@ -121,7 +121,7 @@ export const projects: Project[] = [
     description:
       'Android marketplace connecting farmers and buyers directly. Map-based listings, real-time chat, and per-kilogram price offers.',
     tags: ['Java', 'Android', 'Firebase', 'Google Maps'],
-    url: 'https://github.com/talhacaglar/TarlamCebimde',
+    url: 'https://github.com/talhacaglar/PocketFarm',
     category: 'Android marketplace',
     signal: 'Maps / Realtime',
     lang: 'Java',
@@ -134,14 +134,14 @@ export const projects: Project[] = [
     description:
       'A small terminal interface for translation without leaving the shell. Uses DeepL.',
     tags: ['Python', 'TUI', 'DeepL'],
-    url: 'https://github.com/talhacaglar/TUI-Anlik-Cevirmen',
+    url: 'https://github.com/talhacaglar/tui-translator',
     category: 'Terminal utility',
     signal: 'DeepL / Textual',
     lang: 'Python',
     updated: '2026.07',
     media: {
       src: '/projects/translator.webp',
-      alt: 'TUI Anlik Cevirmen terminal interface in its dark theme',
+      alt: 'DTR translating English into Turkish with source and target language selectors',
       position: 'center',
     },
     size: 'compact',

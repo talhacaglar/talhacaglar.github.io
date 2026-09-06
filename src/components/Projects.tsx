@@ -10,18 +10,24 @@ import { projects, type Project } from "@/data/projects";
 function ProjectVisual({ project, priority = false }: { project: Project; priority?: boolean }) {
   if (project.media) {
     return (
-      <div className="project-visual project-visual-image">
+      <a
+        href={project.media.src}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="project-visual project-visual-image block"
+        aria-label={`Open full-size ${project.name} screenshot`}
+        title="Open full-size screenshot"
+      >
         <Image
           src={project.media.src}
           alt={project.media.alt}
           fill
           priority={priority}
           sizes="(max-width: 1024px) 100vw, 56vw"
-          className="object-cover transition-transform duration-700 group-hover/visual:scale-[1.018]"
+          className="object-contain"
           style={{ objectPosition: project.media.position ?? "center" }}
         />
-        <div className="project-visual-scan" aria-hidden="true" />
-      </div>
+      </a>
     );
   }
 
