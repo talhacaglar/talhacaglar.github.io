@@ -138,11 +138,20 @@ export function Nav() {
           <a
             href="/resume/Talha-Caglar-CV.pdf"
             download
-            className="flex h-full w-12 items-center justify-center border-r hairline text-[var(--oxide)] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)]"
+            className="flex h-full w-8 items-center justify-center border-r hairline text-[var(--oxide)] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)]"
             aria-label="Download CV (TR)"
             title="Download CV (TR)"
           >
-            <FileDown className="h-[18px] w-[18px]" aria-hidden="true" />
+            <span className="font-mono text-[0.65rem] font-semibold">TR</span>
+          </a>
+          <a
+            href="/resume/Talha-Caglar-CV-EN.pdf"
+            download
+            className="flex h-full w-8 items-center justify-center border-r hairline text-[var(--oxide)] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)]"
+            aria-label="Download CV (EN)"
+            title="Download CV (EN)"
+          >
+            <span className="font-mono text-[0.65rem] font-semibold">EN</span>
           </a>
           {socialLinks.map((social) => (
             <a
@@ -210,14 +219,24 @@ export function Nav() {
                 ))}
               </div>
               <div className="safe-bottom border-t dark-hairline pt-7">
-                <a
-                  href="/resume/Talha-Caglar-CV.pdf"
-                  download
-                  className="inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
-                >
-                  <FileDown className="h-4 w-4" aria-hidden="true" />
-                  Download CV (TR)
-                </a>
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                  <a
+                    href="/resume/Talha-Caglar-CV.pdf"
+                    download
+                    className="inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
+                  >
+                    <FileDown className="h-4 w-4" aria-hidden="true" />
+                    Download CV (TR)
+                  </a>
+                  <a
+                    href="/resume/Talha-Caglar-CV-EN.pdf"
+                    download
+                    className="inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
+                  >
+                    <FileDown className="h-4 w-4" aria-hidden="true" />
+                    Download CV (EN)
+                  </a>
+                </div>
                 <div className="mt-5 flex flex-wrap items-center gap-6">
                   {socialLinks.map((social) => (
                     <a
