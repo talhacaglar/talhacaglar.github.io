@@ -24,7 +24,7 @@ export function Contact() {
 
           <div className="flex flex-col justify-end">
             <p className="max-w-lg text-lg leading-8 text-[color:color-mix(in_srgb,var(--ink)_74%,transparent)]">
-              For project discussions, collaboration, or questions about my work, send me an email.
+              For project discussions, collaboration, or questions about my work, reach me by email or Discord.
             </p>
             <a
               href={`mailto:${EMAIL}`}
