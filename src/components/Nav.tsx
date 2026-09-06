@@ -138,20 +138,20 @@ export function Nav() {
           <a
             href="/resume/Talha-Caglar-CV.pdf"
             download
-            className="flex h-full w-8 items-center justify-center border-r hairline text-[var(--oxide)] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)]"
+            className="flex h-full w-12 items-center justify-center border-r hairline text-[var(--oxide)] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)]"
             aria-label="Download CV (TR)"
             title="Download CV (TR)"
           >
-            <span className="font-mono text-[0.65rem] font-semibold">TR</span>
+            <span className="font-mono text-[0.62rem] font-semibold">CV TR</span>
           </a>
           <a
             href="/resume/Talha-Caglar-CV-EN.pdf"
             download
-            className="flex h-full w-8 items-center justify-center border-r hairline text-[var(--oxide)] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)]"
+            className="flex h-full w-12 items-center justify-center border-r hairline text-[var(--oxide)] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)]"
             aria-label="Download CV (EN)"
             title="Download CV (EN)"
           >
-            <span className="font-mono text-[0.65rem] font-semibold">EN</span>
+            <span className="font-mono text-[0.62rem] font-semibold">CV EN</span>
           </a>
           {socialLinks.map((social) => (
             <a
