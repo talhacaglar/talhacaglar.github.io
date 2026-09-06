@@ -117,7 +117,7 @@ export const projects: Project[] = [
   },
   {
     id: 'tarlam-cebimde',
-    name: 'Tarlam Cebimde',
+    name: 'PocketFarm',
     description:
       'Android marketplace connecting farmers and buyers directly. Map-based listings, real-time chat, and per-kilogram price offers.',
     tags: ['Java', 'Android', 'Firebase', 'Google Maps'],
@@ -130,7 +130,7 @@ export const projects: Project[] = [
   },
   {
     id: 'tui-translator',
-    name: 'TUI Anlık Çevirmen',
+    name: 'DTR · Instant Translator',
     description:
       'A small terminal interface for translation without leaving the shell. Uses DeepL.',
     tags: ['Python', 'TUI', 'DeepL'],
