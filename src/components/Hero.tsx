@@ -42,6 +42,7 @@ export function Hero() {
                     alt="Talha Çağlar wearing sunglasses and a leather jacket"
                     fill
                     sizes="(min-width: 1024px) 176px, 42vw"
+                    unoptimized
                     className="h-full w-full object-cover"
                   />
                   <span className="absolute bottom-0 left-0 h-1 w-12 bg-[var(--oxide)]" aria-hidden="true" />
