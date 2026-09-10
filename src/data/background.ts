@@ -14,8 +14,7 @@ export const roles: Role[] = [
     id: 'ptt-kule',
     company: 'PTT KULE AŞ.',
     role: 'IT Intern',
-    date: 'August 11, 2026 — Present',
-    current: true,
+    date: 'August 11, 2026 — September 10, 2026',
   },
   {
     id: 'isbir',

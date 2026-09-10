@@ -191,6 +191,21 @@
     animation: hero-scan 10s linear infinite;
   }
 
+  .hero-avatar {
+    width: min(10rem, 42vw);
+  }
+
+  .hero-avatar img {
+    filter: saturate(0.72) contrast(1.04);
+    transition: filter 350ms var(--ease-out), transform 350ms var(--ease-out);
+  }
+
+  .hero-avatar:hover img,
+  .hero-avatar:focus-within img {
+    filter: saturate(1) contrast(1.04);
+    transform: scale(1.025);
+  }
+
   .status-pulse {
     animation: status-pulse 2.4s ease-in-out infinite;
   }

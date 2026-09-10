@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 const facts = [
   { value: "Computer Engineering", label: "Degree" },
@@ -28,10 +29,29 @@ export function Hero() {
               className="absolute right-0 top-0 h-24 w-3 bg-[var(--oxide)] sm:h-32 sm:w-4"
               aria-hidden="true"
             />
-            <h1 className="hero-reveal hero-reveal-2 mx-auto max-w-4xl pb-[0.06em] text-center font-display text-[clamp(5.15rem,12.5vw,12.5rem)] font-extrabold uppercase leading-[0.74] tracking-[-0.06em]">
-              <span className="block">Talha</span>
-              <span className="block text-[var(--oxide)]">Çağlar</span>
-            </h1>
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
+              <h1 className="hero-reveal hero-reveal-2 mx-auto max-w-4xl pb-[0.06em] text-center font-display text-[clamp(5.15rem,12.5vw,12.5rem)] font-extrabold uppercase leading-[0.74] tracking-[-0.06em] lg:flex-1">
+                <span className="block">Talha</span>
+                <span className="block text-[var(--oxide)]">Çağlar</span>
+              </h1>
+
+              <figure className="hero-reveal hero-reveal-2 hero-avatar self-end lg:mt-3 lg:w-44">
+                <div className="relative aspect-square overflow-hidden border hairline bg-[var(--surface)]">
+                  <Image
+                    src="/profile-avatar.jpg"
+                    alt="Talha Çağlar wearing sunglasses and a leather jacket"
+                    fill
+                    sizes="(min-width: 1024px) 176px, 42vw"
+                    className="h-full w-full object-cover"
+                  />
+                  <span className="absolute bottom-0 left-0 h-1 w-12 bg-[var(--oxide)]" aria-hidden="true" />
+                </div>
+                <figcaption className="mt-2 flex items-center justify-between font-mono text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-[var(--steel-dark)]">
+                  <span>TC / 01</span>
+                  <span>Identity</span>
+                </figcaption>
+              </figure>
+            </div>
 
             <div className="hero-reveal hero-reveal-3 mt-12 grid max-w-5xl gap-8 border-t hairline pt-7 sm:grid-cols-[minmax(11rem,0.55fr)_minmax(0,1fr)] lg:mt-8">
               <p className="section-kicker self-start text-[var(--oxide)]">Linux / Security</p>
