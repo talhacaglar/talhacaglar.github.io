@@ -85,7 +85,7 @@ export default function RootLayout({
       className={`${barlow.variable} ${manrope.variable} ${plexMono.variable} h-full antialiased`}
     >
       <head>
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body className="min-h-[100svh] flex flex-col">{children}</body>
     </html>
