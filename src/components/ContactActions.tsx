@@ -10,6 +10,7 @@ type CopiedValue = "email" | "discord" | null;
 
 export function ContactActions() {
   const [copied, setCopied] = useState<CopiedValue>(null);
+  const [copyError, setCopyError] = useState<string | null>(null);
 
   const copyEmail = async () => {
     try {
@@ -22,9 +23,14 @@ export function ContactActions() {
   };
 
   const copyDiscord = async () => {
-    await navigator.clipboard.writeText(DISCORD_USERNAME);
-    setCopied("discord");
-    window.setTimeout(() => setCopied(null), 1800);
+    setCopyError(null);
+    try {
+      await navigator.clipboard.writeText(DISCORD_USERNAME);
+      setCopied("discord");
+      window.setTimeout(() => setCopied(null), 1800);
+    } catch {
+      setCopyError(`Copy unavailable. Discord username: ${DISCORD_USERNAME}`);
+    }
   };
 
   return (
@@ -65,6 +71,11 @@ export function ContactActions() {
         <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]">Download CV (EN)</span>
         <FileDown className="h-4 w-4 transition-transform group-hover:translate-y-1" aria-hidden="true" />
       </a>
+      {copyError && (
+        <p role="status" className="col-span-full border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 py-3 text-sm">
+          {copyError}
+        </p>
+      )}
       <span className="sr-only" aria-live="polite">
         {copied === "email" ? "Email address copied to clipboard" : copied === "discord" ? "Discord username copied to clipboard" : ""}
       </span>
