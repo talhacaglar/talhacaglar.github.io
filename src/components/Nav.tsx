@@ -62,8 +62,20 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const closeMenuOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setMenuOpen(false);
+    };
+
+    desktop.addEventListener("change", closeMenuOnDesktop);
+    return () => desktop.removeEventListener("change", closeMenuOnDesktop);
+  }, []);
+
+  useEffect(() => {
     if (!menuOpen) {
-      if (menuWasOpen.current) menuButtonRef.current?.focus();
+      if (menuWasOpen.current && menuButtonRef.current?.getClientRects().length) {
+        menuButtonRef.current.focus();
+      }
       menuWasOpen.current = false;
       return;
     }
