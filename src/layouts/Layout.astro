@@ -19,7 +19,8 @@ const t = translations[DEFAULT_LANG];
     {/* Temayı ilk boyamadan önce yaz — aksi halde sayfa bir kare yanlış temada görünür */}
     <script is:inline>
       (() => {
-        const stored = localStorage.getItem('theme');
+        let stored = null;
+        try { stored = localStorage.getItem('theme'); } catch { /* Use system preference. */ }
         const theme =
           stored === 'light' || stored === 'dark'
             ? stored

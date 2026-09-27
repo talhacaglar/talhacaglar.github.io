@@ -1,3 +1,5 @@
+import { readPreference, writePreference } from './storage.js';
+
 // Tema seçimi. İlk boyamadan önceki atamayı Layout'taki satır içi betik yapar;
 // burası yalnızca düğmeleri ve sonraki sistem değişikliklerini bağlar.
 const root = document.documentElement;
@@ -17,14 +19,14 @@ const apply = (theme) => {
 
 buttons.forEach((btn) => {
   btn.addEventListener('click', () => {
-    localStorage.setItem(STORAGE_KEY, btn.dataset.themeSet);
+    writePreference(STORAGE_KEY, btn.dataset.themeSet);
     apply(btn.dataset.themeSet);
   });
 });
 
 // Kullanıcı henüz seçim yapmadıysa sistem tercihini izlemeye devam et
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-  if (!localStorage.getItem(STORAGE_KEY)) apply(event.matches ? 'dark' : 'light');
+  if (!readPreference(STORAGE_KEY)) apply(event.matches ? 'dark' : 'light');
 });
 
 apply(root.dataset.theme === 'dark' ? 'dark' : 'light');

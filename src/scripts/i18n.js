@@ -1,9 +1,10 @@
+import { readPreference, writePreference } from './storage.js';
 import { translations, DEFAULT_LANG } from '../data/translations.ts';
 
 const STORAGE_KEY = 'lang';
 
 function resolveInitialLang() {
-  const stored = localStorage.getItem(STORAGE_KEY);
+  const stored = readPreference(STORAGE_KEY);
   if (stored === 'tr' || stored === 'en') return stored;
   return navigator.language?.toLowerCase().startsWith('tr') ? 'tr' : 'en';
 }
@@ -40,7 +41,7 @@ apply(current);
 document.querySelectorAll('[data-lang-toggle]').forEach((btn) => {
   btn.addEventListener('click', () => {
     current = current === 'tr' ? 'en' : 'tr';
-    localStorage.setItem(STORAGE_KEY, current);
+    writePreference(STORAGE_KEY, current);
     apply(current);
   });
 });
