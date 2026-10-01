@@ -291,6 +291,29 @@
     font-weight: 600;
   }
 
+  .mobile-case-study summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-case-study[open] summary svg {
+    transform: rotate(180deg);
+  }
+
+  .mobile-case-study summary svg {
+    transition: transform 250ms var(--ease-out);
+  }
+
+  .mobile-case-study dl {
+    margin-top: 0;
+    border-top: 0;
+    border-left: 0;
+  }
+
+  .mobile-case-study dl > div {
+    border-right: 0;
+    padding: 0.9rem 0;
+  }
+
   .experience-timeline {
     position: relative;
   }
@@ -382,15 +405,37 @@
   }
 
   .project-schematic-body {
-    grid-template-columns: 0.55fr 1.45fr;
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: end;
     padding: 1.25rem;
   }
 
   .project-schematic-mark {
-    font-size: 5.5rem;
+    position: absolute;
+    top: 1.5rem;
+    left: 1rem;
+    font-size: 7rem;
+    opacity: 0.45;
   }
 
+  .project-schematic-stack {
+    width: min(100%, 15rem);
+    margin-left: auto;
+  }
+
+  .project-schematic-head,
+  .project-schematic-foot {
+    flex-wrap: wrap;
+    gap: 0.2rem 0.75rem;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.54rem;
+  }
+
+  .project-schematic-stack span {
+    grid-template-columns: 1.75rem minmax(0, 1fr);
+    padding: 0.55rem;
+    font-size: 0.55rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

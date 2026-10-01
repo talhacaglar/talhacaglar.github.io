@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FileDown, Menu, X } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TelegramIcon } from "@/components/ui/icons";
 
@@ -22,6 +22,7 @@ export function Nav() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const reduceMotion = useReducedMotion();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLDivElement>(null);
   const menuWasOpen = useRef(false);
@@ -62,16 +63,6 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 768px)");
-    const closeMenuOnDesktop = (event: MediaQueryListEvent) => {
-      if (event.matches) setMenuOpen(false);
-    };
-
-    desktop.addEventListener("change", closeMenuOnDesktop);
-    return () => desktop.removeEventListener("change", closeMenuOnDesktop);
-  }, []);
-
-  useEffect(() => {
     if (!menuOpen) {
       if (menuWasOpen.current && menuButtonRef.current?.getClientRects().length) {
         menuButtonRef.current.focus();
@@ -81,6 +72,11 @@ export function Nav() {
     }
 
     menuWasOpen.current = true;
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setMenuOpen(false);
+    };
+    desktop.addEventListener("change", closeOnDesktop);
     const previousOverflow = document.body.style.overflow;
     const panel = menuPanelRef.current;
     const focusable = panel?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
@@ -107,6 +103,7 @@ export function Nav() {
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
+      desktop.removeEventListener("change", closeOnDesktop);
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [menuOpen]);
@@ -122,7 +119,7 @@ export function Nav() {
           TC<span className="text-[var(--oxide)]">.</span>
         </a>
 
-        <nav className="hidden h-full items-center md:flex" aria-label="Primary navigation">
+        <nav className="hidden h-full items-center lg:flex" aria-label="Primary navigation">
           {navLinks.map((link) => {
             const active = activeSection === link.href.slice(1);
             return (
@@ -146,7 +143,7 @@ export function Nav() {
           })}
         </nav>
 
-        <div className="hidden h-full items-center border-x hairline md:flex">
+        <div className="hidden h-full items-center border-x hairline lg:flex">
           <a
             href="/resume/Talha-Caglar-CV.pdf"
             download
@@ -182,7 +179,7 @@ export function Nav() {
         <button
           ref={menuButtonRef}
           type="button"
-          className="flex h-full min-w-14 items-center justify-center border-x hairline md:hidden"
+          className="flex h-full min-w-14 items-center justify-center border-x hairline lg:hidden"
           onClick={() => setMenuOpen((open) => !open)}
           aria-expanded={menuOpen}
           aria-controls="mobile-navigation"
@@ -207,30 +204,30 @@ export function Nav() {
             role="dialog"
             aria-modal="true"
             aria-label="Site navigation"
-            className="fixed inset-0 top-[calc(var(--nav-height)+var(--safe-top))] z-40 bg-[var(--ink)] text-[var(--paper)] md:hidden"
+            className="fixed inset-x-0 bottom-0 top-[calc(var(--nav-height)+var(--safe-top))] z-40 overflow-y-auto overscroll-contain bg-[var(--ink)] text-[var(--paper)] lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
+            transition={{ duration: reduceMotion ? 0 : 0.22 }}
           >
-            <nav className="flex h-full flex-col px-5 py-8" aria-label="Mobile navigation">
+            <nav className="mx-auto flex min-h-full w-full max-w-2xl flex-col px-5 pb-[calc(1.75rem+var(--safe-bottom))] pt-5 sm:px-8" aria-label="Mobile navigation">
               <div className="flex-1">
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.href}
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="flex min-h-20 items-center justify-between border-b dark-hairline font-display text-4xl font-bold uppercase tracking-[-0.025em]"
+                    className="flex min-h-[4.25rem] items-center justify-between border-b dark-hairline font-display text-[clamp(2rem,9vw,2.5rem)] font-bold uppercase tracking-[-0.025em]"
                     initial={{ opacity: 0, x: 24 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 * index, duration: 0.45 }}
+                    transition={{ delay: reduceMotion ? 0 : 0.05 * index, duration: reduceMotion ? 0 : 0.35 }}
                   >
                     {link.label}
                     <span className="font-mono text-[0.65rem] text-[var(--steel)]">0{index + 1}</span>
                   </motion.a>
                 ))}
               </div>
-              <div className="safe-bottom border-t dark-hairline pt-7">
+              <div className="border-t dark-hairline pt-5">
                 <div className="flex flex-wrap gap-x-6 gap-y-2">
                   <a
                     href="/resume/Talha-Caglar-CV.pdf"

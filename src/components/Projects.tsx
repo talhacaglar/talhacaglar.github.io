@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { GithubIcon } from "@/components/ui/icons";
 import { projects, type Project } from "@/data/projects";
@@ -77,6 +76,20 @@ function CaseStudy({ project }: { project: Project }) {
   );
 }
 
+function MobileCaseStudy({ project }: { project: Project }) {
+  if (!project.caseStudy) return null;
+
+  return (
+    <details className="mobile-case-study mt-6 border-y dark-hairline">
+      <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.1em] marker:hidden">
+        Problem, approach and outcome
+        <ChevronDown className="h-4 w-4 shrink-0 text-[var(--oxide)]" aria-hidden="true" />
+      </summary>
+      <CaseStudy project={project} />
+    </details>
+  );
+}
+
 function ProjectDetails({ project, index }: { project: Project; index: number }) {
   return (
     <>
@@ -144,12 +157,12 @@ function MobileProject({ project, index }: { project: Project; index: number }) 
   return (
     <li className="border-b dark-hairline first:border-t">
       <details className="group/mobile" open={index === 0}>
-        <summary className="flex min-h-24 cursor-pointer list-none items-center justify-between gap-5 py-6 marker:hidden">
-          <div>
+        <summary className="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 py-5 marker:hidden">
+          <div className="min-w-0">
             <span className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.13em] text-[var(--oxide)]">
               {project.signal}
             </span>
-            <h3 className="mt-2 font-display text-4xl font-bold uppercase leading-none tracking-[-0.03em]">
+            <h3 className="mt-2 break-words font-display text-[clamp(2rem,9vw,2.5rem)] font-bold uppercase leading-none tracking-[-0.03em]">
               {project.name}
             </h3>
           </div>
@@ -161,7 +174,7 @@ function MobileProject({ project, index }: { project: Project; index: number }) 
             <ProjectVisual project={project} priority={index === 0} />
           </div>
           <p className="mt-6 text-sm leading-6 text-[var(--ink-soft)]">{project.description}</p>
-          <CaseStudy project={project} />
+          <MobileCaseStudy project={project} />
           <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.1em] text-[var(--steel)]">
             {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
           </div>
@@ -181,14 +194,13 @@ function MobileProject({ project, index }: { project: Project; index: number }) 
 
 export function Projects() {
   const [activeId, setActiveId] = useState(projects[0].id);
-  const reduce = useReducedMotion();
   const activeProject = projects.find((project) => project.id === activeId) ?? projects[0];
   const activeIndex = projects.findIndex((project) => project.id === activeProject.id);
 
   return (
-    <section id="projects" className="bg-[var(--ink)] py-24 text-[var(--paper)] sm:py-28 lg:py-36">
+    <section id="projects" className="bg-[var(--ink)] py-16 text-[var(--paper)] sm:py-24 lg:py-32">
       <div className="site-shell">
-        <div className="grid gap-8 border-b dark-hairline pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.55fr)] lg:items-end">
+        <div className="grid gap-5 border-b dark-hairline pb-9 sm:gap-8 sm:pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.55fr)] lg:items-end">
           <div>
             <p className="section-kicker text-[var(--oxide)]">Selected projects · {projects.length}</p>
             <h2 className="display-title mt-7 max-w-5xl">Projects and tools</h2>
@@ -238,22 +250,13 @@ export function Projects() {
           </div>
 
           <aside className="project-inspector sticky top-[calc(var(--nav-height)+1.5rem)] min-h-[48rem] self-start overflow-hidden border dark-hairline bg-[var(--surface)] p-6 xl:p-9">
-            <AnimatePresence>
-              <motion.div
-                key={activeProject.id}
-                className="relative z-10"
-                initial={{ opacity: 0, y: reduce ? 0 : 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: reduce ? 0 : -10 }}
-                transition={{ duration: reduce ? 0.1 : 0.3 }}
-              >
-                <ProjectDetails project={activeProject} index={activeIndex} />
-              </motion.div>
-            </AnimatePresence>
+            <div className="relative z-10">
+              <ProjectDetails project={activeProject} index={activeIndex} />
+            </div>
           </aside>
         </div>
 
-        <ol className="pt-12 lg:hidden">
+        <ol className="pt-8 sm:pt-12 lg:hidden">
           {projects.map((project, index) => (
             <MobileProject key={project.id} project={project} index={index} />
           ))}

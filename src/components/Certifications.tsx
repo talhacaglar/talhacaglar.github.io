@@ -4,9 +4,9 @@ import { certifications } from "@/data/certifications";
 
 export function Certifications() {
   return (
-    <section id="certifications" className="bg-[var(--surface)] py-24 text-[var(--paper)] sm:py-28 lg:py-36">
+    <section id="certifications" className="bg-[var(--surface)] py-16 text-[var(--paper)] sm:py-24 lg:py-32">
       <div className="site-shell">
-        <div className="grid gap-8 border-b hairline pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.55fr)] lg:items-end">
+        <div className="grid gap-5 border-b hairline pb-9 sm:gap-8 sm:pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.55fr)] lg:items-end">
           <div>
             <p className="section-kicker text-[var(--oxide)]">Certificates · {certifications.length}</p>
             <h2 className="display-title mt-7">Training and certifications</h2>
@@ -32,19 +32,19 @@ export function Certifications() {
                     0{index + 1}
                   </span>
                 </div>
-                <div className="flex min-h-64 flex-col p-6 lg:p-8">
+                <div className="flex min-h-48 flex-col p-5 sm:min-h-64 sm:p-6 lg:p-8">
                   <div className="flex items-start justify-between gap-6">
                     <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]">
                       {cert.date}
                     </span>
                     {cert.url && <ArrowUpRight className="h-5 w-5 text-[var(--steel-dark)] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />}
                   </div>
-                  <h3 className="mt-7 font-display text-3xl font-bold uppercase leading-[0.95] tracking-[-0.025em]">
+                  <h3 className="mt-5 font-display text-[1.75rem] font-bold uppercase leading-[0.95] tracking-[-0.025em] sm:mt-7 sm:text-3xl">
                     {cert.name}
                   </h3>
                   <p className="mt-3 text-sm text-[var(--steel-dark)]">{cert.issuer}</p>
                   {cert.credentialId && (
-                    <p className="mt-auto break-all pt-8 font-mono text-[0.62rem] text-[var(--steel-dark)]">
+                    <p className="mt-auto break-all pt-5 font-mono text-[0.62rem] text-[var(--steel-dark)] sm:pt-8">
                       {cert.credentialId}
                     </p>
                   )}
