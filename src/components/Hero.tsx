@@ -34,16 +34,15 @@ export function Hero() {
               <span className="block text-[var(--oxide)]">Çağlar</span>
             </h1>
 
-            <div className="hero-reveal hero-reveal-3 mt-8 grid max-w-5xl gap-5 border-t hairline pt-6 sm:mt-12 sm:grid-cols-[minmax(11rem,0.55fr)_minmax(0,1fr)] sm:gap-8 lg:mt-8">
-              <p className="section-kicker self-start text-[var(--oxide)]">Linux / Security</p>
-              <div>
-                <p className="max-w-lg font-display text-[clamp(1.5rem,3.1vw,2.75rem)] font-semibold leading-[1.02] tracking-[-0.025em]">
+            <div className="hero-reveal hero-reveal-3 mt-8 flex justify-center border-t hairline pt-6 sm:mt-12 lg:mt-8">
+              <div className="flex w-full max-w-2xl flex-col items-center text-center">
+                <p className="font-display text-[clamp(1.5rem,3.1vw,2.75rem)] font-semibold leading-[1.02] tracking-[-0.025em]">
                   Computer engineering student focused on Linux, security, and desktop software.
                 </p>
-                <p className="mt-4 max-w-lg text-sm leading-6 text-[var(--ink-soft)] sm:mt-5 sm:text-base sm:leading-7">
+                <p className="mt-4 max-w-xl text-sm leading-6 text-[var(--ink-soft)] sm:mt-5 sm:text-base sm:leading-7">
                   I work on local-first applications, terminal tools, and security-focused systems.
                 </p>
-                <div className="mt-6 flex flex-wrap gap-2 sm:gap-3">
+                <div className="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3">
                   <a href="#projects" className="hero-action inline-flex min-h-11 items-center gap-2 bg-[var(--paper)] px-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-[var(--ink)] transition-colors hover:bg-[var(--oxide)] sm:gap-3 sm:px-4">
                     Explore projects <ArrowDownRight className="h-4 w-4" aria-hidden="true" />
                   </a>
