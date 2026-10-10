@@ -71,6 +71,22 @@ export function ContactActions() {
         <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]">Download CV (EN)</span>
         <FileDown className="h-4 w-4 transition-transform group-hover:translate-y-1" aria-hidden="true" />
       </a>
+      <a
+        href="/portfolio/Talha-Caglar-Portfolyo.pdf"
+        download
+        className="group flex min-h-16 items-center justify-between gap-4 border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 transition-colors hover:bg-[var(--ink)] hover:text-[var(--paper)]"
+      >
+        <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]">Portfolio PDF (TR)</span>
+        <FileDown className="h-4 w-4 transition-transform group-hover:translate-y-1" aria-hidden="true" />
+      </a>
+      <a
+        href="/portfolio/Talha-Caglar-Portfolio-EN.pdf"
+        download
+        className="group flex min-h-16 items-center justify-between gap-4 border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 transition-colors hover:bg-[var(--ink)] hover:text-[var(--paper)]"
+      >
+        <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]">Portfolio PDF (EN)</span>
+        <FileDown className="h-4 w-4 transition-transform group-hover:translate-y-1" aria-hidden="true" />
+      </a>
       {copyError && (
         <p role="status" className="col-span-full border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 py-3 text-sm">
           {copyError}

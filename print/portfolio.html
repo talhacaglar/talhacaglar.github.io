@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Talha Çağlar — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=block&subset=latin-ext" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --paper: #f5f4f0;
+    --card: #ffffff;
+    --ink: #161a18;
+    --soft: #434b47;
+    --mute: #6f7873;
+    --rule: #d8dad5;
+    --accent: #9a6239;
+    --accent-soft: #f1e7de;
+    --night: #111312;
+    --night-2: #1b1e1c;
+    --chalk: #eeeee9;
+    --steel: #9aa39d;
+    --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --body: "Manrope", Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); }
+  body { color: var(--ink); font-family: var(--body); font-size: 9.4pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  .page { position: relative; width: 210mm; height: 297mm; overflow: hidden; padding: 16mm 16mm 20mm; break-after: page; background: var(--paper); }
+  .page:last-child { break-after: auto; }
+
+  .folio { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; display: flex; justify-content: space-between; border-top: 0.6pt solid var(--rule); padding-top: 2.4mm; font-family: var(--mono); font-size: 6.6pt; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+
+  .kicker { display: flex; align-items: center; gap: 2.6mm; font-family: var(--mono); font-size: 7.2pt; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .kicker::before { content: ""; width: 7mm; height: 1.4pt; background: currentColor; }
+  h2.title { margin-top: 5mm; font-family: var(--display); font-size: 46pt; font-weight: 700; line-height: 0.86; letter-spacing: -0.02em; text-transform: uppercase; }
+  .lead { margin-top: 5mm; max-width: 150mm; font-size: 10.6pt; line-height: 1.55; color: var(--soft); }
+  .label { font-family: var(--mono); font-size: 6.8pt; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent); }
+  .tags { display: flex; flex-wrap: wrap; gap: 1.6mm; }
+  .tags span { border: 0.6pt solid var(--rule); background: var(--card); padding: 0.8mm 2.2mm; font-family: var(--mono); font-size: 6.8pt; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--soft); }
+
+  /* Cover */
+  .cover { background: var(--night); color: var(--chalk); padding: 0; }
+  .cover-grid { position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(238,238,233,.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(238,238,233,.035) 1px, transparent 1px); background-size: 21mm 21mm; }
+  .cover-inner { position: relative; height: 100%; display: flex; flex-direction: column; padding: 16mm; }
+  .cover-top { display: flex; justify-content: space-between; border-bottom: 0.6pt solid rgba(238,238,233,.16); padding-bottom: 4mm; font-family: var(--mono); font-size: 7.2pt; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+  .cover-top b { color: var(--accent-cover, #c08a5f); font-weight: 600; }
+  .cover h1 { margin-top: 28mm; font-family: var(--display); font-size: 104pt; font-weight: 800; line-height: 0.8; letter-spacing: -0.04em; text-transform: uppercase; }
+  .cover h1 span { display: block; color: #b47e55; }
+  .cover-bar { position: absolute; right: 16mm; top: 25mm; width: 4mm; height: 34mm; background: #b47e55; }
+  .cover-headline { margin-top: 12mm; max-width: 150mm; font-family: var(--display); font-size: 25pt; font-weight: 600; line-height: 1.05; }
+  .cover-intro { margin-top: 5mm; max-width: 140mm; font-size: 10.4pt; line-height: 1.6; color: #c5cac6; }
+  .cover-focus { margin-top: auto; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 0.6pt solid rgba(238,238,233,.16); border-left: 0.6pt solid rgba(238,238,233,.16); }
+  .cover-focus div { border-right: 0.6pt solid rgba(238,238,233,.16); border-bottom: 0.6pt solid rgba(238,238,233,.16); padding: 5mm; }
+  .cover-focus b { display: block; font-family: var(--mono); font-size: 6.8pt; color: #b47e55; letter-spacing: 0.14em; }
+  .cover-focus strong { display: block; margin-top: 3mm; font-family: var(--display); font-size: 17pt; font-weight: 700; line-height: 0.95; text-transform: uppercase; }
+  .cover-focus p { margin-top: 2mm; font-size: 8pt; line-height: 1.5; color: var(--steel); }
+  .cover-contact { margin-top: 6mm; display: flex; flex-wrap: wrap; gap: 2mm 6mm; font-family: var(--mono); font-size: 7.6pt; letter-spacing: 0.04em; color: #c5cac6; }
+
+  /* Profile page */
+  .facts { margin-top: 8mm; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 0.6pt solid var(--rule); border-left: 0.6pt solid var(--rule); }
+  .facts div { border-right: 0.6pt solid var(--rule); border-bottom: 0.6pt solid var(--rule); background: var(--card); padding: 4.5mm; }
+  .facts strong { display: block; font-family: var(--display); font-size: 30pt; font-weight: 700; line-height: 0.9; }
+  .facts span { display: block; margin-top: 1.5mm; font-family: var(--mono); font-size: 6.6pt; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); }
+  .timeline { margin-top: 8mm; }
+  .role { display: grid; grid-template-columns: 38mm 1fr; gap: 6mm; padding: 4.2mm 0; border-top: 0.6pt solid var(--rule); }
+  .role:last-child { border-bottom: 0.6pt solid var(--rule); }
+  .role-date { font-family: var(--mono); font-size: 7pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); }
+  .role-date i { display: block; margin-top: 1.2mm; font-style: normal; color: var(--accent); }
+  .role h3 { font-family: var(--display); font-size: 17pt; font-weight: 700; line-height: 1; text-transform: uppercase; }
+  .role h3 em { font-style: normal; font-family: var(--body); font-size: 9pt; font-weight: 600; text-transform: none; color: var(--soft); margin-left: 1.5mm; }
+  .role p { margin-top: 1.6mm; color: var(--soft); }
+  .edu { margin-top: 7mm; display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .edu div { background: var(--card); border: 0.6pt solid var(--rule); padding: 4.5mm; }
+  .edu strong { display: block; margin-top: 2mm; font-family: var(--display); font-size: 15pt; font-weight: 700; line-height: 1; text-transform: uppercase; }
+  .edu p { margin-top: 1.5mm; font-size: 8.4pt; color: var(--soft); }
+
+  /* Project pages */
+  .project-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 8mm; }
+  .project-head .title { margin-top: 4mm; font-size: 58pt; }
+  .repo { flex: none; border: 0.6pt solid var(--ink); padding: 2mm 3mm; font-family: var(--mono); font-size: 7pt; font-weight: 600; letter-spacing: 0.08em; }
+  .meta-row { margin-top: 4mm; display: flex; justify-content: space-between; gap: 6mm; padding: 2.4mm 0; border-top: 0.6pt solid var(--rule); border-bottom: 0.6pt solid var(--rule); font-family: var(--mono); font-size: 7pt; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); }
+  .shot { border: 0.6pt solid #2a2f2c; background: #0b0d10; box-shadow: 0 3mm 7mm -4mm rgba(0,0,0,.35); }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .shots { margin-top: 5mm; display: grid; gap: 3.5mm; }
+  .caption { margin-top: 1.6mm; font-family: var(--mono); font-size: 6.4pt; letter-spacing: 0.06em; color: var(--mute); }
+  .psr { margin-top: 5mm; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 0.6pt solid var(--rule); border-left: 0.6pt solid var(--rule); }
+  .psr div { border-right: 0.6pt solid var(--rule); border-bottom: 0.6pt solid var(--rule); background: var(--card); padding: 4mm; }
+  .psr p { margin-top: 2mm; font-size: 8.4pt; line-height: 1.5; color: var(--soft); }
+  .highlights { margin-top: 5mm; display: grid; grid-template-columns: 1fr 1fr; gap: 2.2mm 7mm; }
+  .highlights li { list-style: none; display: grid; grid-template-columns: 3mm 1fr; gap: 2mm; font-size: 8.6pt; color: var(--soft); }
+  .highlights li::before { content: ""; width: 1.5mm; height: 1.5mm; margin-top: 1.9mm; background: var(--accent); }
+  .bottom { margin-top: 6mm; }
+  .split { margin-top: 4mm; display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; align-items: start; }
+  .split .highlights { margin-top: 0; grid-template-columns: 1fr; gap: 2.6mm; }
+
+  /* Diagram */
+  .diagram { margin-top: 6mm; background: var(--night); color: var(--chalk); padding: 12mm 8mm; display: grid; grid-template-columns: 1fr 9mm 1fr 9mm 1fr; align-items: center; row-gap: 4mm; }
+  .node { border: 0.6pt solid rgba(238,238,233,.22); background: var(--night-2); padding: 4mm; }
+  .node b { display: block; font-family: var(--mono); font-size: 6.4pt; letter-spacing: 0.12em; color: #b47e55; text-transform: uppercase; }
+  .node strong { display: block; margin-top: 1.6mm; font-family: var(--display); font-size: 14pt; line-height: 1; text-transform: uppercase; }
+  .node span { display: block; margin-top: 1.2mm; font-size: 7.4pt; color: var(--steel); line-height: 1.4; }
+  .node.accent { border-color: #b47e55; }
+  .arrow { height: 0.8pt; background: #b47e55; position: relative; }
+  .arrow::after { content: ""; position: absolute; right: -0.4mm; top: -1.2mm; border-left: 2.2mm solid #b47e55; border-top: 1.3mm solid transparent; border-bottom: 1.3mm solid transparent; }
+  .stack-col { display: grid; gap: 3mm; }
+
+  /* Certificates */
+  .certs { margin-top: 6mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .cert { background: var(--card); border: 0.6pt solid var(--rule); }
+  .cert .img { aspect-ratio: 1.414 / 1; overflow: hidden; border-bottom: 0.6pt solid var(--rule); background: #fff; }
+  .cert .img img { width: 100%; height: 100%; object-fit: cover; }
+  .cert div.body { padding: 3mm 3.4mm 3.4mm; }
+  .cert strong { display: block; margin-top: 1.4mm; font-family: var(--display); font-size: 12.5pt; font-weight: 700; line-height: 1; text-transform: uppercase; }
+  .cert p { margin-top: 1.2mm; font-size: 7.4pt; color: var(--mute); }
+  .cert.wide { grid-column: span 2; display: grid; grid-template-columns: 1.1fr 1fr; }
+  .cert.wide .img { border-bottom: 0; border-right: 0.6pt solid var(--rule); aspect-ratio: auto; display: flex; align-items: center; background: #f2f3f5; }
+  .cert.wide .img img { height: auto; object-fit: contain; }
+  .cert.wide div.body { padding: 5mm; display: flex; flex-direction: column; }
+  .cert.wide strong { font-size: 19pt; }
+  .cert.wide p { font-size: 8.4pt; color: var(--soft); }
+
+  .sec-grid { margin-top: 7mm; display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .sec-card { background: var(--night); color: var(--chalk); padding: 5mm; }
+  .sec-card strong { display: block; margin-top: 2mm; font-family: var(--display); font-size: 18pt; font-weight: 700; line-height: 0.95; text-transform: uppercase; }
+  .sec-card .when { margin-top: 1.4mm; font-family: var(--mono); font-size: 6.8pt; letter-spacing: 0.08em; color: var(--steel); text-transform: uppercase; }
+  .sec-card p { margin-top: 2.6mm; font-size: 8.4pt; color: #c5cac6; line-height: 1.5; }
+  .sec-card .label { color: #b47e55; }
+
+  /* More projects */
+  .cards { margin-top: 5mm; display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .card { background: var(--card); border: 0.6pt solid var(--rule); padding: 4.5mm; display: flex; flex-direction: column; }
+  .card strong { display: block; margin-top: 1.8mm; font-family: var(--display); font-size: 18pt; font-weight: 700; line-height: 0.95; text-transform: uppercase; }
+  .card p { margin-top: 2mm; font-size: 8.3pt; color: var(--soft); line-height: 1.5; }
+  .card .tags { margin-top: auto; padding-top: 3mm; }
+  .card .shot { margin-top: 3mm; height: 30mm; }
+  .card.span2 { grid-column: span 2; }
+  .flow { margin-top: 3mm; display: grid; grid-template-columns: 1fr 6mm 1fr 6mm 1fr 6mm 1fr; align-items: center; }
+  .flow .node { padding: 2.6mm; }
+  .flow .node strong { font-size: 11.5pt; }
+  .flow-wrap { background: var(--night); color: var(--chalk); padding: 4mm; margin-top: 3mm; }
+
+  .contact-band { position: absolute; left: 16mm; right: 16mm; bottom: 19mm; background: var(--night); color: var(--chalk); padding: 5mm 6mm; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 6mm; }
+  .contact-band strong { display: block; font-family: var(--display); font-size: 30pt; font-weight: 800; line-height: 0.9; text-transform: uppercase; }
+  .contact-band ul { list-style: none; font-family: var(--mono); font-size: 7.6pt; line-height: 1.9; text-align: right; color: #c5cac6; }
+</style>
+</head>
+<body>
+<div id="doc"></div>
+
+<script>
+const lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "tr";
+document.documentElement.lang = lang;
+const A = "assets/";
+
+const C = {
+  tr: {
+    folio: "Talha Çağlar · Portfolyo 2026",
+    cover: {
+      top: ["Portfolyo / 2026", "Bilgisayar Mühendisliği"],
+      headline: "Siber güvenlik, yapay zekâ destekli araçlar ve Linux sistemleri üzerine çalışan Bilgisayar Mühendisliği öğrencisi.",
+      intro: "Red Team ve kurumsal BT stajlarında edindiğim deneyimi, uçtan uca geliştirdiğim açık kaynak uygulamalarla birleştiriyorum. Bu dosya, doğrulanabilir işlerimin seçilmiş bir özetidir; tüm kaynak kodlar GitHub'da açıktır.",
+      focus: [
+        ["Siber güvenlik", "Yetkili web testleri, zafiyet analizi, OWASP Top 10, raporlama."],
+        ["Yapay zekâ", "LLM'leri pratik işe dönüştüren uygulama ve otomasyonlar."],
+        ["Sistemler", "Linux masaüstü araçları, BT altyapısı ve düşük seviye yazılım."],
+      ],
+    },
+    profile: {
+      kicker: "Profil", title: "Deneyim ve eğitim",
+      lead: "Sakarya Uygulamalı Bilimler Üniversitesi Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Güvenlik tarafında yetkili testler ve raporlama, sistem tarafında saha altyapısı ve kurumsal araç geliştirme deneyimim var.",
+      facts: [["4", "Staj ve program"], ["5", "Sertifika ve başarı"], ["9", "Açık kaynak proje"], ["2", "AUR paketi"]],
+      roles: [
+        ["Ağu 2026 – Eyl 2026", "İstanbul · Yerinde", "PTT KULE A.Ş.", "BT Stajyeri", "Çamlıca Kulesi'nin geniş ölçekli BT altyapısında fiziksel ve yazılım kaynaklı arızaları giderdim; VLAN/PoE IP kamera–switch bağlantıları, kablolama, IP çakışması ve donanım arızaları üzerinde çalıştım."],
+        ["Tem 2026 – Ağu 2026", "Balıkesir · Yerinde", "İşbir Sentetik Dokuma", "BT Stajyeri", "Active Directory entegre yazıcı ve toner yönetim aracı PrintHub'ı geliştirdim; ISO/IEC 27001'e yönelik envanter ve raporlama akışlarını destekledim."],
+        ["Ara 2025 – Mar 2026", "Sakarya · 4 ay", "Siber Vatan", "Öğrenci", "Dört aylık Türkiye Siber Vatan Programı'nı tamamladım: ağ ve web güvenliği, zafiyet analizi ve CTF odaklı uygulamalar."],
+        ["Eki 2025 – Mar 2026", "Uzaktan · 6 ay", "EMA Security LTD", "Siber Güvenlik Stajyeri · Red Team", "Yetkili web güvenliği testleri, zafiyet analizi ve OWASP Top 10 üzerine çalıştım; bulguları dokümante edip raporladım."],
+      ],
+      edu: [
+        ["Eğitim", "Sakarya Uygulamalı Bilimler Üniversitesi", "Bilgisayar Mühendisliği, Lisans · Eki 2023 – Haz 2027 (Beklenen)"],
+        ["Başarı", "TEKNOFEST 2024 Robolig Finalisti", "Üniversite ve üzeri seviye · AllSpark takımı, arayüz tasarımı sorumluluğu"],
+      ],
+    },
+    lexis: {
+      kicker: "Proje 01 · Masaüstü öğrenme sistemi", meta: ["Python · PyQt6 · SQLite · Gemini", "AUR: lexis-git"],
+      lead: "Local-first, isteğe bağlı yapay zekâ destekli sözlük ve dil öğrenme uygulaması. Bağlam, ton, örnekler, Türkçe çeviriler ve aralıklı tekrar tek bir masaüstü akışında.",
+      caps: ["Kütüphane: arama, etiketler, öğrenme durumları", "Kelime ayrıntısı: tanım, örnekler, eş anlamlılar"],
+      psr: [
+        ["Problem", "Türkçe konuşanlar için kullanışlı sözlük araçları çoğunlukla abonelik ya da API anahtarı gerektiriyor."],
+        ["Karar", "Açık sözlük kaynaklarını isteğe bağlı Gemini desteğiyle birleştirmek; her kaydı yerel SQLite'ta tutmak."],
+        ["Sonuç", "Anahtarsız çalışan, SM-2 tekrar, içe/dışa aktarma ve AUR paketi sunan bir masaüstü uygulaması."],
+      ],
+      highlights: ["API anahtarı olmadan: Wiktionary, dictionaryapi.dev ve Tatoeba", "SM-2 aralıklı tekrar, seri ve 7 günlük aktivite grafiği", "Tüm veriler ~/.lexis/lexis.db içinde yerelde kalır", "Gemini desteği yalnızca kullanıcı isterse devreye girer"],
+    },
+    focus: {
+      kicker: "Proje 02 · Odak altyapısı", meta: ["Python · Textual · QML · SQLite", "AUR: omarchy-focus"],
+      lead: "Omarchy için Pomodoro zamanlayıcı, görev kuyruğu ve geri alınabilir site engelleyici: yerel bar widget'ı, Textual terminal uygulaması ve CLI aynı yerel SQLite veritabanını paylaşır.",
+      caps: ["Terminal uygulaması: Now görünümü ve görev kuyruğu", "Bar paneli", "İstatistikler: hedef, seri ve ısı haritası"],
+      psr: [
+        ["Problem", "Görevler, odak zamanlayıcıları ve dikkat dağıtıcı engelleme birbirinden kopuk araçlara ve kırılgan shell durumuna dağılmıştı."],
+        ["Karar", "SQLite servis katmanı ve /etc/hosts içinde işaretli, geri alınabilir engelleme blokları; çökme sonrası kurtarma."],
+        ["Sonuç", "Canlı bar widget'ı, ısı haritası istatistikleri ve AUR paketiyle kurtarılabilir bir odak sistemi."],
+      ],
+      highlights: ["Polling yok: widget bir değişiklik dosyasını inotify ile izler", "Yetki gerektiğinde polkit diyaloğu; katı mod ve kurtarma", "Günlük hedef, seriler ve GitHub tarzı ısı haritası", "Klavye öncelikli TUI ve betiklenebilir CLI"],
+    },
+    printhub: {
+      kicker: "Proje 03 · BT operasyon konsolu", meta: ["Electron · Express · SQLite", "İşbir stajında geliştirildi"],
+      lead: "Ağ yazıcısı izleme, toner stoğu ve maliyetleri ile Active Directory işlemlerini tek bir masaüstü çalışma alanında toplayan araç. Arka uç yalnızca 127.0.0.1 üzerinde dinler.",
+      diagram: {
+        ui: ["Arayüz", "Electron", "Masaüstü panel, raporlar, ayarlar"],
+        api: ["Servis", "Express API", "Yalnızca 127.0.0.1 · RBAC · denetim kaydı"],
+        db: ["Veri", "SQLite", "Envanter, maliyet, denetim"],
+        snmp: ["Keşif", "SNMP v2c/v3", "Yazıcı okumaları, sarf takibi"],
+        ldap: ["Dizin", "LDAP / AD", "Kullanıcı ve paylaşım erişimi"],
+        winrm: ["İsteğe bağlı", "WinRM", "Windows envanteri"],
+      },
+      psr: [
+        ["Problem", "Yazıcı durumu, toner stoğu, maliyetler, dizin erişimi ve denetim kanıtları ayrı operasyon ekranlarına dağılmıştı."],
+        ["Karar", "SNMP izleme, LDAP erişimi, envanter, RBAC ve denetim kayıtlarını yerel bir Electron uygulamasında birleştirmek."],
+        ["Sonuç", "Günlük yazıcı operasyonları için tek panel; CSV ve ISO/IEC 27001'e yönelik raporlama akışları."],
+      ],
+      highlights: ["İlk kurulumda zorunlu parola değişikliği", "Rol tabanlı yetkiler ve denetim kayıtları", "Ayrı Samba AD test ortamı belgelenmiş", "Depoda otomatik testler (npm test)"],
+    },
+    security: {
+      kicker: "Güvenlik", title: "Güvenlik çalışmaları ve belgeler",
+      lead: "Güvenlik deneyimim yetkili testler, yapılandırılmış eğitim programları ve doğrulanabilir sertifikalara dayanıyor.",
+      cards: [
+        ["Staj", "EMA Security LTD", "Eki 2025 – Mar 2026 · Uzaktan", "Altı aylık Red Team stajı: yetkili web güvenliği testleri, zafiyet analizi ve OWASP Top 10. Bulguları doğrulayıp dokümante etmek ve teknik gözlemleri açıkça iletmek."],
+        ["Program", "Türkiye Siber Vatan", "Ara 2025 – Mar 2026 · Sakarya", "Dört aylık program: ağ ve web güvenliği, zafiyet analizi ve güvenlik temelleri üzerine uygulamalı, CTF odaklı çalışmalar."],
+      ],
+      certs: [
+        ["sibervatan.png", "Haz 2026", "Türkiye Siber Vatan Programı 2026", "Katılım Sertifikası · 32735234861993"],
+        ["cwse-preview.jpg", "Şub 2026", "Certified Web Security Expert", "Hackviser · HV-CWSE-ZNKC7QAY"],
+        ["capt-preview.jpg", "Eki 2025", "Certified Associate Penetration Tester", "Hackviser · HV-CAPT-2U0W5XSE"],
+        ["cisco-networking-preview.jpg", "Ağu 2025", "Networking Basics", "Cisco Networking Academy"],
+      ],
+      teknofest: ["Eki 2024", "TEKNOFEST 2024 Robolig Finalisti", "Teknoloji geliştiren Türkiye hedefiyle düzenlenen TEKNOFEST Robolig Yarışması'nda (üniversite ve üzeri seviye) AllSpark takımıyla finale kaldık; takımda arayüz tasarımından sorumluydum.", "Belge no: 88821725841029"],
+    },
+    more: {
+      kicker: "Diğer projeler", title: "Araçlar ve deneyler",
+      cards: [
+        ["Yapay zekâ otomasyonu", "Notion Dictionary", "Terminalden girilen kelime için Gemini'den yapılandırılmış JSON (anlam ve örnek cümle) alır, ActivePieces webhook'u üzerinden Notion'a aktarır.", ["Python", "Gemini API", "ActivePieces", "Notion"], "flow"],
+        ["Düşük seviye araç zinciri", "RV32I Assembler & Linker", "C ile yazılmış RV32I assembler ve linker: object dosyaları, sembol çözümleme, relocation, ayarlanabilir bellek bölgeleri ve PicoRV32 odaklı çıktı; Flask arayüzü.", ["C", "RISC-V", "Flask", "PicoRV32"]],
+        ["Terminal aracı", "DTR · Anlık Çeviri", "Kabuktan çıkmadan çeviri yapmayı sağlayan, DeepL destekli küçük bir terminal arayüzü.", ["Python", "Textual", "DeepL"], "dtr.png"],
+        ["Sistem bakımı", "archsweep", "Bağımlılıksız, onay tabanlı Arch Linux bakım TUI'si: yetim paketler, pacman/AUR önbellekleri ve journal temizliği. Seçilmeyen hiçbir şey çalışmaz.", ["Bash", "Arch Linux", "TUI"]],
+        ["Mobil uygulama", "PocketFarm", "Çiftçi ve alıcıları doğrudan buluşturan Android pazaryeri: harita tabanlı ilanlar, gerçek zamanlı sohbet ve kilogram başına teklif.", ["Java", "Android", "Firebase", "Google Maps"]],
+      ],
+      flow: ["Terminal", "Gemini", "ActivePieces", "Notion"],
+      contactTitle: "İletişim",
+    },
+  },
+  en: {
+    folio: "Talha Çağlar · Portfolio 2026",
+    cover: {
+      top: ["Portfolio / 2026", "Computer Engineering"],
+      headline: "Computer engineering student working on cyber security, AI-assisted tools, and Linux systems.",
+      intro: "I combine Red Team and enterprise IT internship experience with open-source applications I build end to end. This document is a curated summary of verifiable work; all source code is public on GitHub.",
+      focus: [
+        ["Cyber security", "Authorized web testing, vulnerability analysis, OWASP Top 10, reporting."],
+        ["AI", "Applications and automations that put language models to practical use."],
+        ["Systems", "Linux desktop tools, IT infrastructure and low-level software."],
+      ],
+    },
+    profile: {
+      kicker: "Profile", title: "Experience and education",
+      lead: "I am a final-year Computer Engineering student at Sakarya University of Applied Sciences. On the security side I have authorized testing and reporting experience; on the systems side, on-site infrastructure work and enterprise tool development.",
+      facts: [["4", "Internships & programs"], ["5", "Certificates & awards"], ["9", "Open-source projects"], ["2", "AUR packages"]],
+      roles: [
+        ["Aug 2026 – Sep 2026", "İstanbul · On-site", "PTT KULE A.Ş.", "IT Intern", "Troubleshot physical and software faults across the large-scale IT infrastructure of Çamlıca Tower: VLAN/PoE camera-to-switch links, cabling, IP conflicts and hardware faults."],
+        ["Jul 2026 – Aug 2026", "Balıkesir · On-site", "İşbir Sentetik Dokuma", "IT Intern", "Built PrintHub, an Active Directory-integrated printer and toner management tool, and supported inventory and reporting workflows oriented toward ISO/IEC 27001."],
+        ["Dec 2025 – Mar 2026", "Sakarya · 4 months", "Siber Vatan", "Student", "Completed the four-month Türkiye Siber Vatan program: network and web security, vulnerability analysis and CTF-oriented exercises."],
+        ["Oct 2025 – Mar 2026", "Remote · 6 months", "EMA Security LTD", "Cyber Security Intern · Red Team", "Worked on authorized web security testing, vulnerability analysis and OWASP Top 10; documented and reported findings."],
+      ],
+      edu: [
+        ["Education", "Sakarya University of Applied Sciences", "B.Sc. in Computer Engineering · Oct 2023 – Jun 2027 (Expected)"],
+        ["Achievement", "TEKNOFEST 2024 Robolig Finalist", "University level · Team AllSpark, responsible for interface design"],
+      ],
+    },
+    lexis: {
+      kicker: "Project 01 · Desktop learning system", meta: ["Python · PyQt6 · SQLite · Gemini", "AUR: lexis-git"],
+      lead: "A local-first, optionally AI-assisted dictionary and language-learning app. Context, tone, examples, Turkish translations and spaced repetition in one desktop workflow.",
+      caps: ["Library: search, tags, learning states", "Word detail: definitions, examples, synonyms"],
+      psr: [
+        ["Problem", "Useful dictionary tools for Turkish learners are often subscription-based or locked behind API keys."],
+        ["Decision", "Combine open dictionaries with optional Gemini assistance and keep every saved word in local SQLite."],
+        ["Result", "A keyless desktop workflow with SM-2 practice, import/export and an AUR package."],
+      ],
+      highlights: ["No API key: Wiktionary, dictionaryapi.dev and Tatoeba", "SM-2 spaced repetition, streaks and a 7-day activity graph", "All data stays local in ~/.lexis/lexis.db", "Gemini assistance only when the user opts in"],
+    },
+    focus: {
+      kicker: "Project 02 · Focus infrastructure", meta: ["Python · Textual · QML · SQLite", "AUR: omarchy-focus"],
+      lead: "Pomodoro timer, task queue and a reversible site blocker for Omarchy: a native bar widget, a Textual terminal app and a CLI sharing one local SQLite database.",
+      caps: ["Terminal app: Now view and task queue", "Bar panel", "Statistics: goal, streaks and heatmap"],
+      psr: [
+        ["Problem", "Tasks, focus timers and distraction blocking were split across unrelated tools and fragile shell state."],
+        ["Decision", "A SQLite service layer and marked, reversible /etc/hosts blocks with crash recovery."],
+        ["Result", "A recoverable focus system with a live bar widget, heatmap statistics and an AUR package."],
+      ],
+      highlights: ["No polling: the widget watches a change file with inotify", "Elevation through the polkit dialog; strict mode and recovery", "Daily goal, streaks and a GitHub-style heatmap", "Keyboard-first TUI and a scriptable CLI"],
+    },
+    printhub: {
+      kicker: "Project 03 · IT operations console", meta: ["Electron · Express · SQLite", "Built during the İşbir internship"],
+      lead: "A desktop workspace for network printer monitoring, toner stock and costs, and Active Directory operations. The backend listens only on 127.0.0.1.",
+      diagram: {
+        ui: ["Interface", "Electron", "Desktop panel, reports, settings"],
+        api: ["Service", "Express API", "127.0.0.1 only · RBAC · audit log"],
+        db: ["Data", "SQLite", "Inventory, costs, audit"],
+        snmp: ["Discovery", "SNMP v2c/v3", "Printer readings, consumables"],
+        ldap: ["Directory", "LDAP / AD", "User and share access"],
+        winrm: ["Optional", "WinRM", "Windows inventory"],
+      },
+      psr: [
+        ["Problem", "Printer health, toner stock, costs, directory access and audit evidence lived in separate operational views."],
+        ["Decision", "Unify SNMP monitoring, LDAP access, inventory, RBAC and audit records in a local Electron application."],
+        ["Result", "One panel for day-to-day printer operations with CSV and ISO/IEC 27001-oriented reporting."],
+      ],
+      highlights: ["Mandatory password change on first setup", "Role-based permissions and audit records", "Separate Samba AD test environment documented", "Automated tests in the repository (npm test)"],
+    },
+    security: {
+      kicker: "Security", title: "Security work and credentials",
+      lead: "My security experience rests on authorized testing, structured training programs and verifiable certifications.",
+      cards: [
+        ["Internship", "EMA Security LTD", "Oct 2025 – Mar 2026 · Remote", "Six-month Red Team internship: authorized web security testing, vulnerability analysis and OWASP Top 10. Validating and documenting findings and communicating technical observations clearly."],
+        ["Program", "Türkiye Siber Vatan", "Dec 2025 – Mar 2026 · Sakarya", "Four-month program: hands-on, CTF-oriented work in network and web security, vulnerability analysis and security fundamentals."],
+      ],
+      certs: [
+        ["sibervatan.png", "Jun 2026", "Türkiye Siber Vatan Program 2026", "Certificate of Participation · 32735234861993"],
+        ["cwse-preview.jpg", "Feb 2026", "Certified Web Security Expert", "Hackviser · HV-CWSE-ZNKC7QAY"],
+        ["capt-preview.jpg", "Oct 2025", "Certified Associate Penetration Tester", "Hackviser · HV-CAPT-2U0W5XSE"],
+        ["cisco-networking-preview.jpg", "Aug 2025", "Networking Basics", "Cisco Networking Academy"],
+      ],
+      teknofest: ["Oct 2024", "TEKNOFEST 2024 Robolig Finalist", "Reached the final of the TEKNOFEST Robolig Competition (university level and above) with Team AllSpark; I was responsible for interface design within the team.", "Credential ID: 88821725841029"],
+    },
+    more: {
+      kicker: "More projects", title: "Tools and experiments",
+      cards: [
+        ["AI automation", "Notion Dictionary", "Requests structured JSON (definition and example sentence) from Gemini for a word typed in the terminal and delivers it to Notion through an ActivePieces webhook.", ["Python", "Gemini API", "ActivePieces", "Notion"], "flow"],
+        ["Low-level toolchain", "RV32I Assembler & Linker", "RV32I assembler and linker in C: object files, symbol resolution, relocations, configurable memory regions and PicoRV32-oriented output, with a Flask interface.", ["C", "RISC-V", "Flask", "PicoRV32"]],
+        ["Terminal utility", "DTR · Instant Translator", "A small DeepL-powered terminal interface for translating without leaving the shell.", ["Python", "Textual", "DeepL"], "dtr.png"],
+        ["System maintenance", "archsweep", "Dependency-free, opt-in Arch Linux maintenance TUI: orphans, pacman/AUR caches and journal cleanup. Nothing runs until you select it.", ["Bash", "Arch Linux", "TUI"]],
+        ["Mobile app", "PocketFarm", "Android marketplace connecting farmers and buyers directly: map-based listings, real-time chat and per-kilogram offers.", ["Java", "Android", "Firebase", "Google Maps"]],
+      ],
+      flow: ["Terminal", "Gemini", "ActivePieces", "Notion"],
+      contactTitle: "Contact",
+    },
+  },
+}[lang];
+
+const contact = [
+  ["talhacaglarr@proton.me", "mailto:talhacaglarr@proton.me"],
+  ["+90 507 154 16 67", "tel:+905071541667"],
+  ["talhacaglar.github.io", "https://talhacaglar.github.io/"],
+  ["github.com/talhacaglar", "https://github.com/talhacaglar"],
+  ["linkedin.com/in/talhacaglar1", "https://www.linkedin.com/in/talhacaglar1/"],
+];
+
+const EN = new Set(["Lexis", "Omarchy Focus", "PrintHub", "EMA Security LTD", "Certified Web Security Expert", "Certified Associate Penetration Tester",
+  "Networking Basics", "Notion Dictionary", "RV32I Assembler & Linker", "archsweep", "PocketFarm"]);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+let pageNo = 0;
+const page = (inner, cls = "") => {
+  pageNo += 1;
+  const folio = cls.includes("cover") ? "" : `<div class="folio"><span>${esc(C.folio)}</span><span>${String(pageNo).padStart(2, "0")}</span></div>`;
+  return `<section class="page ${cls}">${inner}${folio}</section>`;
+};
+const up = (s) => (EN.has(s) ? `<span lang="en">${esc(s)}</span>` : esc(s));
+const tags = (list) => `<div class="tags" lang="en">${list.map((t) => `<span>${esc(t)}</span>`).join("")}</div>`;
+const psr = (rows) => `<div class="psr">${rows.map(([k, v]) => `<div><span class="label">${esc(k)}</span><p>${esc(v)}</p></div>`).join("")}</div>`;
+const highlights = (list) => `<ul class="highlights">${list.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>`;
+const shot = (src, h, cap, pos = "top center") => `<figure><div class="shot" style="height:${h}"><img src="${A}${src}" style="object-position:${pos}" alt=""></div>${cap ? `<figcaption class="caption">${esc(cap)}</figcaption>` : ""}</figure>`;
+const projectHead = (p, name, repo) => `
+  <div class="project-head">
+    <div><div class="kicker">${esc(p.kicker)}</div><h2 class="title" lang="en">${esc(name)}</h2></div>
+    <a class="repo" href="https://github.com/talhacaglar/${repo}">github.com/talhacaglar/${esc(repo)} ↗</a>
+  </div>
+  <div class="meta-row"><span lang="en">${esc(p.meta[0])}</span><span${p.meta[1].startsWith("AUR") ? ' lang="en"' : ""}>${esc(p.meta[1])}</span></div>
+  <p class="lead">${esc(p.lead)}</p>`;
+const node = ([b, s, d], cls = "") => `<div class="node ${cls}"><b>${esc(b)}</b><strong lang="en">${esc(s)}</strong><span>${esc(d)}</span></div>`;
+
+const pages = [];
+
+// 1. Cover
+pages.push(page(`
+  <div class="cover-grid"></div>
+  <div class="cover-bar"></div>
+  <div class="cover-inner">
+    <div class="cover-top"><span>${esc(C.cover.top[0])}</span><b>${esc(C.cover.top[1])}</b></div>
+    <h1>Talha<span>Çağlar</span></h1>
+    <p class="cover-headline">${esc(C.cover.headline)}</p>
+    <p class="cover-intro">${esc(C.cover.intro)}</p>
+    <div class="cover-focus">${C.cover.focus.map(([t, d], i) => `<div><b>0${i + 1}</b><strong>${esc(t)}</strong><p>${esc(d)}</p></div>`).join("")}</div>
+    <div class="cover-contact">${contact.map(([l, h]) => `<a href="${h}">${esc(l)}</a>`).join("")}</div>
+  </div>`, "cover"));
+
+// 2. Profile
+const P = C.profile;
+pages.push(page(`
+  <div class="kicker">${esc(P.kicker)}</div>
+  <h2 class="title">${esc(P.title)}</h2>
+  <p class="lead">${esc(P.lead)}</p>
+  <div class="facts">${P.facts.map(([n, l]) => `<div><strong>${n}</strong><span>${esc(l)}</span></div>`).join("")}</div>
+  <div class="timeline">${P.roles.map(([d, w, c, r, t]) => `
+    <div class="role">
+      <div class="role-date">${esc(d)}<i>${esc(w)}</i></div>
+      <div><h3>${up(c)}<em>${esc(r)}</em></h3><p>${esc(t)}</p></div>
+    </div>`).join("")}</div>
+  <div class="edu">${P.edu.map(([k, t, d]) => `<div><span class="label">${esc(k)}</span><strong>${esc(t)}</strong><p>${esc(d)}</p></div>`).join("")}</div>`));
+
+// 3. Lexis
+const L = C.lexis;
+pages.push(page(`
+  ${projectHead(L, "Lexis", "Lexis")}
+  <div class="shots">${shot("lexis-library.png", "96mm", L.caps[0])}</div>
+  <div class="split">${shot("lexis-detail.png", "52mm", L.caps[1])}${highlights(L.highlights)}</div>
+  ${psr(L.psr)}`));
+
+// 4. Omarchy Focus
+const F = C.focus;
+pages.push(page(`
+  ${projectHead(F, "Omarchy Focus", "omarchy-focus")}
+  <div class="shots" style="grid-template-columns: 1.6fr 0.66fr">
+    ${shot("focus-dashboard.png", "72mm", F.caps[0])}
+    ${shot("focus-panel.png", "72mm", F.caps[1])}
+  </div>
+  <div class="split">${shot("focus-stats.png", "50mm", F.caps[2])}${highlights(F.highlights)}</div>
+  ${psr(F.psr)}`));
+
+// 5. PrintHub
+const H = C.printhub, D = H.diagram;
+pages.push(page(`
+  ${projectHead(H, "PrintHub", "PrintHub")}
+  <div class="diagram">
+    ${node(D.ui)}<div class="arrow"></div>${node(D.api, "accent")}<div class="arrow"></div>
+    <div class="stack-col">${node(D.db)}${node(D.snmp)}${node(D.ldap)}${node(D.winrm)}</div>
+  </div>
+  ${psr(H.psr)}
+  ${highlights(H.highlights)}
+  <div class="bottom">${tags(["Electron", "Express", "SQLite", "SNMP", "LDAP", "Active Directory", "RBAC", "ISO/IEC 27001"])}</div>`));
+
+// 6. Security
+const S = C.security;
+pages.push(page(`
+  <div class="kicker">${esc(S.kicker)}</div>
+  <h2 class="title">${esc(S.title)}</h2>
+  <p class="lead">${esc(S.lead)}</p>
+  <div class="sec-grid">${S.cards.map(([k, t, w, d]) => `<div class="sec-card"><span class="label">${esc(k)}</span><strong>${up(t)}</strong><div class="when">${esc(w)}</div><p>${esc(d)}</p></div>`).join("")}</div>
+  <div class="certs">
+    <div class="cert wide">
+      <div class="img"><img src="${A}teknofest.png" alt=""></div>
+      <div class="body"><span class="label">${esc(S.teknofest[0])}</span><strong>${esc(S.teknofest[1])}</strong><p>${esc(S.teknofest[2])}</p><p style="margin-top:auto;font-family:var(--mono);font-size:6.8pt;color:var(--mute)">${esc(S.teknofest[3])}</p></div>
+    </div>
+    ${S.certs.map(([img, d, t, s]) => `<div class="cert"><div class="img"><img src="${A}${img}" alt=""></div><div class="body"><span class="label">${esc(d)}</span><strong>${up(t)}</strong><p>${esc(s)}</p></div></div>`).join("")}
+  </div>`));
+
+// 7. More projects + contact
+const M = C.more;
+pages.push(page(`
+  <div class="kicker">${esc(M.kicker)}</div>
+  <h2 class="title">${esc(M.title)}</h2>
+  <div class="cards">${M.cards.map(([k, t, d, tg, extra], i) => {
+    const media = extra === "flow"
+      ? `<div class="flow-wrap"><div class="flow">${M.flow.map((f, j) => `${j ? '<div class="arrow"></div>' : ""}<div class="node${j === 1 ? " accent" : ""}"><strong lang="en">${esc(f)}</strong></div>`).join("")}</div></div>`
+      : extra ? `<div class="shot"><img src="${A}${extra}" alt=""></div>` : "";
+    return `<div class="card${i === 0 ? " span2" : ""}"><span class="label">${esc(k)}</span><strong>${up(t)}</strong><p>${esc(d)}</p>${media}${tags(tg)}</div>`;
+  }).join("")}</div>
+  <div class="contact-band">
+    <strong>${esc(M.contactTitle)}</strong>
+    <ul>${contact.map(([l, h]) => `<li><a href="${h}">${esc(l)}</a></li>`).join("")}</ul>
+  </div>`));
+
+document.getElementById("doc").innerHTML = pages.join("");
+</script>
+</body>
+</html>

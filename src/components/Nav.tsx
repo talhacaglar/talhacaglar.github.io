@@ -246,6 +246,22 @@ export function Nav() {
                     <FileDown className="h-4 w-4" aria-hidden="true" />
                     Download CV (EN)
                   </a>
+                  <a
+                    href="/portfolio/Talha-Caglar-Portfolyo.pdf"
+                    download
+                    className="inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
+                  >
+                    <FileDown className="h-4 w-4" aria-hidden="true" />
+                    Portfolio (TR)
+                  </a>
+                  <a
+                    href="/portfolio/Talha-Caglar-Portfolio-EN.pdf"
+                    download
+                    className="inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
+                  >
+                    <FileDown className="h-4 w-4" aria-hidden="true" />
+                    Portfolio (EN)
+                  </a>
                 </div>
                 <div className="mt-5 flex flex-wrap items-center gap-6">
                   {socialLinks.map((social) => (

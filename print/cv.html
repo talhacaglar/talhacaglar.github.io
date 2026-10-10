@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Talha Çağlar — CV</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --ink: #1d2120;
+    --soft: #4a524e;
+    --mute: #6b736f;
+    --rule: #d9dcd8;
+    --accent: #9a6239;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 11.5mm 14mm 10mm;
+    color: var(--ink);
+    font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+    font-size: 8.9pt;
+    line-height: 1.36;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  header { padding-bottom: 3.2mm; border-bottom: 1.4pt solid var(--ink); }
+  .name-row { display: flex; justify-content: space-between; align-items: baseline; }
+  .location { font-size: 8.6pt; color: var(--soft); }
+  h1 { font-size: 22pt; letter-spacing: 0.04em; line-height: 1; font-weight: 700; }
+  .headline { margin-top: 1.8mm; font-size: 10.4pt; font-weight: 700; color: var(--accent); }
+  .contact { display: flex; flex-wrap: wrap; row-gap: 0.6mm; margin-top: 1.8mm; font-size: 8.4pt; color: var(--soft); }
+  .contact span { white-space: nowrap; }
+  .contact span + span::before { content: "·"; margin: 0 1.3mm; color: var(--mute); }
+
+  section { margin-top: 3.4mm; }
+  h2 {
+    display: flex; align-items: center; gap: 2.4mm;
+    margin-bottom: 1.8mm;
+    font-size: 8.6pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  h2::before { content: ""; width: 5mm; height: 1.4pt; background: var(--accent); }
+  h2::after { content: ""; flex: 1; height: 0.6pt; background: var(--rule); }
+
+  .summary { color: var(--soft); }
+
+  .entry + .entry { margin-top: 2.1mm; }
+  .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .entry-title { font-weight: 700; font-size: 9.6pt; }
+  .entry-title em { font-style: normal; font-weight: 400; color: var(--soft); }
+  .entry-meta { flex: none; font-size: 8.4pt; color: var(--mute); white-space: nowrap; }
+  .entry-sub { font-size: 8.4pt; color: var(--mute); }
+  ul.points { margin-top: 0.9mm; padding-left: 4mm; }
+  ul.points li { margin-top: 0.5mm; padding-left: 0.6mm; }
+  ul.points li::marker { color: var(--accent); content: "▪  "; font-size: 7pt; }
+
+  .projects .entry + .entry { margin-top: 1.7mm; }
+  .project-line { color: var(--soft); }
+  .project-line b { color: var(--ink); }
+  .stack { color: var(--mute); }
+
+  dl.skills { display: grid; grid-template-columns: 34mm 1fr; row-gap: 1mm; }
+  dl.skills dt { font-weight: 700; }
+  dl.skills dd { color: var(--soft); }
+
+  .certs .entry + .entry { margin-top: 1.1mm; }
+  .certs .entry-title { font-size: 9.1pt; }
+  .id { color: var(--mute); font-weight: 400; }
+</style>
+</head>
+<body>
+<main id="cv"></main>
+
+<script>
+const lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "tr";
+document.documentElement.lang = lang;
+
+const contact = [
+  ["+90 507 154 16 67", "tel:+905071541667"],
+  ["talhacaglarr@proton.me", "mailto:talhacaglarr@proton.me"],
+  ["talhacaglar.github.io", "https://talhacaglar.github.io/"],
+  ["github.com/talhacaglar", "https://github.com/talhacaglar"],
+  ["linkedin.com/in/talhacaglar1", "https://www.linkedin.com/in/talhacaglar1/"],
+];
+
+const T = {
+  tr: {
+    headline: "Bilgisayar Mühendisliği Öğrencisi | Siber Güvenlik · Yapay Zekâ Destekli Araçlar · Linux Sistemleri",
+    location: "Bursa, Türkiye",
+    h: { profile: "Profil", exp: "Deneyim", projects: "Seçili Projeler", edu: "Eğitim", skills: "Teknik Yetkinlikler", certs: "Sertifikalar ve Başarılar" },
+    profile:
+      "Siber güvenlik, yapay zekâ destekli uygulamalar ve Linux sistemleri üzerine çalışan Bilgisayar Mühendisliği 4. sınıf öğrencisi. " +
+      "Altı aylık Red Team stajında yetkili web güvenliği testleri ve zafiyet analizi yaptı; iki kurumsal BT stajında saha altyapısı ve " +
+      "Active Directory entegre bir operasyon aracı üzerinde çalıştı. Uçtan uca geliştirdiği açık kaynak uygulamaların ikisi AUR'da paketli.",
+    exp: [
+      {
+        title: "PTT KULE A.Ş.", role: "Bilgi Teknolojileri Stajyeri", meta: "Ağu 2026 – Eyl 2026", sub: "Çamlıca Kulesi, İstanbul · Yerinde",
+        points: [
+          "Çamlıca Kulesi'nin geniş ölçekli BT altyapısında fiziksel ve yazılım kaynaklı arızaların tespit ve giderilmesine destek verdi.",
+          "VLAN ve PoE üzerinden çalışan IP kameraların switch bağlantılarını kurup arıza tespiti yaptı; kablolama ve cihaz bağlantı sorunlarını çözdü.",
+          "Statik IP çakışmasını DHCP yapılandırmasıyla giderdi; arızalı iki bilgisayarın sağlam bileşenlerinden çalışan bir sistem oluşturdu.",
+        ],
+      },
+      {
+        title: "İşbir Sentetik Dokuma Sanayi A.Ş.", role: "Bilgi Teknolojileri Stajyeri", meta: "Tem 2026 – Ağu 2026", sub: "Balıkesir · Yerinde",
+        points: [
+          "Active Directory entegre yazıcı ve toner yönetim aracı PrintHub'ı geliştirdi (Electron, Express, SQLite).",
+          "SNMP v2c/v3 ile ağ yazıcısı keşfi ve sarf takibi, LDAP erişimi, rol tabanlı yetkilendirme ve denetim kayıtlarını uyguladı.",
+          "ISO/IEC 27001 gereksinimlerine yönelik envanter, maliyet ve raporlama akışlarını destekledi.",
+        ],
+      },
+      {
+        title: "EMA Security LTD", role: "Siber Güvenlik Stajyeri (Red Team)", meta: "Eki 2025 – Mar 2026", sub: "Uzaktan · 6 ay",
+        points: [
+          "Yetkili web güvenliği testleri, zafiyet analizi ve OWASP Top 10 odaklı uygulamalı çalışmalar yürüttü.",
+          "Bulguları doğruladı, dokümante etti ve teknik güvenlik gözlemlerini anlaşılır raporlarla iletti.",
+        ],
+      },
+    ],
+    projects: [
+      { name: "Omarchy Focus", stack: "Python, Textual, QML, SQLite", text: "Pomodoro, görev kuyruğu ve /etc/hosts tabanlı geri alınabilir site engelleyici; yerel bar widget'ı, TUI ve CLI. AUR paketi." },
+      { name: "Lexis", stack: "Python, PyQt6, Gemini, SQLite", text: "Local-first, isteğe bağlı Gemini destekli sözlük ve dil öğrenme uygulaması; SM-2 aralıklı tekrar. AUR: lexis-git." },
+      { name: "Notion Dictionary Automation", stack: "Python, Gemini API, ActivePieces", text: "Gemini'den yapılandırılmış JSON (anlam, örnek cümle) alıp webhook ile Notion'a aktaran otomasyon." },
+      { name: "RV32I Assembler & Linker", stack: "C, Flask", text: "Object dosyaları, sembol çözümleme, relocation ve PicoRV32 bellek çıktısı üreten assembler/bağlayıcı." },
+    ],
+    edu: [
+      { title: "Sakarya Uygulamalı Bilimler Üniversitesi", role: "Bilgisayar Mühendisliği, Lisans (4. sınıf)", meta: "Eki 2023 – Haz 2027 (Beklenen)" },
+      { title: "Türkiye Siber Vatan Programı 2026", role: "Uygulamalı siber güvenlik eğitimi · Katılım Sertifikası", meta: "Ara 2025 – Mar 2026", sub: "Ağ ve web güvenliği, zafiyet analizi, CTF odaklı uygulamalar." },
+    ],
+    skills: [
+      ["Güvenlik", "OWASP Top 10, web uygulama testleri, zafiyet analizi ve raporlama · Burp Suite, Nmap, FFUF, Wireshark, Metasploit"],
+      ["Yapay Zekâ", "LLM API entegrasyonu (Gemini), yapılandırılmış JSON çıktıları, webhook otomasyonu (ActivePieces)"],
+      ["Linux ve Ağ", "Arch Linux, Bash, TCP/IP, VLAN, PoE, DNS/DHCP, SNMP, LDAP/Active Directory"],
+      ["Geliştirme", "Python (PyQt6, Textual, Flask), JavaScript (Electron, Express), SQLite, C, Java/Android, Git"],
+      ["Dil", "Türkçe (ana dil), İngilizce (B2)"],
+    ],
+    certs: [
+      { title: "TEKNOFEST 2024 Robolig Yarışması (Üniversite ve Üzeri) — Finalist", id: "AllSpark takımı · arayüz tasarımı", meta: "Eki 2024" },
+      { title: "CWSE — Certified Web Security Expert · Hackviser", id: "HV-CWSE-ZNKC7QAY", meta: "Şub 2026" },
+      { title: "CAPT — Certified Associate Penetration Tester · Hackviser", id: "HV-CAPT-2U0W5XSE", meta: "Eki 2025" },
+      { title: "Networking Basics · Cisco Networking Academy", meta: "Ağu 2025" },
+    ],
+  },
+  en: {
+    headline: "Computer Engineering Student | Cyber Security · AI-Assisted Tools · Linux Systems",
+    location: "Bursa, Türkiye",
+    h: { profile: "Profile", exp: "Experience", projects: "Selected Projects", edu: "Education", skills: "Technical Skills", certs: "Certifications & Achievements" },
+    profile:
+      "Final-year Computer Engineering student working on cyber security, AI-assisted applications and Linux systems. " +
+      "Completed a six-month Red Team internship in authorized web security testing and vulnerability analysis, and two enterprise IT " +
+      "internships covering on-site infrastructure and an Active Directory-integrated operations tool. Ships open-source applications end to end; two are packaged on the AUR.",
+    exp: [
+      {
+        title: "PTT KULE A.Ş.", role: "IT Intern", meta: "Aug 2026 – Sep 2026", sub: "Çamlıca Tower, İstanbul · On-site",
+        points: [
+          "Troubleshot physical and software faults across the large-scale IT infrastructure of Çamlıca Tower.",
+          "Set up and diagnosed camera-to-switch connections for VLAN/PoE IP cameras; resolved cabling and device connectivity issues.",
+          "Resolved a static IP conflict by moving devices to DHCP; rebuilt a working machine from the healthy parts of two faulty PCs.",
+        ],
+      },
+      {
+        title: "İşbir Sentetik Dokuma Sanayi A.Ş.", role: "IT Intern", meta: "Jul 2026 – Aug 2026", sub: "Balıkesir · On-site",
+        points: [
+          "Built PrintHub, an Active Directory-integrated printer and toner management tool (Electron, Express, SQLite).",
+          "Implemented SNMP v2c/v3 printer discovery and consumable tracking, LDAP access, role-based permissions and audit logs.",
+          "Supported inventory, cost and reporting workflows oriented toward ISO/IEC 27001 requirements.",
+        ],
+      },
+      {
+        title: "EMA Security LTD", role: "Cyber Security Intern (Red Team)", meta: "Oct 2025 – Mar 2026", sub: "Remote · 6 months",
+        points: [
+          "Performed authorized web security testing, vulnerability analysis and hands-on OWASP Top 10 work.",
+          "Validated and documented findings and communicated technical security observations in clear reports.",
+        ],
+      },
+    ],
+    projects: [
+      { name: "Omarchy Focus", stack: "Python, Textual, QML, SQLite", text: "Pomodoro timer, task queue and reversible /etc/hosts site blocker; native bar widget, TUI and CLI. Packaged on the AUR." },
+      { name: "Lexis", stack: "Python, PyQt6, Gemini, SQLite", text: "Local-first dictionary and language-learning app with optional Gemini assistance and SM-2 spaced repetition. AUR: lexis-git." },
+      { name: "Notion Dictionary Automation", stack: "Python, Gemini API, ActivePieces", text: "Requests structured JSON (definition, example) from Gemini and delivers it to Notion through a webhook." },
+      { name: "RV32I Assembler & Linker", stack: "C, Flask", text: "Assembler and linker with object files, symbol resolution, relocations and PicoRV32 memory output." },
+    ],
+    edu: [
+      { title: "Sakarya University of Applied Sciences", role: "B.Sc. in Computer Engineering (4th year)", meta: "Oct 2023 – Jun 2027 (Expected)" },
+      { title: "Türkiye Siber Vatan Program 2026", role: "Applied cyber security training · Certificate of Participation", meta: "Dec 2025 – Mar 2026", sub: "Network and web security, vulnerability analysis, CTF-oriented exercises." },
+    ],
+    skills: [
+      ["Security", "OWASP Top 10, web application testing, vulnerability assessment and reporting · Burp Suite, Nmap, FFUF, Wireshark, Metasploit"],
+      ["AI", "LLM API integration (Gemini), structured JSON outputs, webhook automation (ActivePieces)"],
+      ["Linux & Networking", "Arch Linux, Bash, TCP/IP, VLAN, PoE, DNS/DHCP, SNMP, LDAP/Active Directory"],
+      ["Development", "Python (PyQt6, Textual, Flask), JavaScript (Electron, Express), SQLite, C, Java/Android, Git"],
+      ["Languages", "Turkish (native), English (B2)"],
+    ],
+    certs: [
+      { title: "TEKNOFEST 2024 Robolig Competition (University level) — Finalist", id: "Team AllSpark · interface design", meta: "Oct 2024" },
+      { title: "CWSE — Certified Web Security Expert · Hackviser", id: "HV-CWSE-ZNKC7QAY", meta: "Feb 2026" },
+      { title: "CAPT — Certified Associate Penetration Tester · Hackviser", id: "HV-CAPT-2U0W5XSE", meta: "Oct 2025" },
+      { title: "Networking Basics · Cisco Networking Academy", meta: "Aug 2025" },
+    ],
+  },
+}[lang];
+
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const entry = (e) => `
+  <div class="entry">
+    <div class="entry-head">
+      <div class="entry-title">${esc(e.title)}${e.role ? ` <em>· ${esc(e.role)}</em>` : ""}${e.id ? ` <span class="id">· ${esc(e.id)}</span>` : ""}</div>
+      <div class="entry-meta">${esc(e.meta)}</div>
+    </div>
+    ${e.sub ? `<div class="entry-sub">${esc(e.sub)}</div>` : ""}
+    ${e.points ? `<ul class="points">${e.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
+  </div>`;
+
+document.getElementById("cv").innerHTML = `
+  <header>
+    <div class="name-row"><h1>TALHA ÇAĞLAR</h1><span class="location">${esc(T.location)}</span></div>
+    <div class="headline">${esc(T.headline)}</div>
+    <div class="contact">${contact.map(([label, href]) => `<span><a href="${href}">${esc(label)}</a></span>`).join("")}</div>
+  </header>
+
+  <section><h2>${T.h.profile}</h2><p class="summary">${esc(T.profile)}</p></section>
+
+  <section><h2>${T.h.exp}</h2>${T.exp.map(entry).join("")}</section>
+
+  <section class="projects"><h2>${T.h.projects}</h2>
+    ${T.projects.map((p) => `<div class="entry project-line"><b>${esc(p.name)}</b> <span class="stack">· ${esc(p.stack)}</span> — ${esc(p.text)}</div>`).join("")}
+  </section>
+
+  <section><h2>${T.h.edu}</h2>${T.edu.map(entry).join("")}</section>
+
+  <section><h2>${T.h.skills}</h2>
+    <dl class="skills">${T.skills.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+  </section>
+
+  <section class="certs"><h2>${T.h.certs}</h2>${T.certs.map(entry).join("")}</section>
+`;
+</script>
+</body>
+</html>

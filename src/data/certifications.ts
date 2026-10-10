@@ -20,6 +20,7 @@ export const certifications: Certification[] = [
     date: 'Jun 2026',
     url: 'https://drdogrulama.sanayi.gov.tr/tr/verify/32735234861993/',
     credentialId: '32735234861993',
+    thumbnail: '/certs/siber-vatan-preview.jpg',
   },
   {
     id: 'cwse',
@@ -49,10 +50,11 @@ export const certifications: Certification[] = [
   },
   {
     id: 'teknofest-2024',
-    name: 'TEKNOFEST 2024 Achievement Certificate',
+    name: 'TEKNOFEST 2024 Robolig Finalist',
     issuer: 'TEKNOFEST',
     date: 'Oct 2024',
     url: 'https://drdogrulama.sanayi.gov.tr/tr/verify/88821725841029/',
     credentialId: '88821725841029',
+    thumbnail: '/certs/teknofest-preview.jpg',
   },
 ];
