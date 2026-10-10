@@ -8,7 +8,7 @@ export interface Project {
   category: string;
   /** Short technical label shown in the project list. */
   signal: string;
-  /** Primary language by bytes, as GitHub reports it. */
+  /** Primary implementation language of the source. */
   lang: string;
   /** Last push, YYYY.MM. Shown on the card instead of a decorative counter. */
   updated: string;
@@ -36,13 +36,13 @@ export const projects: Project[] = [
     id: 'lexis',
     name: 'Lexis',
     description:
-      'AI-assisted offline dictionary with spaced repetition for words you look up.',
-    tags: ['Python', 'PyQt6', 'SQLite', 'Local-first'],
+      'Local-first, AI-assisted dictionary and language-learning app: context, tone, examples, Turkish translations and spaced repetition.',
+    tags: ['Python', 'PyQt6', 'Gemini', 'SQLite'],
     url: 'https://github.com/talhacaglar/Lexis',
     category: 'Desktop learning system',
     signal: 'Local-first / AUR',
     lang: 'Python',
-    updated: '2026.07',
+    updated: '2026.09',
     media: {
       src: '/projects/lexis.webp',
       alt: 'Lexis vocabulary library with search, learning states, and nine sample entries',
@@ -71,7 +71,7 @@ export const projects: Project[] = [
     category: 'IT operations console',
     signal: 'SNMP / LDAP / RBAC',
     lang: 'JavaScript',
-    updated: '2026.07',
+    updated: '2026.09',
     caseStudy: {
       problem: 'Printer health, toner stock, costs, directory access, and audit evidence live in separate operational views.',
       decision: 'Unify SNMP monitoring, LDAP access views, inventory, RBAC, and audit records in a local Electron application.',
@@ -80,27 +80,59 @@ export const projects: Project[] = [
     size: 'standard',
   },
   {
-    id: 'clar-focus',
-    name: 'Clar Focus',
+    id: 'omarchy-focus',
+    name: 'Omarchy Focus',
     description:
-      'Terminal-first productivity suite: SQLite task manager, pomodoro engine, and a focus blocker that edits /etc/hosts behind recovery markers. Ships a Waybar module.',
-    tags: ['Python', 'Textual', 'SQLite', 'Hyprland'],
-    url: 'https://github.com/talhacaglar/Clar-Focus',
+      'Pomodoro timer, task queue and a reversible site blocker for Omarchy: a native bar widget, a Textual terminal app and a CLI sharing one local SQLite database.',
+    tags: ['Python', 'Textual', 'QML', 'SQLite'],
+    url: 'https://github.com/talhacaglar/omarchy-focus',
     category: 'Focus infrastructure',
-    signal: 'TUI / Omarchy',
+    signal: 'Bar widget / AUR',
     lang: 'Python',
-    updated: '2026.07',
+    updated: '2026.10',
     media: {
       src: '/projects/clar-focus.webp',
-      alt: 'Clar Focus dashboard showing the next task and a queue of sample tasks',
+      alt: 'Focus dashboard showing the next task and a queue of sample tasks',
       position: 'center',
     },
     caseStudy: {
       problem: 'Tasks, focus timers, and distraction blocking were split across unrelated tools and fragile shell state.',
-      decision: 'Use a SQLite service layer and reversible hosts-file markers behind one keyboard-first Textual interface.',
-      result: 'A recoverable focus system that also exposes live state through the native Omarchy bar.',
+      decision: 'Use a SQLite service layer and reversible, marked /etc/hosts blocks with crash recovery behind a keyboard-first interface.',
+      result: 'A recoverable focus system with a live Omarchy Shell bar widget, heatmap statistics and an AUR package.',
     },
+    highlights: [
+      'Native Omarchy Shell widget with a live countdown; no polling, it watches a change file with inotify',
+      'Site guard asks for elevation through the polkit dialog, with strict mode and crash recovery',
+      'Daily goal, streaks and a GitHub-style heatmap in the panel, the TUI and the CLI',
+      'Packaged on the AUR as omarchy-focus',
+    ],
     size: 'standard',
+  },
+  {
+    id: 'rv32i',
+    name: 'RV32I Toolchain',
+    description:
+      'Assembler and linker for RV32I programs written in C, with object files, symbol resolution, relocations, PicoRV32-oriented memory output and a Flask interface.',
+    tags: ['C', 'RISC-V', 'Flask', 'PicoRV32'],
+    url: 'https://github.com/talhacaglar/rv32i-assembler-linker',
+    category: 'Low-level toolchain',
+    signal: 'Assembler / Linker',
+    lang: 'C',
+    updated: '2026.09',
+    size: 'compact',
+  },
+  {
+    id: 'notion-dictionary',
+    name: 'Notion Dictionary',
+    description:
+      'Terminal workflow that asks Gemini for a word’s meaning and an example sentence as JSON, then sends it through an ActivePieces webhook into Notion.',
+    tags: ['Python', 'Gemini', 'ActivePieces', 'Notion'],
+    url: 'https://github.com/talhacaglar/notion-dictionary-automation',
+    category: 'AI automation',
+    signal: 'Gemini / Webhook',
+    lang: 'Python',
+    updated: '2026.09',
+    size: 'compact',
   },
   {
     id: 'archsweep',
@@ -112,7 +144,7 @@ export const projects: Project[] = [
     category: 'System maintenance TUI',
     signal: 'Zero dependencies',
     lang: 'Shell',
-    updated: '2026.06',
+    updated: '2026.09',
     size: 'compact',
   },
   {
@@ -125,7 +157,7 @@ export const projects: Project[] = [
     category: 'Android marketplace',
     signal: 'Maps / Realtime',
     lang: 'Java',
-    updated: '2026.05',
+    updated: '2026.09',
     size: 'compact',
   },
   {
@@ -138,7 +170,7 @@ export const projects: Project[] = [
     category: 'Terminal utility',
     signal: 'DeepL / Textual',
     lang: 'Python',
-    updated: '2026.07',
+    updated: '2026.09',
     media: {
       src: '/projects/translator.webp',
       alt: 'DTR translating English into Turkish with source and target language selectors',
@@ -156,7 +188,7 @@ export const projects: Project[] = [
     category: 'Desktop system',
     signal: 'Arch / Hyprland',
     lang: 'Shell',
-    updated: '2026.08',
+    updated: '2026.09',
     size: 'compact',
   },
 ];

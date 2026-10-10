@@ -12,7 +12,7 @@ export function Certifications() {
             <h2 className="display-title mt-7">Training and certifications</h2>
           </div>
           <p className="max-w-xl text-base leading-7 text-[var(--steel-dark)] lg:pb-1 lg:text-lg">
-            Completed coursework and certifications in security and networking.
+            Verifiable certificates in web security, penetration testing, networking, and competition work.
           </p>
         </div>
 
@@ -21,15 +21,22 @@ export function Certifications() {
             const content = (
               <>
                 <div className="certificate-frame relative aspect-[1000/644] overflow-hidden border-b hairline bg-[var(--canvas)]">
-                  <Image
-                    src={cert.thumbnail}
-                    alt={`${cert.name} certificate issued by ${cert.issuer}`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition duration-500 group-hover:scale-[1.025] group-hover:grayscale-0 sm:grayscale-[0.2]"
-                  />
+                  {cert.thumbnail ? (
+                    <Image
+                      src={cert.thumbnail}
+                      alt={`${cert.name} certificate issued by ${cert.issuer}`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition duration-500 group-hover:scale-[1.025] group-hover:grayscale-0 sm:grayscale-[0.2]"
+                    />
+                  ) : (
+                    <div className="certificate-placeholder" aria-hidden="true">
+                      <span>{cert.issuer}</span>
+                      <b>{cert.date}</b>
+                    </div>
+                  )}
                   <span className="absolute left-0 top-0 bg-[var(--ink)] px-3 py-2 font-mono text-[0.62rem] font-semibold tracking-[0.12em] text-[var(--paper)]">
-                    0{index + 1}
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
                 <div className="flex min-h-48 flex-col p-5 sm:min-h-64 sm:p-6 lg:p-8">

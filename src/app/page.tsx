@@ -1,5 +1,6 @@
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
+import { Focus } from "@/components/Focus";
 import { Projects } from "@/components/Projects";
 import { Certifications } from "@/components/Certifications";
 import { Experience } from "@/components/Experience";
@@ -24,7 +25,15 @@ export default function Home() {
       "https://www.linkedin.com/in/talhacaglar1/",
       "https://t.me/Cgllar",
     ],
-    knowsAbout: ["Computer Engineering", "Linux", "Arch Linux", "Cyber Security", "Python", "Open Source"],
+    knowsAbout: [
+      "Computer Engineering",
+      "Cyber Security",
+      "Web Application Security",
+      "Artificial Intelligence",
+      "Linux",
+      "Python",
+      "Open Source",
+    ],
     owns: projects.map((project) => ({
       "@type": "SoftwareSourceCode",
       name: project.name,
@@ -43,6 +52,7 @@ export default function Home() {
       <Nav />
       <main className="flex-1">
         <Hero />
+        <Focus />
         <Projects />
         <Certifications />
         <Experience />

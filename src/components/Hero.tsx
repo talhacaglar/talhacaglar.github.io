@@ -1,9 +1,10 @@
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
 const facts = [
-  { value: "Computer Engineering", label: "Degree" },
-  { value: "Arch Linux", label: "Primary environment" },
-  { value: "Security", label: "Area of interest" },
+  { value: "Computer Engineering", label: "Degree · 2027" },
+  { value: "Cyber Security", label: "Primary focus" },
+  { value: "AI-assisted tools", label: "Also building" },
+  { value: "Arch Linux", label: "Daily environment" },
 ];
 
 export function Hero() {
@@ -35,12 +36,12 @@ export function Hero() {
             </h1>
 
             <div className="hero-reveal hero-reveal-3 mt-8 flex justify-center border-t hairline pt-6 sm:mt-12 lg:mt-8">
-              <div className="flex w-full max-w-2xl flex-col items-center text-center">
+              <div className="flex w-full max-w-3xl flex-col items-center text-center">
                 <p className="font-display text-[clamp(1.5rem,3.1vw,2.75rem)] font-semibold leading-[1.02] tracking-[-0.025em]">
-                  Computer engineering student focused on Linux, security, and desktop software.
+                  Computer engineering student working on cyber security, AI-assisted tools, and Linux systems.
                 </p>
                 <p className="mt-4 max-w-xl text-sm leading-6 text-[var(--ink-soft)] sm:mt-5 sm:text-base sm:leading-7">
-                  I work on local-first applications, terminal tools, and security-focused systems.
+                  Red Team and IT internships completed; now building local-first apps, AI automations, and terminal tools.
                 </p>
                 <div className="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3">
                   <a href="#projects" className="hero-action inline-flex min-h-11 items-center gap-2 bg-[var(--paper)] px-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-[var(--ink)] transition-colors hover:bg-[var(--oxide)] sm:gap-3 sm:px-4">
@@ -55,13 +56,11 @@ export function Hero() {
           </div>
         </div>
 
-        <ul className="hero-reveal hero-reveal-4 grid border-x border-t hairline sm:grid-cols-3" aria-label="Key facts">
-          {facts.map((fact, index) => (
+        <ul className="hero-reveal hero-reveal-4 grid border-l border-t hairline sm:grid-cols-2 lg:grid-cols-4" aria-label="Key facts">
+          {facts.map((fact) => (
             <li
               key={fact.label}
-              className={`flex items-center justify-between gap-4 border-b hairline px-4 py-4 sm:min-h-24 sm:flex-col sm:items-start sm:justify-between sm:border-b-0 sm:px-6 sm:py-5 ${
-                index < facts.length - 1 ? "sm:border-r" : ""
-              }`}
+              className="flex items-center justify-between gap-4 border-b border-r hairline px-4 py-4 sm:min-h-24 sm:flex-col sm:items-start sm:justify-between sm:px-6 sm:py-5 lg:border-b-0"
             >
               <span className="font-display text-xl font-bold uppercase leading-none tracking-[-0.02em] sm:text-3xl">
                 {fact.value}

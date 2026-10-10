@@ -6,6 +6,7 @@ import { FileDown, Menu, X } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TelegramIcon } from "@/components/ui/icons";
 
 const navLinks = [
+  { href: "#focus", label: "Focus" },
   { href: "#projects", label: "Projects" },
   { href: "#certifications", label: "Certifications" },
   { href: "#experience", label: "Experience" },

@@ -36,7 +36,10 @@ export function Experience() {
                 </h3>
                 <p className="mt-3 text-base text-[var(--ink-soft)]">{role.role}</p>
                 {role.location && (
-                  <p className="mt-3 font-mono text-[0.65rem] text-[var(--steel-dark)]">{role.location}</p>
+                  <p className="mt-3 font-mono text-[0.65rem] uppercase tracking-[0.08em] text-[var(--steel-dark)]">{role.location}</p>
+                )}
+                {role.summary && (
+                  <p className="mt-5 max-w-2xl text-sm leading-6 text-[var(--steel)] sm:text-base sm:leading-7">{role.summary}</p>
                 )}
               </div>
             </li>

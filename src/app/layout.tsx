@@ -24,7 +24,7 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "Talha Çağlar — Computer Engineering Student",
-  description: "Computer engineering student focused on Linux, security, and desktop software.",
+  description: "Computer engineering student working on cyber security, AI-assisted tools, and Linux systems.",
   metadataBase: new URL("https://talhacaglar.github.io"),
   alternates: {
     canonical: "/",
@@ -37,12 +37,14 @@ export const metadata: Metadata = {
     "Linux",
     "Arch Linux",
     "cyber security",
+    "web security",
+    "artificial intelligence",
     "Python",
     "open source",
   ],
   openGraph: {
     title: "Talha Çağlar — Computer Engineering Student",
-    description: "Computer engineering student focused on Linux, security, and desktop software.",
+    description: "Computer engineering student working on cyber security, AI-assisted tools, and Linux systems.",
     type: "website",
     locale: "en_US",
     siteName: "Talha Çağlar",
@@ -59,7 +61,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Talha Çağlar — Computer Engineering Student",
-    description: "Computer engineering student focused on Linux, security, and desktop software.",
+    description: "Computer engineering student working on cyber security, AI-assisted tools, and Linux systems.",
     images: ["/opengraph-image.png"],
   },
   robots: {

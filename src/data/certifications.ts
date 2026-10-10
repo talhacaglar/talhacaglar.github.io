@@ -7,11 +7,20 @@ export interface Certification {
   /** Verification link, where the issuer offers one. */
   url?: string;
   credentialId?: string;
-  thumbnail: string;
+  /** Certificate preview. Without one, the card renders a typographic document frame. */
+  thumbnail?: string;
 }
 
 /** Newest first — the section renders them in array order. */
 export const certifications: Certification[] = [
+  {
+    id: 'siber-vatan-2026',
+    name: 'Türkiye Siber Vatan Program 2026',
+    issuer: 'Siber Vatan',
+    date: 'Jun 2026',
+    url: 'https://drdogrulama.sanayi.gov.tr/tr/verify/32735234861993/',
+    credentialId: '32735234861993',
+  },
   {
     id: 'cwse',
     name: 'Certified Web Security Expert',
@@ -35,6 +44,15 @@ export const certifications: Certification[] = [
     name: 'Networking Basics',
     issuer: 'Cisco Networking Academy',
     date: 'Aug 2025',
+    url: 'https://www.credly.com/badges/282ce09e-2a2f-4b44-9e28-52516f78225d',
     thumbnail: '/certs/cisco-networking-preview.jpg',
+  },
+  {
+    id: 'teknofest-2024',
+    name: 'TEKNOFEST 2024 Achievement Certificate',
+    issuer: 'TEKNOFEST',
+    date: 'Oct 2024',
+    url: 'https://drdogrulama.sanayi.gov.tr/tr/verify/88821725841029/',
+    credentialId: '88821725841029',
   },
 ];
