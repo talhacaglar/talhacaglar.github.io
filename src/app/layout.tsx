@@ -17,7 +17,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 const description =
-  "Computer engineering student who has been curious about technology since childhood. Learns by building small projects and uses AI along the way.";
+  "Computer engineering student who has been curious about technology since childhood. Builds his projects with AI and uses it a lot, every day.";
 
 export const metadata: Metadata = {
   title: "Talha Çağlar — Computer Engineering Student",

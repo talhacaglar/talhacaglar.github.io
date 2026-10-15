@@ -49,8 +49,8 @@ export function Hero() {
               off. I love researching and learning new things, and I learn best by building small projects of my own.
             </p>
             <p className="mt-4 text-lg leading-8 text-[var(--ash)]">
-              I use AI a lot, both as a tool and as something I want to understand better. I&apos;d rather figure out how
-              a thing works than just use it.
+              I build my projects with AI and use it a lot, every day: planning, writing code, researching and picking
+              up new things faster. I also want to know how it works under the hood, not just use it.
             </p>
           </div>
 
