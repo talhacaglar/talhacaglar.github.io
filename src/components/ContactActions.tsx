@@ -1,99 +1,74 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy, FileDown } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Check, Copy } from "lucide-react";
 
-const EMAIL = "talhacaglarr@proton.me";
 const DISCORD_USERNAME = "0ff0ff0ffoff";
 
 type CopiedValue = "email" | "discord" | null;
 
-export function ContactActions() {
+function SwapLabel({ copied, idle, done }: { copied: boolean; idle: string; done: string }) {
+  const reduceMotion = useReducedMotion();
+  return (
+    <span className="relative inline-flex items-center gap-2 overflow-hidden">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={copied ? "done" : "idle"}
+          className="inline-flex items-center gap-2"
+          initial={reduceMotion ? false : { y: 14, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={reduceMotion ? undefined : { y: -14, opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {copied ? (
+            <Check className="h-4 w-4 text-[var(--glow)]" aria-hidden="true" />
+          ) : (
+            <Copy className="h-4 w-4" aria-hidden="true" />
+          )}
+          {copied ? done : idle}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
+export function ContactActions({ email }: { email: string }) {
   const [copied, setCopied] = useState<CopiedValue>(null);
   const [copyError, setCopyError] = useState<string | null>(null);
 
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(EMAIL);
-      setCopied("email");
-      window.setTimeout(() => setCopied(null), 1800);
-    } catch {
-      window.location.href = `mailto:${EMAIL}`;
-    }
-  };
-
-  const copyDiscord = async () => {
+  const copy = async (value: string, which: Exclude<CopiedValue, null>) => {
     setCopyError(null);
     try {
-      await navigator.clipboard.writeText(DISCORD_USERNAME);
-      setCopied("discord");
-      window.setTimeout(() => setCopied(null), 1800);
+      await navigator.clipboard.writeText(value);
+      setCopied(which);
+      window.setTimeout(() => setCopied((current) => (current === which ? null : current)), 1800);
     } catch {
-      setCopyError(`Copy unavailable. Discord username: ${DISCORD_USERNAME}`);
+      if (which === "email") {
+        window.location.href = `mailto:${email}`;
+      } else {
+        setCopyError(`Copying isn't available here. My Discord username is ${DISCORD_USERNAME}.`);
+      }
     }
   };
 
   return (
-    <div className="mt-5 grid border-l border-t border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] sm:grid-cols-2">
-      <button
-        type="button"
-        onClick={copyEmail}
-        className="group flex min-h-16 items-center justify-between gap-4 border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 text-left transition-colors hover:bg-[var(--ink)] hover:text-[var(--paper)]"
-      >
-        <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]">
-          {copied === "email" ? "Email copied" : "Copy email"}
-        </span>
-        {copied === "email" ? <Check className="h-4 w-4" aria-hidden="true" /> : <Copy className="h-4 w-4" aria-hidden="true" />}
-      </button>
-      <button
-        type="button"
-        onClick={copyDiscord}
-        className="group flex min-h-16 items-center justify-between gap-4 border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 text-left transition-colors hover:bg-[var(--ink)] hover:text-[var(--paper)]"
-      >
-        <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]">
-          {copied === "discord" ? "Discord copied" : `Discord · ${DISCORD_USERNAME}`}
-        </span>
-        {copied === "discord" ? <Check className="h-4 w-4" aria-hidden="true" /> : <Copy className="h-4 w-4" aria-hidden="true" />}
-      </button>
-      <a
-        href="/resume/Talha-Caglar-CV.pdf"
-        download
-        className="group flex min-h-16 items-center justify-between gap-4 border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 transition-colors hover:bg-[var(--ink)] hover:text-[var(--paper)]"
-      >
-        <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]">Download CV (TR)</span>
-        <FileDown className="h-4 w-4 transition-transform group-hover:translate-y-1" aria-hidden="true" />
-      </a>
-      <a
-        href="/resume/Talha-Caglar-CV-EN.pdf"
-        download
-        className="group flex min-h-16 items-center justify-between gap-4 border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 transition-colors hover:bg-[var(--ink)] hover:text-[var(--paper)]"
-      >
-        <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]">Download CV (EN)</span>
-        <FileDown className="h-4 w-4 transition-transform group-hover:translate-y-1" aria-hidden="true" />
-      </a>
-      <a
-        href="/portfolio/Talha-Caglar-Portfolyo.pdf"
-        download
-        className="group flex min-h-16 items-center justify-between gap-4 border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 transition-colors hover:bg-[var(--ink)] hover:text-[var(--paper)]"
-      >
-        <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]">Portfolio PDF (TR)</span>
-        <FileDown className="h-4 w-4 transition-transform group-hover:translate-y-1" aria-hidden="true" />
-      </a>
-      <a
-        href="/portfolio/Talha-Caglar-Portfolio-EN.pdf"
-        download
-        className="group flex min-h-16 items-center justify-between gap-4 border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 transition-colors hover:bg-[var(--ink)] hover:text-[var(--paper)]"
-      >
-        <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]">Portfolio PDF (EN)</span>
-        <FileDown className="h-4 w-4 transition-transform group-hover:translate-y-1" aria-hidden="true" />
-      </a>
+    <div className="mt-6">
+      <div className="flex flex-wrap gap-3">
+        <button type="button" onClick={() => copy(email, "email")} className="pill pill-ghost">
+          <SwapLabel copied={copied === "email"} idle="Copy email" done="Email copied" />
+        </button>
+        <button type="button" onClick={() => copy(DISCORD_USERNAME, "discord")} className="pill pill-ghost">
+          <SwapLabel copied={copied === "discord"} idle={`Discord: ${DISCORD_USERNAME}`} done="Username copied" />
+        </button>
+      </div>
       {copyError && (
-        <p role="status" className="col-span-full border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] px-4 py-3 text-sm">
+        <p role="status" className="mt-3 text-sm text-[var(--ash)]">
           {copyError}
         </p>
       )}
       <span className="sr-only" aria-live="polite">
-        {copied === "email" ? "Email address copied to clipboard" : copied === "discord" ? "Discord username copied to clipboard" : ""}
+        {copied === "email" ? "Email address copied" : copied === "discord" ? "Discord username copied" : ""}
       </span>
     </div>
   );

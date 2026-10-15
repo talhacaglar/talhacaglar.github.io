@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail } from "lucide-react";
+import { FileDown } from "lucide-react";
 import { ContactActions } from "@/components/ContactActions";
 import { GithubIcon, LinkedinIcon, TelegramIcon } from "@/components/ui/icons";
 
@@ -10,54 +10,78 @@ const socials = [
   { href: "https://t.me/Cgllar", label: "Telegram", icon: TelegramIcon },
 ];
 
+const documents = [
+  { href: "/resume/Talha-Caglar-CV-EN.pdf", label: "CV in English" },
+  { href: "/resume/Talha-Caglar-CV.pdf", label: "CV in Turkish" },
+  { href: "/portfolio/Talha-Caglar-Portfolio-EN.pdf", label: "Portfolio in English" },
+  { href: "/portfolio/Talha-Caglar-Portfolyo.pdf", label: "Portfolio in Turkish" },
+];
+
 export function Contact() {
   return (
-    <section id="contact" className="bg-[var(--paper)] py-16 text-[var(--ink)] sm:py-24 lg:py-32">
-      <div className="site-shell">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(18rem,0.7fr)] lg:gap-20">
-          <div>
-            <p className="section-kicker text-[var(--oxide-ink)]">Bursa · UTC+3</p>
-            <h2 className="mt-7 max-w-5xl font-display text-[clamp(3.7rem,9vw,8.5rem)] font-extrabold uppercase leading-[0.85] tracking-[-0.05em]">
-              Get in touch
-            </h2>
-          </div>
+    <section id="contact" className="section">
+      <div className="shell">
+        <div className="reveal max-w-3xl">
+          <h2 className="section-title">Get in touch</h2>
+          <p className="section-lead">
+            Questions about my work, an idea for a project, or just something cool you built. Email is the quickest way
+            to reach me. I&apos;m in Bursa, on Türkiye time.
+          </p>
 
-          <div className="flex flex-col justify-end">
-            <p className="max-w-lg text-lg leading-8 text-[color:color-mix(in_srgb,var(--ink)_74%,transparent)]">
-              For project discussions, collaboration, or questions about my work, reach me by email or Discord.
-            </p>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="group mt-8 flex items-center justify-between gap-3 border-y border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] py-5 sm:mt-10 sm:gap-6 sm:py-6"
-            >
-              <span className="flex min-w-0 items-center gap-3 sm:gap-4">
-                <Mail className="h-5 w-5 shrink-0" aria-hidden="true" />
-                <span className="min-w-0 break-all font-mono text-[0.7rem] font-semibold sm:text-sm">{EMAIL}</span>
-              </span>
-              <ArrowUpRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
-            </a>
-            <ContactActions />
-          </div>
+          <a
+            href={`mailto:${EMAIL}`}
+            className="soft-link mt-10 inline-block break-all pb-1 text-[clamp(1.5rem,5vw,2.75rem)] font-semibold tracking-[-0.03em]"
+          >
+            {EMAIL}
+          </a>
+
+          <ContactActions email={EMAIL} />
         </div>
 
-        <ul className="mt-12 grid border-l border-t border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)] sm:mt-16 sm:grid-cols-3 lg:mt-24">
-          {socials.map((social) => (
-            <li key={social.label} className="border-b border-r border-[color:color-mix(in_srgb,var(--ink)_28%,transparent)]">
-              <a
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex min-h-24 items-center justify-between gap-4 px-5 transition-colors hover:bg-[var(--ink)] hover:text-[var(--paper)] sm:min-h-28 sm:px-7"
-              >
-                <span className="flex items-center gap-4 font-mono text-xs font-semibold uppercase tracking-[0.12em]">
-                  <social.icon className="h-5 w-5" aria-hidden="true" />
-                  {social.label}
-                </span>
-                <ArrowUpRight className="h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="reveal mt-16 grid gap-12 border-t border-[var(--line)] pt-10 md:grid-cols-2">
+          <div>
+            <h3 className="text-[1.0625rem] font-semibold text-[var(--ash)]">CV and portfolio</h3>
+            <ul className="mt-4 space-y-1">
+              {documents.map((doc) => (
+                <li key={doc.href}>
+                  <a
+                    href={doc.href}
+                    download
+                    className="group -mx-3 flex items-center justify-between gap-4 rounded-lg px-3 py-2.5 transition-colors duration-300 hover:bg-[var(--dusk)]"
+                  >
+                    <span>{doc.label}</span>
+                    <FileDown
+                      className="h-4 w-4 text-[var(--smoke)] transition-all duration-300 group-hover:translate-y-0.5 group-hover:text-[var(--glow)]"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-[1.0625rem] font-semibold text-[var(--ash)]">Elsewhere</h3>
+            <ul className="mt-4 space-y-1">
+              {socials.map((social) => (
+                <li key={social.label}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group -mx-3 flex items-center gap-4 rounded-lg px-3 py-2.5 transition-colors duration-300 hover:bg-[var(--dusk)]"
+                  >
+                    <social.icon
+                      className="h-[18px] w-[18px] text-[var(--smoke)] transition-colors duration-300 group-hover:text-[var(--glow)]"
+                      aria-hidden="true"
+                    />
+                    <span>{social.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

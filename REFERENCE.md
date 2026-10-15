@@ -17,19 +17,24 @@ npm run dev          # http://localhost:3000
 
 ## Design system
 
-The site is a warm, dark systems dossier rather than a card-based portfolio.
+Lights off, lamp on: a quiet walnut-and-ash room where one warm light does the
+talking.
 
-- Neutral graphite surfaces, chalk-white type and a restrained copper accent;
-  no purple, gradients or glass effects
-- Barlow Condensed for identity, Manrope for body copy, IBM Plex Mono for data
-- The two-line name block, technical grid and restrained copper markers carry
-  the hero's visual identity
-- A desktop Work Index drives a sticky Project Inspector; mobile uses native,
-  accessible case-study accordions
-- Projects show factual problem / decision / result evidence
-- Certifications are a document archive; experience is a chronological rail
+- Brown-grey palette (`--night`, `--dusk`, bone `--chalk`, taupe `--ash`) with a
+  single honey accent, `--glow`, used as light: rings, halos, focus, the open
+  project. Never as a large flat fill; no purple
+- Bricolage Grotesque for everything, JetBrains Mono only for the terminal motif
+  (`~/clar`, the `$` prompt)
+- The hero is the one orchestrated moment: the ring draws, the room lights, the
+  name rises and the prompt types itself. Pure CSS, so it never waits on hydration
+- Section headings carry a small ring that lights up as the section arrives;
+  content reveals are opted into by an inline script in `layout.tsx` and stay
+  visible without JS or with reduced motion
+- Projects are one accordion for every breakpoint, with problem / approach /
+  result evidence inside
+- Interaction motion answers an action: the nav indicator glides, accordions
+  open with height, copy buttons swap their label
 - Copy stays short, conversational and factual
-- Motion respects reduced-motion preferences and degrades to static depth
 - Open Graph image, sitemap and structured data ship with the export
 
 Personal facts and work records live in `src/data/`. Keep them factual and do

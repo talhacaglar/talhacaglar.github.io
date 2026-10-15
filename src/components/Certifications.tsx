@@ -1,77 +1,52 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
 import { certifications } from "@/data/certifications";
 
 export function Certifications() {
   return (
-    <section id="certifications" className="bg-[var(--surface)] py-16 text-[var(--paper)] sm:py-24 lg:py-32">
-      <div className="site-shell">
-        <div className="grid gap-5 border-b hairline pb-9 sm:gap-8 sm:pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.55fr)] lg:items-end">
-          <div>
-            <p className="section-kicker text-[var(--oxide)]">Certificates · {certifications.length}</p>
-            <h2 className="display-title mt-7">Training and certifications</h2>
-          </div>
-          <p className="max-w-xl text-base leading-7 text-[var(--steel-dark)] lg:pb-1 lg:text-lg">
-            Verifiable certificates in web security, penetration testing, networking, and competition work.
-          </p>
+    <section id="certifications" className="section">
+      <div className="shell">
+        <div className="reveal">
+          <h2 className="section-title">Certificates</h2>
+          <p className="section-lead">Each one opens its official verification page.</p>
         </div>
 
-        <ol className="grid border-l hairline sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {certifications.map((cert, index) => {
             const content = (
               <>
-                <div className="certificate-frame relative aspect-[1000/644] overflow-hidden border-b hairline bg-[var(--canvas)]">
-                  {cert.thumbnail ? (
+                <div className="cert-frame">
+                  {cert.thumbnail && (
                     <Image
                       src={cert.thumbnail}
                       alt={`${cert.name} certificate issued by ${cert.issuer}`}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition duration-500 group-hover:scale-[1.025] group-hover:grayscale-0 sm:grayscale-[0.2]"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 22rem"
+                      className="object-cover"
                     />
-                  ) : (
-                    <div className="certificate-placeholder" aria-hidden="true">
-                      <span>{cert.issuer}</span>
-                      <b>{cert.date}</b>
-                    </div>
-                  )}
-                  <span className="absolute left-0 top-0 bg-[var(--ink)] px-3 py-2 font-mono text-[0.62rem] font-semibold tracking-[0.12em] text-[var(--paper)]">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </div>
-                <div className="flex min-h-48 flex-col p-5 sm:min-h-64 sm:p-6 lg:p-8">
-                  <div className="flex items-start justify-between gap-6">
-                    <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]">
-                      {cert.date}
-                    </span>
-                    {cert.url && <ArrowUpRight className="h-5 w-5 text-[var(--steel-dark)] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />}
-                  </div>
-                  <h3 className="mt-5 font-display text-[1.75rem] font-bold uppercase leading-[0.95] tracking-[-0.025em] sm:mt-7 sm:text-3xl">
-                    {cert.name}
-                  </h3>
-                  <p className="mt-3 text-sm text-[var(--steel-dark)]">{cert.issuer}</p>
-                  {cert.credentialId && (
-                    <p className="mt-auto break-all pt-5 font-mono text-[0.62rem] text-[var(--steel-dark)] sm:pt-8">
-                      {cert.credentialId}
-                    </p>
                   )}
                 </div>
+                <h3 className="mt-5 text-[1.0625rem] font-semibold leading-snug transition-colors duration-300 group-hover:text-[var(--glow)]">
+                  {cert.name}
+                </h3>
+                <p className="mt-1 text-sm text-[var(--smoke)]">
+                  {cert.issuer}, {cert.date}
+                </p>
               </>
             );
 
             return (
-              <li key={cert.id} className="border-b border-r hairline">
+              <li key={cert.id} className="reveal" style={{ "--i": index % 3 } as React.CSSProperties}>
                 {cert.url ? (
-                  <a href={cert.url} target="_blank" rel="noopener noreferrer" className="group block h-full transition-colors hover:bg-[var(--surface-soft)]">
+                  <a href={cert.url} target="_blank" rel="noopener noreferrer" className="group block rounded-xl">
                     {content}
                   </a>
                 ) : (
-                  <article className="group h-full">{content}</article>
+                  <div className="group">{content}</div>
                 )}
               </li>
             );
           })}
-        </ol>
+        </ul>
       </div>
     </section>
   );

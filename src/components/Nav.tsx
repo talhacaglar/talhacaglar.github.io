@@ -2,14 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { FileDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TelegramIcon } from "@/components/ui/icons";
 
 const navLinks = [
   { href: "#focus", label: "Focus" },
   { href: "#projects", label: "Projects" },
-  { href: "#certifications", label: "Certifications" },
   { href: "#experience", label: "Experience" },
+  { href: "#certifications", label: "Certificates" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -19,10 +19,15 @@ const socialLinks = [
   { href: "https://t.me/Cgllar", label: "Telegram", icon: TelegramIcon },
 ];
 
+const downloads = [
+  { href: "/resume/Talha-Caglar-CV-EN.pdf", label: "CV in English" },
+  { href: "/resume/Talha-Caglar-CV.pdf", label: "CV in Turkish" },
+];
+
 export function Nav() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const reduceMotion = useReducedMotion();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLDivElement>(null);
@@ -44,23 +49,10 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const range = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(range > 0 ? Math.min(1, Math.max(0, window.scrollY / range)) : 0);
-    };
-    const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
-    update();
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -80,7 +72,7 @@ export function Nav() {
     desktop.addEventListener("change", closeOnDesktop);
     const previousOverflow = document.body.style.overflow;
     const panel = menuPanelRef.current;
-    const focusable = panel?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+    const focusable = panel?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
     focusable?.[0]?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -109,178 +101,151 @@ export function Nav() {
     };
   }, [menuOpen]);
 
+  const solid = scrolled || menuOpen;
+
   return (
-    <header className="safe-top fixed inset-x-0 top-0 z-50 border-b hairline bg-[var(--canvas)] text-[var(--paper)]">
-      <div className="site-shell flex h-[var(--nav-height)] items-center justify-between">
-        <a
-          href="#top"
-          className="flex h-full items-center border-x hairline px-4 font-display text-2xl font-extrabold tracking-[-0.04em] sm:px-6"
-          aria-label="Talha Çağlar — back to top"
-        >
-          TC<span className="text-[var(--oxide)]">.</span>
-        </a>
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 pt-[var(--safe-top)] transition-[background-color,border-color,backdrop-filter] duration-500 ${
+          solid
+            ? "border-b border-[var(--line)] bg-[color:color-mix(in_srgb,var(--night)_82%,transparent)] backdrop-blur-md"
+            : "border-b border-transparent"
+        }`}
+      >
+        <div className="shell flex h-[var(--nav-height)] items-center justify-between gap-6">
+          <a href="#top" className="group flex items-center gap-3 rounded-full" aria-label="Talha Çağlar, back to top">
+            <span
+              className="h-3.5 w-3.5 rounded-full border-2 border-[var(--glow)] shadow-[0_0_0.75rem_rgb(var(--glow-rgb)/0.55)] transition-transform duration-500 group-hover:scale-125"
+              aria-hidden="true"
+            />
+            <span className="text-[1.0625rem] font-semibold tracking-[-0.02em]">Talha Çağlar</span>
+          </a>
 
-        <nav className="hidden h-full items-center lg:flex" aria-label="Primary navigation">
-          {navLinks.map((link) => {
-            const active = activeSection === link.href.slice(1);
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`relative flex h-full items-center px-4 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] transition-colors lg:px-5 ${
-                  active ? "text-[var(--paper)]" : "text-[var(--steel-dark)] hover:text-[var(--paper)]"
-                }`}
-                aria-current={active ? "location" : undefined}
-              >
-                {link.label}
-                <span
-                  className={`absolute inset-x-4 bottom-0 h-[3px] bg-[var(--oxide)] transition-transform duration-300 ${
-                    active ? "scale-x-100" : "scale-x-0"
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
+            {navLinks.map((link) => {
+              const active = activeSection === link.href.slice(1);
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`relative rounded-full px-4 py-2 text-[0.9375rem] transition-colors duration-300 ${
+                    active ? "text-[var(--chalk)]" : "text-[var(--ash)] hover:text-[var(--chalk)]"
                   }`}
-                  aria-hidden="true"
-                />
+                  aria-current={active ? "location" : undefined}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute inset-0 -z-10 rounded-full bg-[var(--dusk-raised)]"
+                      transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 32 }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  {link.label}
+                </a>
+              );
+            })}
+          </nav>
+
+          <div className="hidden items-center gap-1 lg:flex">
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--ash)] transition-colors duration-300 hover:bg-[var(--dusk-raised)] hover:text-[var(--glow)]"
+                aria-label={social.label}
+              >
+                <social.icon className="h-[18px] w-[18px]" aria-hidden="true" />
               </a>
-            );
-          })}
-        </nav>
+            ))}
+          </div>
 
-        <div className="hidden h-full items-center border-x hairline lg:flex">
-          <a
-            href="/resume/Talha-Caglar-CV.pdf"
-            download
-            className="flex h-full w-12 items-center justify-center border-r hairline text-[var(--oxide)] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)]"
-            aria-label="Download CV (TR)"
-            title="Download CV (TR)"
+          <button
+            ref={menuButtonRef}
+            type="button"
+            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-[var(--dusk-raised)] lg:hidden"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
-            <span className="font-mono text-[0.62rem] font-semibold">CV TR</span>
-          </a>
-          <a
-            href="/resume/Talha-Caglar-CV-EN.pdf"
-            download
-            className="flex h-full w-12 items-center justify-center border-r hairline text-[var(--oxide)] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)]"
-            aria-label="Download CV (EN)"
-            title="Download CV (EN)"
-          >
-            <span className="font-mono text-[0.62rem] font-semibold">CV EN</span>
-          </a>
-          {socialLinks.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-full w-12 items-center justify-center border-r hairline text-[var(--steel-dark)] transition-colors last:border-r-0 hover:bg-[var(--paper)] hover:text-[var(--ink)]"
-              aria-label={social.label}
-            >
-              <social.icon className="h-[18px] w-[18px]" aria-hidden="true" />
-            </a>
-          ))}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={menuOpen ? "close" : "open"}
+                initial={reduceMotion ? false : { opacity: 0, rotate: -45, scale: 0.8 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={reduceMotion ? undefined : { opacity: 0, rotate: 45, scale: 0.8 }}
+                transition={{ duration: 0.18 }}
+                className="flex"
+              >
+                {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </motion.span>
+            </AnimatePresence>
+          </button>
         </div>
+      </header>
 
-        <button
-          ref={menuButtonRef}
-          type="button"
-          className="flex h-full min-w-14 items-center justify-center border-x hairline lg:hidden"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-        >
-          {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
-
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[color:color-mix(in_srgb,var(--paper)_14%,transparent)]" aria-hidden="true">
-        <span
-          className="block h-full origin-left bg-[var(--oxide)]"
-          style={{ transform: `scaleX(${scrollProgress})` }}
-        />
-      </div>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            ref={menuPanelRef}
-            id="mobile-navigation"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Site navigation"
-            className="fixed inset-x-0 bottom-0 top-[calc(var(--nav-height)+var(--safe-top))] z-40 overflow-y-auto overscroll-contain bg-[var(--ink)] text-[var(--paper)] lg:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.22 }}
-          >
-            <nav className="mx-auto flex min-h-full w-full max-w-2xl flex-col px-5 pb-[calc(1.75rem+var(--safe-bottom))] pt-5 sm:px-8" aria-label="Mobile navigation">
-              <div className="flex-1">
-                {navLinks.map((link, index) => (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="flex min-h-[4.25rem] items-center justify-between border-b dark-hairline font-display text-[clamp(2rem,9vw,2.5rem)] font-bold uppercase tracking-[-0.025em]"
-                    initial={{ opacity: 0, x: 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: reduceMotion ? 0 : 0.05 * index, duration: reduceMotion ? 0 : 0.35 }}
-                  >
-                    {link.label}
-                    <span className="font-mono text-[0.65rem] text-[var(--steel)]">0{index + 1}</span>
-                  </motion.a>
-                ))}
-              </div>
-              <div className="border-t dark-hairline pt-5">
-                <div className="flex flex-wrap gap-x-6 gap-y-2">
-                  <a
-                    href="/resume/Talha-Caglar-CV.pdf"
-                    download
-                    className="inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
-                  >
-                    <FileDown className="h-4 w-4" aria-hidden="true" />
-                    Download CV (TR)
-                  </a>
-                  <a
-                    href="/resume/Talha-Caglar-CV-EN.pdf"
-                    download
-                    className="inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
-                  >
-                    <FileDown className="h-4 w-4" aria-hidden="true" />
-                    Download CV (EN)
-                  </a>
-                  <a
-                    href="/portfolio/Talha-Caglar-Portfolyo.pdf"
-                    download
-                    className="inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
-                  >
-                    <FileDown className="h-4 w-4" aria-hidden="true" />
-                    Portfolio (TR)
-                  </a>
-                  <a
-                    href="/portfolio/Talha-Caglar-Portfolio-EN.pdf"
-                    download
-                    className="inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--oxide)]"
-                  >
-                    <FileDown className="h-4 w-4" aria-hidden="true" />
-                    Portfolio (EN)
-                  </a>
+        {/* Outside the header: its backdrop-filter would trap a fixed child. */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              ref={menuPanelRef}
+              id="mobile-navigation"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site navigation"
+              className="fixed inset-x-0 bottom-0 top-[calc(var(--nav-height)+var(--safe-top))] z-40 overflow-y-auto overscroll-contain bg-[var(--night)] lg:hidden"
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+              transition={{ duration: reduceMotion ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <nav
+                className="shell flex min-h-full flex-col pb-[calc(2rem+var(--safe-bottom))] pt-6"
+                aria-label="Mobile navigation"
+              >
+                <div className="flex-1">
+                  {navLinks.map((link, index) => (
+                    <motion.a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="flex min-h-[4.25rem] items-center border-b border-[var(--line)] text-[2rem] font-semibold tracking-[-0.03em]"
+                      initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: reduceMotion ? 0 : 0.04 + 0.05 * index, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {link.label}
+                    </motion.a>
+                  ))}
                 </div>
-                <div className="mt-5 flex flex-wrap items-center gap-6">
+                <div className="mt-10 flex flex-wrap gap-2">
+                  {downloads.map((file) => (
+                    <a key={file.href} href={file.href} download className="pill pill-ghost">
+                      {file.label}
+                    </a>
+                  ))}
+                </div>
+                <div className="mt-6 flex items-center gap-2">
                   {socialLinks.map((social) => (
                     <a
                       key={social.label}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-[var(--steel)]"
+                      className="flex h-11 w-11 items-center justify-center rounded-full text-[var(--ash)] hover:text-[var(--glow)]"
+                      aria-label={social.label}
                     >
-                      {social.label}
+                      <social.icon className="h-5 w-5" aria-hidden="true" />
                     </a>
                   ))}
                 </div>
-              </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+    </>
   );
 }

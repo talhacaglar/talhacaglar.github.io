@@ -2,278 +2,179 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Plus } from "lucide-react";
 import { GithubIcon } from "@/components/ui/icons";
 import { projects, type Project } from "@/data/projects";
 
-function ProjectVisual({ project, priority = false }: { project: Project; priority?: boolean }) {
-  if (project.media) {
-    return (
-      <a
-        href={project.media.src}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="project-visual project-visual-image block"
-        aria-label={`Open full-size ${project.name} screenshot`}
-        title="Open full-size screenshot"
-      >
-        <Image
-          src={project.media.src}
-          alt={project.media.alt}
-          fill
-          priority={priority}
-          sizes="(max-width: 1024px) 100vw, 56vw"
-          className="object-contain"
-          style={{ objectPosition: project.media.position ?? "center" }}
-        />
-      </a>
-    );
-  }
+const ease = [0.22, 1, 0.36, 1] as const;
 
+function ProjectBody({ project }: { project: Project }) {
   return (
-    <div className={`project-visual project-schematic project-schematic-${project.id}`} aria-label={`${project.name} system diagram`}>
-      <div className="project-schematic-grid" aria-hidden="true" />
-      <div className="project-schematic-head">
-        <span>{project.category}</span>
-        <span>SYS / {project.lang}</span>
-      </div>
-      <div className="project-schematic-body">
-        <div className="project-schematic-mark" aria-hidden="true">{project.name.slice(0, 2)}</div>
-        <div className="project-schematic-stack">
-          {project.tags.slice(0, 4).map((tag, index) => (
-            <span key={tag}><b>0{index + 1}</b>{tag}</span>
-          ))}
+    <div
+      className={`grid gap-8 pb-12 pt-1 sm:pl-[2.125rem] md:gap-12 ${
+        project.media ? "md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]" : "max-w-3xl"
+      }`}
+    >
+      {project.media && (
+        <a
+          href={project.media.src}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group/image relative block aspect-[16/10] self-start overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--dusk)]"
+          aria-label={`Open full-size ${project.name} screenshot`}
+        >
+          <Image
+            src={project.media.src}
+            alt={project.media.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 36rem"
+            className="object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/image:scale-[1.03]"
+            style={{ objectPosition: project.media.position ?? "center" }}
+          />
+        </a>
+      )}
+
+      <div className="min-w-0">
+        <p className="text-[1.0625rem] leading-7 text-[var(--chalk)]">{project.description}</p>
+
+        {project.caseStudy && (
+          <dl className="mt-7 space-y-4 text-[0.9375rem] leading-6">
+            {[
+              { label: "The problem", text: project.caseStudy.problem },
+              { label: "What I did", text: project.caseStudy.decision },
+              { label: "Where it landed", text: project.caseStudy.result },
+            ].map((row) => (
+              <div key={row.label}>
+                <dt className="font-semibold text-[var(--chalk)]">{row.label}</dt>
+                <dd className="mt-0.5 text-[var(--ash)]">{row.text}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+
+        {project.highlights && (
+          <ul className="mt-7 space-y-2 text-[0.9375rem] leading-6 text-[var(--ash)]">
+            {project.highlights.map((highlight) => (
+              <li key={highlight} className="flex gap-3">
+                <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--glow)]" aria-hidden="true" />
+                <span>{highlight}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <a href={project.url} target="_blank" rel="noopener noreferrer" className="pill pill-ghost">
+            <GithubIcon className="h-4 w-4" aria-hidden="true" />
+            View the source
+          </a>
+          <span className="text-sm text-[var(--smoke)]">{project.tags.join(", ")}</span>
         </div>
-      </div>
-      <div className="project-schematic-foot">
-        <span>{project.signal}</span>
-        <span>Updated {project.updated}</span>
       </div>
     </div>
   );
 }
 
-function CaseStudy({ project }: { project: Project }) {
-  if (!project.caseStudy) return null;
-
-  const rows = [
-    { label: "Problem", text: project.caseStudy.problem },
-    { label: "Decision", text: project.caseStudy.decision },
-    { label: "Result", text: project.caseStudy.result },
-  ];
-
-  return (
-    <dl className="mt-8 grid border-l border-t dark-hairline sm:grid-cols-3">
-      {rows.map((row) => (
-        <div key={row.label} className="border-b border-r dark-hairline p-5">
-          <dt className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.13em] text-[var(--oxide)]">
-            {row.label}
-          </dt>
-          <dd className="mt-3 text-sm leading-6 text-[var(--steel)]">{row.text}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
-function MobileCaseStudy({ project }: { project: Project }) {
-  if (!project.caseStudy) return null;
-
-  return (
-    <details className="mobile-case-study mt-6 border-y dark-hairline">
-      <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.1em] marker:hidden">
-        Problem, approach and outcome
-        <ChevronDown className="h-4 w-4 shrink-0 text-[var(--oxide)]" aria-hidden="true" />
-      </summary>
-      <CaseStudy project={project} />
-    </details>
-  );
-}
-
-function ProjectDetails({ project, index }: { project: Project; index: number }) {
-  return (
-    <>
-      <div className="group/visual overflow-hidden border dark-hairline bg-[var(--canvas)]">
-        <ProjectVisual project={project} priority={index === 0} />
-      </div>
-
-      <div className="mt-8 flex flex-col gap-6 border-b dark-hairline pb-7 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.13em] text-[var(--oxide)]">
-            Project / 0{index + 1}
-          </p>
-          <h3 className="mt-3 font-display text-[clamp(3.7rem,6vw,6.6rem)] font-bold uppercase leading-[0.8] tracking-[-0.045em]">
-            {project.name}
-          </h3>
-        </div>
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group/source inline-flex min-h-12 shrink-0 items-center gap-3 border dark-hairline px-4 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.12em] transition-colors hover:border-[var(--oxide)] hover:bg-[var(--oxide)] hover:text-[var(--ink)]"
-        >
-          View source
-          <ArrowUpRight className="h-4 w-4 transition-transform group-hover/source:translate-x-1 group-hover/source:-translate-y-1" aria-hidden="true" />
-        </a>
-      </div>
-
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-[var(--steel)]">
-        <span>{project.category}</span>
-        <span>{project.signal} · Updated {project.updated}</span>
-      </div>
-
-      <p className="mt-6 max-w-3xl text-base leading-7 text-[var(--ink-soft)] sm:text-lg">
-        {project.description}
-      </p>
-
-      <CaseStudy project={project} />
-
-      {project.highlights && (
-        <ul className="mt-7 grid gap-3 border-t dark-hairline pt-6 text-sm leading-6 text-[var(--steel)] sm:grid-cols-2">
-          {project.highlights.map((highlight) => (
-            <li key={highlight} className="grid grid-cols-[1rem_1fr] gap-3">
-              <span className="mt-[0.7rem] h-1.5 w-1.5 bg-[var(--oxide)]" aria-hidden="true" />
-              <span>{highlight}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-3" aria-label={`${project.name} technologies`}>
-        {project.tags.map((tag) => (
-          <li
-            key={tag}
-            className="border-b border-[var(--oxide)] pb-1 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.1em]"
-          >
-            {tag}
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-}
-
-function MobileProject({ project, index }: { project: Project; index: number }) {
-  return (
-    <li className="border-b dark-hairline first:border-t">
-      <details className="group/mobile" open={index === 0}>
-        <summary className="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 py-5 marker:hidden">
-          <div className="min-w-0">
-            <span className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.13em] text-[var(--oxide)]">
-              {project.signal}
-            </span>
-            <h3 className="mt-2 break-words font-display text-[clamp(2rem,9vw,2.5rem)] font-bold uppercase leading-none tracking-[-0.03em]">
-              {project.name}
-            </h3>
-          </div>
-          <ChevronDown className="h-5 w-5 shrink-0 text-[var(--steel)] transition-transform duration-300 group-open/mobile:rotate-180" aria-hidden="true" />
-        </summary>
-
-        <div className="pb-9">
-          <div className="group/visual overflow-hidden border dark-hairline bg-[var(--canvas)]">
-            <ProjectVisual project={project} priority={index === 0} />
-          </div>
-          <p className="mt-6 text-sm leading-6 text-[var(--ink-soft)]">{project.description}</p>
-          <MobileCaseStudy project={project} />
-          <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.1em] text-[var(--steel)]">
-            {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
-          </div>
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-7 inline-flex min-h-11 items-center gap-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em]"
-          >
-            View source <ArrowUpRight className="h-4 w-4 text-[var(--oxide)]" aria-hidden="true" />
-          </a>
-        </div>
-      </details>
-    </li>
-  );
-}
-
 export function Projects() {
-  const [activeId, setActiveId] = useState(projects[0].id);
-  const activeProject = projects.find((project) => project.id === activeId) ?? projects[0];
-  const activeIndex = projects.findIndex((project) => project.id === activeProject.id);
+  const [openId, setOpenId] = useState<string | null>(projects[0].id);
+  const reduceMotion = useReducedMotion();
 
   return (
-    <section id="projects" className="bg-[var(--ink)] py-16 text-[var(--paper)] sm:py-24 lg:py-32">
-      <div className="site-shell">
-        <div className="grid gap-5 border-b dark-hairline pb-9 sm:gap-8 sm:pb-12 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.55fr)] lg:items-end">
-          <div>
-            <p className="section-kicker text-[var(--oxide)]">Selected projects · {projects.length}</p>
-            <h2 className="display-title mt-7 max-w-5xl">Projects and tools</h2>
-          </div>
-          <p className="max-w-xl text-base leading-7 text-[var(--steel)] lg:pb-1 lg:text-lg">
-            A selection of interfaces, technical decisions, and source code from recent work.
+    <section id="projects" className="section">
+      <div className="shell">
+        <div className="reveal">
+          <h2 className="section-title">Projects</h2>
+          <p className="section-lead">
+            Things I built because I wanted them to exist. Open one to see what it does and why I made it.
           </p>
         </div>
 
-        <div className="hidden gap-10 pt-14 lg:grid lg:grid-cols-[minmax(19rem,0.62fr)_minmax(32rem,1.38fr)] xl:gap-16">
-          <div>
-            <p className="mb-5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.13em] text-[var(--steel)]">
-              Project index / Select a project
-            </p>
-            <ol className="border-t dark-hairline">
-              {projects.map((project, index) => {
-                const active = project.id === activeProject.id;
-                return (
-                  <li key={project.id}>
-                    <button
-                      type="button"
-                      onMouseEnter={() => setActiveId(project.id)}
-                      onFocus={() => setActiveId(project.id)}
-                      onClick={() => setActiveId(project.id)}
-                      aria-pressed={active}
-                      className={`group grid min-h-24 w-full grid-cols-[2.5rem_1fr_auto] items-center gap-3 border-b dark-hairline px-2 text-left transition-colors duration-300 ${
-                        active ? "bg-[var(--paper)] text-[var(--ink)]" : "hover:bg-[var(--surface)]"
+        <ol className="mt-12 border-t border-[var(--line)]">
+          {projects.map((project, index) => {
+            const open = openId === project.id;
+            const panelId = `project-${project.id}`;
+            return (
+              <li
+                key={project.id}
+                className="reveal border-b border-[var(--line)]"
+                style={{ "--i": Math.min(index, 5) } as React.CSSProperties}
+              >
+                <h3>
+                  <button
+                    type="button"
+                    onClick={() => setOpenId(open ? null : project.id)}
+                    aria-expanded={open}
+                    aria-controls={panelId}
+                    className="group flex w-full items-center gap-4 py-6 text-left sm:gap-6"
+                  >
+                    <span
+                      className={`h-2.5 w-2.5 shrink-0 rounded-full border-2 transition-all duration-500 ${
+                        open
+                          ? "border-[var(--glow)] bg-[var(--glow)] shadow-[0_0_0.9rem_rgb(var(--glow-rgb)/0.7)]"
+                          : "border-[var(--line-strong)] group-hover:border-[var(--glow)]"
                       }`}
+                      aria-hidden="true"
+                    />
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-[clamp(1.45rem,3.4vw,2.1rem)] font-semibold leading-tight tracking-[-0.03em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
+                        {project.name}
+                      </span>
+                      <span className="mt-0.5 block text-sm text-[var(--smoke)]">{project.category}</span>
+                    </span>
+                    <span className="hidden text-sm text-[var(--ash)] md:block">{project.lang}</span>
+                    <span
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        open
+                          ? "rotate-45 border-[var(--glow)] text-[var(--glow)]"
+                          : "border-[var(--line-strong)] text-[var(--ash)] group-hover:border-[var(--ash)] group-hover:text-[var(--chalk)]"
+                      }`}
+                      aria-hidden="true"
                     >
-                      <span className={`font-mono text-[0.62rem] font-semibold ${active ? "text-[var(--oxide-ink)]" : "text-[var(--steel)]"}`}>
-                        0{index + 1}
-                      </span>
-                      <span>
-                        <span className="block font-display text-3xl font-bold uppercase leading-none tracking-[-0.025em] xl:text-4xl">
-                          {project.name}
-                        </span>
-                        <span className={`mt-2 block font-mono text-[0.58rem] font-semibold uppercase tracking-[0.1em] ${active ? "text-[color:color-mix(in_srgb,var(--ink)_66%,transparent)]" : "text-[var(--steel-dark)]"}`}>
-                          {project.signal}
-                        </span>
-                      </span>
-                      <span className={`h-2 w-2 border ${active ? "border-[var(--oxide-ink)] bg-[var(--oxide-ink)]" : "border-[var(--steel-dark)]"}`} aria-hidden="true" />
-                    </button>
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
+                      <Plus className="h-4 w-4" />
+                    </span>
+                  </button>
+                </h3>
 
-          <aside className="project-inspector sticky top-[calc(var(--nav-height)+1.5rem)] min-h-[48rem] self-start overflow-hidden border dark-hairline bg-[var(--surface)] p-6 xl:p-9">
-            <div className="relative z-10">
-              <ProjectDetails project={activeProject} index={activeIndex} />
-            </div>
-          </aside>
-        </div>
-
-        <ol className="pt-8 sm:pt-12 lg:hidden">
-          {projects.map((project, index) => (
-            <MobileProject key={project.id} project={project} index={index} />
-          ))}
+                <AnimatePresence initial={false}>
+                  {open && (
+                    <motion.div
+                      key="panel"
+                      id={panelId}
+                      className="overflow-hidden"
+                      initial={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                      animate={reduceMotion ? { opacity: 1 } : { height: "auto", opacity: 1 }}
+                      exit={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                      transition={{
+                        height: { duration: 0.55, ease },
+                        opacity: { duration: 0.35, ease: "easeOut" },
+                      }}
+                    >
+                      <motion.div
+                        initial={reduceMotion ? false : { y: 12 }}
+                        animate={{ y: 0 }}
+                        exit={reduceMotion ? undefined : { y: 8 }}
+                        transition={{ duration: 0.55, ease }}
+                      >
+                        <ProjectBody project={project} />
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </li>
+            );
+          })}
         </ol>
 
-        <div className="mt-14 flex justify-end border-t dark-hairline pt-7">
-          <a
-            href="https://github.com/talhacaglar?tab=repositories"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex min-h-11 items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.12em]"
-          >
-            <GithubIcon className="h-5 w-5" aria-hidden="true" />
-            View GitHub profile
-            <ArrowUpRight className="h-4 w-4 text-[var(--oxide)] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
-          </a>
-        </div>
+        <a
+          href="https://github.com/talhacaglar?tab=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="reveal mt-10 inline-flex items-center gap-3 text-[var(--ash)]"
+        >
+          <GithubIcon className="h-5 w-5" aria-hidden="true" />
+          <span className="soft-link">Everything else is on GitHub</span>
+        </a>
       </div>
     </section>
   );
