@@ -9,6 +9,7 @@
   --color-line: var(--line);
   --color-ink: var(--ink);
   --color-body: var(--body);
+  --color-nav: var(--nav);
   --color-muted: var(--muted);
   --color-faint: var(--faint);
   --color-accent: var(--accent);
@@ -27,6 +28,7 @@
   --line-strong: #3a3a3a;
   --ink: #fafafa;
   --body: #ebebeb;
+  --nav: #d6d6d6;
   --muted: #a6a6a6;
   --faint: #8f8f8f;
   --accent: #5b93ff;
@@ -133,7 +135,8 @@
     color: var(--ink);
   }
 
-  .btn-line:hover {
+  .btn-line:hover,
+  .btn-line[aria-expanded="true"] {
     border-color: var(--line-strong);
     background: var(--card);
   }
@@ -160,12 +163,13 @@
     display: inline-flex;
     height: var(--nav-h);
     align-items: center;
-    color: var(--muted);
+    color: var(--nav);
     transition: color 150ms;
   }
 
   .nav-link:hover,
-  .nav-link[aria-current="page"] {
+  .nav-link[aria-current="page"],
+  .nav-link[aria-expanded="true"] {
     color: var(--ink);
   }
 
@@ -177,8 +181,64 @@
     content: "";
   }
 
+  /*
+   * The blur sits on a pseudo-element because backdrop-filter on the header
+   * itself would stop the CV menu inside it from blurring the page.
+   */
+  .nav-glass::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: rgb(0 0 0 / 0.5);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .nav-menu {
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: 10px;
+    padding: 0.25rem;
+    background: rgb(14 14 14 / 0.72);
+    box-shadow:
+      0 18px 40px rgb(0 0 0 / 0.55),
+      inset 0 1px 0 rgb(255 255 255 / 0.05);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+  }
+
+  /* Backwards fill only: a held animation would stop the hero's CV menu from blurring the page. */
   .rise {
-    animation: rise 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: rise 620ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+}
+
+/* Keeps the two hero buttons on one row on common phone widths. */
+@media (max-width: 479px) {
+  .btn {
+    padding-inline: 0.875rem;
+  }
+}
+
+/* Without blur, or when asked for less transparency, the text still needs a solid backing. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav-glass::before {
+    background: rgb(0 0 0 / 0.94);
+  }
+
+  .nav-menu {
+    background: #0e0e0e;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .nav-glass::before {
+    background: #000000;
+  }
+
+  .nav-menu {
+    background: #0e0e0e;
   }
 }
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CvMenu } from "@/components/CvMenu";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { ProjectGrid } from "@/components/Projects";
@@ -96,13 +97,11 @@ export default function Home() {
               the model&apos;s output before anyone sees it: a bank statement analyzer, a video pipeline, an Nmap
               assistant. Mostly Python, FastAPI and Pydantic.
             </p>
-            <div className="rise mt-8 flex flex-wrap gap-3">
+            <div className="rise mt-8 flex flex-wrap gap-2 sm:gap-3">
               <a href="#projects" className="btn btn-solid">
                 See the projects
               </a>
-              <a href={cv.en} download className="btn btn-line">
-                Download CV
-              </a>
+              <CvMenu variant="button" />
             </div>
           </section>
 
