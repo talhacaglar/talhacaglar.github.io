@@ -94,7 +94,7 @@ export default function Home() {
             <h1 className="type-display rise">Talha Çağlar</h1>
             <p className="type-lead rise mt-5 max-w-[58ch] text-muted">
               Final-year computer engineering student moving into AI engineering. I build LLM applications that check
-              the model&apos;s output before anyone sees it: a bank statement analyzer, a video pipeline, an Nmap
+              the model&apos;s output before it&apos;s used: a bank statement analyzer, a video pipeline, an Nmap
               assistant. Mostly Python, FastAPI and Pydantic.
             </p>
             <div className="rise mt-8 flex flex-wrap gap-2 sm:gap-3">
