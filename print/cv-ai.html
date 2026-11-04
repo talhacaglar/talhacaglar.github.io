@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Talha Çağlar — CV</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --ink: #1a1c20;
+    --soft: #3f444c;
+    --mute: #5a6069;
+    --navy: #14284b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 11mm 15mm 9mm;
+    color: var(--ink);
+    font-family: "Times New Roman", "Liberation Serif", Times, serif;
+    font-size: 10pt;
+    line-height: 1.22;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  header { text-align: center; }
+  h1 { font-size: 23pt; letter-spacing: 0.08em; line-height: 1; font-weight: 700; color: var(--navy); }
+  .headline { margin-top: 1.6mm; font-size: 11.4pt; color: var(--navy); }
+  .contact { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 1.3mm; font-size: 8.9pt; color: var(--soft); }
+  .contact span { white-space: nowrap; }
+  .contact span + span::before { content: "·"; margin: 0 1mm; }
+
+  section { margin-top: 2.6mm; }
+  h2 {
+    margin-bottom: 1.1mm;
+    padding-bottom: 0.4mm;
+    border-bottom: 0.8pt solid var(--navy);
+    font-size: 10.2pt; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--navy);
+  }
+
+  .entry + .entry { margin-top: 1.2mm; }
+  .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .entry-title { font-weight: 700; }
+  .entry-title em { font-weight: 400; color: var(--soft); }
+  .entry-meta { flex: none; font-size: 9.6pt; color: var(--mute); white-space: nowrap; }
+  .entry-text { color: var(--soft); }
+  ul.points { padding-left: 3.6mm; }
+  ul.points li { margin-top: 0.2mm; }
+  ul.points li::marker { color: var(--navy); }
+
+  .more { margin-top: 1.2mm; color: var(--soft); }
+  .more b { color: var(--ink); }
+
+  dl.skills { display: grid; grid-template-columns: 29mm 1fr; row-gap: 0.4mm; }
+  dl.skills dt { font-weight: 700; }
+  dl.skills dd { color: var(--soft); }
+
+  .certs .entry + .entry { margin-top: 0.4mm; }
+  .id { color: var(--mute); font-weight: 400; }
+</style>
+</head>
+<body>
+<main id="cv"></main>
+
+<script>
+const lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "tr";
+document.documentElement.lang = lang;
+
+const contact = [
+  ["+90 507 154 16 67", "tel:+905071541667"],
+  ["talhacaglarr@proton.me", "mailto:talhacaglarr@proton.me"],
+  ["talhacaglar.github.io", "https://talhacaglar.github.io/"],
+  ["github.com/talhacaglar", "https://github.com/talhacaglar"],
+  ["linkedin.com/in/talhacaglar1", "https://www.linkedin.com/in/talhacaglar1/"],
+];
+
+const repo = (name, note = "") => ({ label: `github.com/talhacaglar/${name}${note}`, href: `https://github.com/talhacaglar/${name}` });
+
+const T = {
+  tr: {
+    headline: "AI Mühendisi Adayı | LLM Uygulamaları · Python · Açık Kaynak",
+    location: "Bursa, Türkiye",
+    h: { profile: "Profil", training: "AI Mühendisliği Eğitimleri", projects: "AI Projeleri", exp: "Deneyim", edu: "Eğitim", skills: "Teknik Yetkinlikler", certs: "Sertifikalar ve Başarılar" },
+    profile:
+      "Yapay zekâ (AI) mühendisliğine yönelen Bilgisayar Mühendisliği 4. sınıf öğrencisi. Yapılandırılmış LLM çıktıları, şema doğrulama ve çok sağlayıcılı " +
+      "entegrasyon üzerine uygulamalar geliştiriyor; AI mühendisliği eğitimleri alıyor. Üç stajda web güvenliği testi, kurumsal yazılım geliştirme " +
+      "ve BT altyapısı üzerinde çalıştı. Açık kaynak uygulamalarından dördü AUR'da.",
+    training: [
+      {
+        title: "Building with the Claude API", role: "Anthropic Academy", meta: "Eki 2026 – Devam ediyor",
+        text: "Tamamlanan: Claude API kullanımı, prompt değerlendirme (test veri kümesi, kod ve model tabanlı puanlama), prompt mühendisliği. Devam eden: tool use, RAG, prompt caching, MCP, agent ve workflow kalıpları.",
+      },
+      {
+        title: "AI Engineer Eğitim Programı", role: "Bireysel, proje tabanlı", meta: "Eki 2026 – Şub 2027 (Beklenen)",
+        text: "LLM API, RAG, agent ve MCP, değerlendirme ve yayına alma; her aşama bitmiş bir projeyle kapanır. Sıradaki kurslar: Retrieval Augmented Generation (DeepLearning.AI), Introduction to MCP (Anthropic), AI Agents Course (Hugging Face).",
+      },
+    ],
+    projects: [
+      {
+        title: "Akıllı Ekstre", role: "Python, FastAPI, Pydantic, OpenAI API, Next.js", meta: "Özel depo",
+        points: [
+          "Banka ekstresi analizinde finansal hesapları deterministik serviste tutup üstüne isteğe bağlı LLM açıklama katmanı kurdu; model sayı veya serbest metin üretmez, onaylı metin kataloğundan seçim yapar.",
+          "Structured Outputs ve Pydantic doğrulamasından geçmeyen yanıtlar kullanıcıya ve önbelleğe ulaşmaz. Allowlist sayesinde isim, IBAN ve işlem metni sağlayıcıya gitmez; içe aktarılan metin talimatlardan ayrı tutulur.",
+        ],
+      },
+      {
+        title: "Short Video Automation", role: "Python, Gemini, Claude, OpenRouter, faster-whisper, FFmpeg", meta: "Özel depo",
+        points: [
+          "İki hat: konudan seslendirmeli, altyazılı dikey video üretimi; uzun videoyu transkript üzerinden LLM ile kliplere bölme.",
+          "Üç LLM sağlayıcısını tek katmanda soyutladı; yapılandırılmış JSON, önbellek, doğruluk denetimi ve insan onayı ekledi.",
+        ],
+      },
+      {
+        title: "ClarSec", role: "Python, Typer, Pydantic, httpx, pytest", meta: "Geliştiriliyor",
+        points: [
+          "Kayıtlı Nmap çıktısını deterministik ayrıştırıp kural tabanlı bulgu üreten terminal asistanı; isteğe bağlı LLM analizi tipli JSON doğrulama ve birebir kanıt eşleştirmesinden geçer, sağlayıcı hatasında kurallarla devam eder.",
+        ],
+      },
+      {
+        title: "Lexis", role: "Python, PyQt6, Gemini, SQLite", link: repo("Lexis", " · AUR: lexis-git"),
+        points: [
+          "Local-first sözlük uygulaması: isteğe bağlı Gemini ile Pydantic şemalı JSON, üstel geri çekilmeli retry, SM-2 tekrar.",
+        ],
+      },
+    ],
+    more: ["Diğer projeler:", "Notion Dictionary Automation (Gemini API); AUR'da paketli Omarchy Focus, Pritingo, ceviribro."],
+    exp: [
+      {
+        title: "PTT KULE A.Ş.", role: "Bilgi Teknolojileri Stajyeri · Çamlıca Kulesi, İstanbul", meta: "Ağu 2026 – Eyl 2026",
+        points: [
+          "BT altyapısında arıza tespit ve gidermeye destek verdi; VLAN/PoE IP kameraların bağlantı sorunlarını çözdü.",
+        ],
+      },
+      {
+        title: "İşbir Sentetik Dokuma Sanayi A.Ş.", role: "Bilgi Teknolojileri Stajyeri · Balıkesir", meta: "Tem 2026 – Ağu 2026",
+        points: [
+          "Active Directory entegre yazıcı ve toner yönetim aracı PrintHub'ı geliştirdi (Electron, Express, SQLite); SNMP ile cihaz keşfi, LDAP erişimi, rol tabanlı yetkilendirme ve denetim kayıtlarını uyguladı.",
+        ],
+      },
+      {
+        title: "EMA Security LTD", role: "Siber Güvenlik Stajyeri (Red Team) · Uzaktan", meta: "Eki 2025 – Mar 2026",
+        points: [
+          "Yetkili web güvenliği testleri ve OWASP Top 10 odaklı zafiyet analizi yürüttü; bulguları doğrulayıp raporladı.",
+        ],
+      },
+    ],
+    edu: [
+      { title: "Sakarya Uygulamalı Bilimler Üniversitesi", role: "Bilgisayar Mühendisliği, Lisans (4. sınıf)", meta: "Eki 2023 – Haz 2027 (Beklenen)" },
+    ],
+    skills: [
+      ["LLM ve AI", "Claude, OpenAI, Gemini API'leri; Structured Outputs, Pydantic, prompt mühendisliği ve değerlendirme"],
+      ["AI Araçları", "Claude Code, Codex; hook, skill ve MCP entegrasyonları; kalıcı hafızalı ajan ortamı (ClarchOS)"],
+      ["Yazılım", "Python (FastAPI, PyQt6), TypeScript (Next.js), JavaScript (Electron), C++ (Qt), SQLite, pytest, Git"],
+      ["Linux ve Ağ", "Arch Linux, Bash, AUR paketleme, TCP/IP, VLAN, DNS/DHCP, SNMP, LDAP/Active Directory"],
+      ["Güvenlik", "OWASP Top 10, web uygulama testleri, zafiyet analizi · Burp Suite, Nmap, Wireshark"],
+      ["Dil", "Türkçe (ana dil), İngilizce (B2)"],
+    ],
+    certs: [
+      { title: "TEKNOFEST 2024 Robolig Yarışması (Üniversite ve Üzeri) — Finalist", id: "AllSpark takımı · arayüz tasarımı", meta: "Eki 2024" },
+      { title: "CWSE — Certified Web Security Expert · Hackviser", id: "HV-CWSE-ZNKC7QAY", meta: "Şub 2026" },
+      { title: "CAPT — Certified Associate Penetration Tester · Hackviser", id: "HV-CAPT-2U0W5XSE", meta: "Eki 2025" },
+      { title: "Türkiye Siber Vatan Programı 2026", id: "Katılım Sertifikası", meta: "Mar 2026" },
+    ],
+  },
+  en: {
+    headline: "AI Engineer Candidate | LLM Applications · Python · Open Source",
+    location: "Bursa, Türkiye",
+    h: { profile: "Profile", training: "AI Engineering Training", projects: "AI Projects", exp: "Experience", edu: "Education", skills: "Technical Skills", certs: "Certifications & Achievements" },
+    profile:
+      "Final-year Computer Engineering student moving into AI engineering. Builds applications around structured LLM output, schema validation " +
+      "and multi-provider integration, and is taking AI engineering courses. Three internships across web security testing, enterprise software and " +
+      "IT infrastructure. Four open-source apps are packaged on the AUR.",
+    training: [
+      {
+        title: "Building with the Claude API", role: "Anthropic Academy", meta: "Oct 2026 – In progress",
+        text: "Completed: accessing Claude through the API, prompt evaluation (test datasets, code and model-based grading), prompt engineering. Remaining: tool use, RAG, prompt caching, MCP, agent and workflow patterns.",
+      },
+      {
+        title: "AI Engineer Study Program", role: "Self-directed, project-based", meta: "Oct 2026 – Feb 2027 (Expected)",
+        text: "LLM APIs, RAG, agents and MCP, evaluation and deployment; each stage ends with a finished project. Next courses: Retrieval Augmented Generation (DeepLearning.AI), Introduction to MCP (Anthropic), AI Agents Course (Hugging Face).",
+      },
+    ],
+    projects: [
+      {
+        title: "Akıllı Ekstre", role: "Python, FastAPI, Pydantic, OpenAI API, Next.js", meta: "Private repository",
+        points: [
+          "Kept the financial calculations of a bank statement analyzer in deterministic services and added an optional LLM explanation layer; the model writes no numbers or free text and only selects from a catalog of approved copy.",
+          "Responses that fail Structured Outputs and Pydantic validation never reach the user or the cache. An allowlist keeps names, IBANs and transaction text away from the provider; imported text stays separate from instructions.",
+        ],
+      },
+      {
+        title: "Short Video Automation", role: "Python, Gemini, Claude, OpenRouter, faster-whisper, FFmpeg", meta: "Private repository",
+        points: [
+          "Two pipelines: topic to voiced, captioned vertical video; long video to short clips via LLM selection over a transcript.",
+          "Abstracted three LLM providers behind one layer; added structured JSON, caching, fact-checking and human approval.",
+        ],
+      },
+      {
+        title: "ClarSec", role: "Python, Typer, Pydantic, httpx, pytest", meta: "In development",
+        points: [
+          "Terminal assistant that parses saved Nmap output deterministically and produces rule-based findings; optional LLM analysis passes typed JSON validation and exact evidence matching, and falls back to the rules on provider errors.",
+        ],
+      },
+      {
+        title: "Lexis", role: "Python, PyQt6, Gemini, SQLite", link: repo("Lexis", " · AUR: lexis-git"),
+        points: [
+          "Local-first dictionary app: optional Gemini assistance with Pydantic-schema JSON, backoff retries, SM-2 repetition.",
+        ],
+      },
+    ],
+    more: ["Other projects:", "Notion Dictionary Automation (Gemini API); packaged on the AUR: Omarchy Focus, Pritingo, ceviribro."],
+    exp: [
+      {
+        title: "PTT KULE A.Ş.", role: "IT Intern · Çamlıca Tower, İstanbul", meta: "Aug 2026 – Sep 2026",
+        points: [
+          "Helped troubleshoot faults across the IT infrastructure; resolved connectivity issues for VLAN/PoE IP cameras.",
+        ],
+      },
+      {
+        title: "İşbir Sentetik Dokuma Sanayi A.Ş.", role: "IT Intern · Balıkesir", meta: "Jul 2026 – Aug 2026",
+        points: [
+          "Built PrintHub, an Active Directory-integrated printer and toner management tool (Electron, Express, SQLite), with SNMP device discovery, LDAP access, role-based permissions and audit logs.",
+        ],
+      },
+      {
+        title: "EMA Security LTD", role: "Cyber Security Intern (Red Team) · Remote", meta: "Oct 2025 – Mar 2026",
+        points: [
+          "Performed authorized web security testing and OWASP Top 10 vulnerability analysis; validated and reported findings.",
+        ],
+      },
+    ],
+    edu: [
+      { title: "Sakarya University of Applied Sciences", role: "B.Sc. in Computer Engineering (4th year)", meta: "Oct 2023 – Jun 2027 (Expected)" },
+    ],
+    skills: [
+      ["LLM & AI", "Claude, OpenAI, Gemini APIs; Structured Outputs, Pydantic, prompt engineering and evaluation"],
+      ["AI Tooling", "Claude Code, Codex; hook, skill and MCP integrations; persistent-memory agent setup (ClarchOS)"],
+      ["Software", "Python (FastAPI, PyQt6), TypeScript (Next.js), JavaScript (Electron), C++ (Qt), SQLite, pytest, Git"],
+      ["Linux & Network", "Arch Linux, Bash, AUR packaging, TCP/IP, VLAN, DNS/DHCP, SNMP, LDAP/Active Directory"],
+      ["Security", "OWASP Top 10, web application testing, vulnerability analysis · Burp Suite, Nmap, Wireshark"],
+      ["Languages", "Turkish (native), English (B2)"],
+    ],
+    certs: [
+      { title: "TEKNOFEST 2024 Robolig Competition (University level) — Finalist", id: "Team AllSpark · interface design", meta: "Oct 2024" },
+      { title: "CWSE — Certified Web Security Expert · Hackviser", id: "HV-CWSE-ZNKC7QAY", meta: "Feb 2026" },
+      { title: "CAPT — Certified Associate Penetration Tester · Hackviser", id: "HV-CAPT-2U0W5XSE", meta: "Oct 2025" },
+      { title: "Türkiye Siber Vatan Program 2026", id: "Certificate of Participation", meta: "Mar 2026" },
+    ],
+  },
+}[lang];
+
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const meta = (e) => (e.link ? `<a href="${e.link.href}">${esc(e.link.label)}</a>` : esc(e.meta));
+const entry = (e) => `
+  <div class="entry">
+    <div class="entry-head">
+      <div class="entry-title">${esc(e.title)}${e.role ? ` <em>· ${esc(e.role)}</em>` : ""}${e.id ? ` <span class="id">· ${esc(e.id)}</span>` : ""}</div>
+      <div class="entry-meta">${meta(e)}</div>
+    </div>
+    ${e.text ? `<div class="entry-text">${esc(e.text)}</div>` : ""}
+    ${e.points ? `<ul class="points">${e.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
+  </div>`;
+
+document.getElementById("cv").innerHTML = `
+  <header>
+    <h1>TALHA ÇAĞLAR</h1>
+    <div class="headline">${esc(T.headline)}</div>
+    <div class="contact"><span>${esc(T.location)}</span>${contact.map(([label, href]) => `<span><a href="${href}">${esc(label)}</a></span>`).join("")}</div>
+  </header>
+
+  <section><h2>${T.h.profile}</h2><p class="entry-text">${esc(T.profile)}</p></section>
+
+  <section><h2>${T.h.training}</h2>${T.training.map(entry).join("")}</section>
+
+  <section><h2>${T.h.projects}</h2>
+    ${T.projects.map(entry).join("")}
+    <p class="more"><b>${esc(T.more[0])}</b> ${esc(T.more[1])}</p>
+  </section>
+
+  <section><h2>${T.h.exp}</h2>${T.exp.map(entry).join("")}</section>
+
+  <section><h2>${T.h.edu}</h2>${T.edu.map(entry).join("")}</section>
+
+  <section><h2>${T.h.skills}</h2>
+    <dl class="skills">${T.skills.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+  </section>
+
+  <section class="certs"><h2>${T.h.certs}</h2>${T.certs.map(entry).join("")}</section>
+`;
+</script>
+</body>
+</html>

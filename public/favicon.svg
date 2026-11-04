@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="14" fill="#000000"/>
-  <text x="32" y="43" font-family="Inter, system-ui, sans-serif" font-size="30" font-weight="600" fill="#a855f7" text-anchor="middle">TC</text>
+  <path fill="#fafafa" d="M14 15h36v7H35.5v27h-7V22H14z"/>
+  <rect x="41" y="42" width="7" height="7" fill="#5b93ff"/>
 </svg>

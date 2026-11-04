@@ -8,8 +8,8 @@ Personal portfolio built with Next.js, React and Tailwind CSS, exported as a sta
 
 ### Features
 
-- Selected projects with implementation context and real application previews.
-- Education, experience, certificates and contact links.
+- AI projects, desktop apps and smaller tools, with real screenshots or system sketches.
+- A learning log, plus education, experience, certificates and contact links.
 - Downloadable Turkish and English CVs.
 - Responsive layout, keyboard navigation and reduced-motion support.
 
@@ -34,8 +34,8 @@ Next.js, React ve Tailwind CSS ile geliştirilen; statik olarak dışa aktarıl�
 
 ### Özellikler
 
-- Uygulama bağlamı ve gerçek arayüz görüntüleriyle seçili projeler.
-- Eğitim, deneyim, sertifikalar ve iletişim bağlantıları.
+- Gerçek ekran görüntüleri veya sistem şemalarıyla AI projeleri, masaüstü uygulamaları ve küçük araçlar.
+- Öğrenme günlüğü, eğitim, deneyim, sertifikalar ve iletişim bağlantıları.
 - İndirilebilir Türkçe ve İngilizce CV.
 - Duyarlı yerleşim, klavye gezinmesi ve azaltılmış hareket desteği.
 

@@ -1,194 +1,165 @@
+export type SketchName = "akilli-ekstre" | "short-video" | "clarsec";
+
 export interface Project {
   id: string;
   name: string;
   description: string;
-  tags: string[];
-  url: string;
-  /** A factual system category used by the visual index. */
-  category: string;
-  /** Short technical label shown in the project list. */
-  signal: string;
-  /** Primary implementation language of the source. */
-  lang: string;
-  /** Last push, YYYY.MM. Shown on the card instead of a decorative counter. */
-  updated: string;
-  /** Featured tiles only: concrete detail to earn the extra area. */
-  highlights?: string[];
-  media?: {
-    src: string;
-    alt: string;
-    position?: string;
-  };
-  caseStudy?: {
-    problem: string;
-    decision: string;
-    result: string;
-  };
-  size: 'featured' | 'standard' | 'compact';
+  stack: string[];
+  /** Public repository. Private projects have no link to show. */
+  url?: string;
+  /** Shown when there is no public repository. */
+  status?: "private repo" | "in development";
+  /** AUR package name, where one exists. */
+  aur?: string;
+  /** A real application screenshot, 16:9. */
+  image?: { src: string; alt: string };
+  /** Private projects show how the system works in place of a screenshot. */
+  sketch?: SketchName;
 }
 
-/**
- * Every entry maps to a real public repo under github.com/talhacaglar.
- * `lang` and `updated` mirror the GitHub API so the card labels stay checkable.
- */
-export const projects: Project[] = [
+/** The home page grid. AI projects first, then the desktop apps on the AUR. */
+export const featuredProjects: Project[] = [
   {
-    id: 'lexis',
-    name: 'Lexis',
+    id: "akilli-ekstre",
+    name: "Akıllı Ekstre",
     description:
-      'Local-first, AI-assisted dictionary and language-learning app: context, tone, examples, Turkish translations and spaced repetition.',
-    tags: ['Python', 'PyQt6', 'Gemini', 'SQLite'],
-    url: 'https://github.com/talhacaglar/Lexis',
-    category: 'Desktop learning system',
-    signal: 'Local-first / AUR',
-    lang: 'Python',
-    updated: '2026.09',
-    media: {
-      src: '/projects/lexis.webp',
-      alt: 'Lexis vocabulary library with search, learning states, and nine sample entries',
-      position: 'center',
+      "Bank statement analyzer. Calculations stay in deterministic code, and an optional LLM explains them by choosing from approved copy, so it writes no numbers or free text.",
+    stack: ["Python", "FastAPI", "Pydantic", "OpenAI API", "Next.js"],
+    status: "private repo",
+    sketch: "akilli-ekstre",
+  },
+  {
+    id: "short-video",
+    name: "Short Video Automation",
+    description:
+      "Turns a topic into a voiced, captioned vertical video, and a long video into short clips an LLM selects from the transcript. Three providers sit behind one layer.",
+    stack: ["Python", "Gemini", "Claude", "OpenRouter", "faster-whisper", "FFmpeg"],
+    status: "private repo",
+    sketch: "short-video",
+  },
+  {
+    id: "clarsec",
+    name: "ClarSec",
+    description:
+      "Terminal assistant that parses saved Nmap output into rule-based findings. Optional LLM analysis has to pass typed JSON validation and exact evidence matching.",
+    stack: ["Python", "Typer", "Pydantic", "httpx", "pytest"],
+    status: "in development",
+    sketch: "clarsec",
+  },
+  {
+    id: "lexis",
+    name: "Lexis",
+    description:
+      "Local-first dictionary app with SM-2 spaced repetition. Optional Gemini assistance returns JSON against a Pydantic schema, with backoff retries.",
+    stack: ["Python", "PyQt6", "Gemini", "SQLite"],
+    url: "https://github.com/talhacaglar/Lexis",
+    aur: "lexis-git",
+    image: {
+      src: "/projects/lexis.webp",
+      alt: "Lexis vocabulary library with search, filters and nine sample words",
     },
-    caseStudy: {
-      problem: 'Useful dictionary tools for Turkish learners are often subscription-based or locked behind API keys.',
-      decision: 'Combine open dictionaries with optional Gemini assistance and keep every saved word in local SQLite storage.',
-      result: 'A keyless desktop workflow with SM-2 practice, import/export, and an AUR package for Arch Linux.',
+  },
+  {
+    id: "omarchy-focus",
+    name: "Omarchy Focus",
+    description:
+      "Pomodoro timer, task queue and site blocker for Omarchy, with a native bar widget, a TUI and a CLI sharing one SQLite database.",
+    stack: ["Python", "Textual", "QML", "SQLite"],
+    url: "https://github.com/talhacaglar/omarchy-focus",
+    aur: "omarchy-focus",
+    image: {
+      src: "/projects/omarchy-focus.webp",
+      alt: "Omarchy Focus terminal dashboard with the next task and a queue of sample tasks",
     },
-    highlights: [
-      'No API key — entries come from Wiktionary, dictionaryapi.dev and Tatoeba',
-      'SM-2 spaced repetition, with streaks and a 7-day activity graph',
-      'Every record stays local in ~/.lexis/lexis.db. Nothing syncs',
-      'Packaged on the AUR as lexis-git',
-    ],
-    size: 'featured',
   },
   {
-    id: 'printhub',
-    name: 'PrintHub',
+    id: "pritingo",
+    name: "Pritingo",
     description:
-      'Printer management with toner costs, stock tracking, Active Directory integration, and ISO 27001 reporting.',
-    tags: ['Electron', 'JavaScript', 'Active Directory', 'ISO 27001'],
-    url: 'https://github.com/talhacaglar/PrintHub',
-    category: 'IT operations console',
-    signal: 'SNMP / LDAP / RBAC',
-    lang: 'JavaScript',
-    updated: '2026.09',
-    caseStudy: {
-      problem: 'Printer health, toner stock, costs, directory access, and audit evidence live in separate operational views.',
-      decision: 'Unify SNMP monitoring, LDAP access views, inventory, RBAC, and audit records in a local Electron application.',
-      result: 'One panel for day-to-day printer operations with CSV and ISO 27001-oriented reporting workflows.',
+      "Print on Canon PIXMA E400-series printers from Linux: one page per job so nothing gets dropped, with guided two-sided printing.",
+    stack: ["C++", "Qt", "QML"],
+    url: "https://github.com/talhacaglar/pritingo",
+    aur: "pritingo",
+    image: {
+      src: "/projects/pritingo.webp",
+      alt: "Pritingo planning a five-page document onto three two-sided sheets",
     },
-    size: 'standard',
   },
   {
-    id: 'omarchy-focus',
-    name: 'Omarchy Focus',
-    description:
-      'Pomodoro timer, task queue and a reversible site blocker for Omarchy: a native bar widget, a Textual terminal app and a CLI sharing one local SQLite database.',
-    tags: ['Python', 'Textual', 'QML', 'SQLite'],
-    url: 'https://github.com/talhacaglar/omarchy-focus',
-    category: 'Focus infrastructure',
-    signal: 'Bar widget / AUR',
-    lang: 'Python',
-    updated: '2026.10',
-    media: {
-      src: '/projects/clar-focus.webp',
-      alt: 'Focus dashboard showing the next task and a queue of sample tasks',
-      position: 'center',
+    id: "ceviribro",
+    name: "ceviribro",
+    description: "Keyboard-first terminal translator powered by DeepL.",
+    stack: ["Python", "Textual", "DeepL"],
+    url: "https://github.com/talhacaglar/ceviribro",
+    aur: "ceviribro",
+    image: {
+      src: "/projects/ceviribro.webp",
+      alt: "ceviribro translating an English sentence into Turkish in the terminal",
     },
-    caseStudy: {
-      problem: 'Tasks, focus timers, and distraction blocking were split across unrelated tools and fragile shell state.',
-      decision: 'Use a SQLite service layer and reversible, marked /etc/hosts blocks with crash recovery behind a keyboard-first interface.',
-      result: 'A recoverable focus system with a live Omarchy Shell bar widget, heatmap statistics and an AUR package.',
+  },
+  {
+    id: "stretch-buddies",
+    name: "Stretch Buddies",
+    description:
+      "Stardew-style stretch breaks for Omarchy. Rigo, Mochi and Porcini pop up every 20 minutes and lead a one-minute neck and back stretch.",
+    stack: ["QML"],
+    url: "https://github.com/talhacaglar/stretch-buddies",
+    image: {
+      src: "/projects/stretch-buddies.webp",
+      alt: "Stretch Buddies dialog with a pixel-art character leading a seated twist",
     },
-    highlights: [
-      'Native Omarchy Shell widget with a live countdown; no polling, it watches a change file with inotify',
-      'Site guard asks for elevation through the polkit dialog, with strict mode and crash recovery',
-      'Daily goal, streaks and a GitHub-style heatmap in the panel, the TUI and the CLI',
-      'Packaged on the AUR as omarchy-focus',
-    ],
-    size: 'standard',
-  },
-  {
-    id: 'rv32i',
-    name: 'RV32I Toolchain',
-    description:
-      'Assembler and linker for RV32I programs written in C, with object files, symbol resolution, relocations, PicoRV32-oriented memory output and a Flask interface.',
-    tags: ['C', 'RISC-V', 'Flask', 'PicoRV32'],
-    url: 'https://github.com/talhacaglar/rv32i-assembler-linker',
-    category: 'Low-level toolchain',
-    signal: 'Assembler / Linker',
-    lang: 'C',
-    updated: '2026.09',
-    size: 'compact',
-  },
-  {
-    id: 'notion-dictionary',
-    name: 'Notion Dictionary',
-    description:
-      'Terminal workflow that asks Gemini for a word’s meaning and an example sentence as JSON, then sends it through an ActivePieces webhook into Notion.',
-    tags: ['Python', 'Gemini', 'ActivePieces', 'Notion'],
-    url: 'https://github.com/talhacaglar/notion-dictionary-automation',
-    category: 'AI automation',
-    signal: 'Gemini / Webhook',
-    lang: 'Python',
-    updated: '2026.09',
-    size: 'compact',
-  },
-  {
-    id: 'archsweep',
-    name: 'archsweep',
-    description:
-      'Dependency-free TUI that cleans Arch systems — orphans, pacman and AUR caches, journal. Pure Bash, no fzf or gum. Nothing runs until you select it.',
-    tags: ['Bash', 'Arch Linux', 'TUI', 'pacman'],
-    url: 'https://github.com/talhacaglar/archsweep',
-    category: 'System maintenance TUI',
-    signal: 'Zero dependencies',
-    lang: 'Shell',
-    updated: '2026.09',
-    size: 'compact',
-  },
-  {
-    id: 'tarlam-cebimde',
-    name: 'PocketFarm',
-    description:
-      'Android marketplace connecting farmers and buyers directly. Map-based listings, real-time chat, and per-kilogram price offers.',
-    tags: ['Java', 'Android', 'Firebase', 'Google Maps'],
-    url: 'https://github.com/talhacaglar/PocketFarm',
-    category: 'Android marketplace',
-    signal: 'Maps / Realtime',
-    lang: 'Java',
-    updated: '2026.09',
-    size: 'compact',
-  },
-  {
-    id: 'tui-translator',
-    name: 'DTR · Instant Translator',
-    description:
-      'A small terminal interface for translation without leaving the shell. Uses DeepL.',
-    tags: ['Python', 'TUI', 'DeepL'],
-    url: 'https://github.com/talhacaglar/tui-translator',
-    category: 'Terminal utility',
-    signal: 'DeepL / Textual',
-    lang: 'Python',
-    updated: '2026.09',
-    media: {
-      src: '/projects/translator.webp',
-      alt: 'DTR translating English into Turkish with source and target language selectors',
-      position: 'center',
-    },
-    size: 'compact',
-  },
-  {
-    id: 'dotfiles',
-    name: 'Dotfiles',
-    description:
-      'My Arch Linux and Hyprland setup — Waybar, Neovim, Fish, Ghostty, plus full system backup and restore scripts.',
-    tags: ['Arch Linux', 'Hyprland', 'Neovim', 'Shell'],
-    url: 'https://github.com/talhacaglar/dotfiles',
-    category: 'Desktop system',
-    signal: 'Arch / Hyprland',
-    lang: 'Shell',
-    updated: '2026.09',
-    size: 'compact',
   },
 ];
+
+/** Listed on /projects only. */
+export const otherProjects: Project[] = [
+  {
+    id: "notion-dictionary",
+    name: "Notion Dictionary Automation",
+    description:
+      "Terminal workflow that asks Gemini for a word's meaning and an example sentence as JSON, then sends it through an ActivePieces webhook into Notion.",
+    stack: ["Python", "Gemini", "ActivePieces"],
+    url: "https://github.com/talhacaglar/notion-dictionary-automation",
+  },
+  {
+    id: "printhub",
+    name: "PrintHub",
+    description:
+      "Printer and toner management with Active Directory integration, SNMP device discovery, LDAP access, role-based permissions and audit logs. Built during my İşbir internship.",
+    stack: ["Electron", "Express", "SQLite"],
+    url: "https://github.com/talhacaglar/PrintHub",
+  },
+  {
+    id: "archsweep",
+    name: "archsweep",
+    description:
+      "Dependency-free TUI in pure Bash that cleans Arch systems: orphans, pacman and AUR caches, journal. Nothing runs until you select it.",
+    stack: ["Bash"],
+    url: "https://github.com/talhacaglar/archsweep",
+  },
+  {
+    id: "rv32i",
+    name: "RV32I Toolchain",
+    description:
+      "Assembler and linker for RV32I programs written in C, with object files, symbol resolution, relocations, PicoRV32-oriented memory output and a Flask interface.",
+    stack: ["C", "RISC-V", "Flask"],
+    url: "https://github.com/talhacaglar/rv32i-assembler-linker",
+  },
+  {
+    id: "pocketfarm",
+    name: "PocketFarm",
+    description:
+      "Android marketplace connecting farmers and buyers directly, with map-based listings, real-time chat and per-kilogram price offers.",
+    stack: ["Java", "Android", "Firebase"],
+    url: "https://github.com/talhacaglar/PocketFarm",
+  },
+  {
+    id: "dotfiles",
+    name: "Dotfiles",
+    description: "My Arch Linux and Hyprland setup, with full system backup and restore scripts.",
+    stack: ["Shell"],
+    url: "https://github.com/talhacaglar/dotfiles",
+  },
+];
+
+export const projectCount = featuredProjects.length + otherProjects.length;

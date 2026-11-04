@@ -21,8 +21,8 @@ render() {
   echo "==> $out ($(pdfinfo "$out" | awk '/^Pages/ {print $2}') pages)"
 }
 
-render cv.html tr public/resume/Talha-Caglar-CV.pdf
-render cv.html en public/resume/Talha-Caglar-CV-EN.pdf
+render cv-ai.html tr public/resume/Talha-Caglar-CV.pdf
+render cv-ai.html en public/resume/Talha-Caglar-CV-EN.pdf
 if [[ -f print/portfolio.html ]]; then
   render portfolio.html tr public/portfolio/Talha-Caglar-Portfolyo.pdf
   render portfolio.html en public/portfolio/Talha-Caglar-Portfolio-EN.pdf

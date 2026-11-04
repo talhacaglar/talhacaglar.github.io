@@ -1,181 +1,101 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Plus } from "lucide-react";
-import { GithubIcon } from "@/components/ui/icons";
-import { projects, type Project } from "@/data/projects";
+import { Sketch } from "@/components/Sketches";
+import { external } from "@/components/Section";
+import type { Project } from "@/data/projects";
 
-const ease = [0.22, 1, 0.36, 1] as const;
+function Thumb({ project }: { project: Project }) {
+  const frame =
+    "relative aspect-video overflow-hidden rounded-[10px] border border-line bg-card transition-colors duration-200 group-hover:border-accent";
+  const zoom = "h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.025]";
 
-function ProjectBody({ project }: { project: Project }) {
-  return (
-    <div
-      className={`grid gap-8 pb-12 pt-1 sm:pl-[2.125rem] md:gap-12 ${
-        project.media ? "md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]" : "max-w-3xl"
-      }`}
-    >
-      {project.media && (
-        <a
-          href={project.media.src}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group/image relative block aspect-[16/10] self-start overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--dusk)]"
-          aria-label={`Open full-size ${project.name} screenshot`}
-        >
-          <Image
-            src={project.media.src}
-            alt={project.media.alt}
-            fill
-            sizes="(max-width: 768px) 100vw, 36rem"
-            className="object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/image:scale-[1.03]"
-            style={{ objectPosition: project.media.position ?? "center" }}
-          />
-        </a>
-      )}
-
-      <div className="min-w-0">
-        <p className="text-[1.0625rem] leading-7 text-[var(--chalk)]">{project.description}</p>
-
-        {project.caseStudy && (
-          <dl className="mt-7 space-y-4 text-[0.9375rem] leading-6">
-            {[
-              { label: "The problem", text: project.caseStudy.problem },
-              { label: "What I did", text: project.caseStudy.decision },
-              { label: "Where it landed", text: project.caseStudy.result },
-            ].map((row) => (
-              <div key={row.label}>
-                <dt className="font-semibold text-[var(--chalk)]">{row.label}</dt>
-                <dd className="mt-0.5 text-[var(--ash)]">{row.text}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
-
-        {project.highlights && (
-          <ul className="mt-7 space-y-2 text-[0.9375rem] leading-6 text-[var(--ash)]">
-            {project.highlights.map((highlight) => (
-              <li key={highlight} className="flex gap-3">
-                <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--glow)]" aria-hidden="true" />
-                <span>{highlight}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <a href={project.url} target="_blank" rel="noopener noreferrer" className="pill pill-ghost">
-            <GithubIcon className="h-4 w-4" aria-hidden="true" />
-            View the source
-          </a>
-          <span className="text-sm text-[var(--smoke)]">{project.tags.join(", ")}</span>
-        </div>
-      </div>
+  const content = project.image ? (
+    <Image
+      src={project.image.src}
+      alt={project.image.alt}
+      width={1200}
+      height={675}
+      sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw"
+      className={`${zoom} object-cover`}
+    />
+  ) : project.sketch ? (
+    <div className={zoom}>
+      <Sketch name={project.sketch} />
     </div>
+  ) : null;
+
+  return project.url ? (
+    <a href={project.url} {...external} tabIndex={-1} className={`block ${frame}`}>
+      {content}
+    </a>
+  ) : (
+    <div className={frame}>{content}</div>
   );
 }
 
-export function Projects() {
-  const [openId, setOpenId] = useState<string | null>(projects[0].id);
-  const reduceMotion = useReducedMotion();
-
+/** Screenshot or system sketch on top, name and text below. */
+export function ProjectGrid({ projects }: { projects: Project[] }) {
   return (
-    <section id="projects" className="section">
-      <div className="shell">
-        <div className="reveal">
-          <h2 className="section-title">Projects</h2>
-          <p className="section-lead">
-            Things I built because I wanted them to exist. Open one to see what it does and why I made it.
-          </p>
-        </div>
-
-        <ol className="mt-12 border-t border-[var(--line)]">
-          {projects.map((project, index) => {
-            const open = openId === project.id;
-            const panelId = `project-${project.id}`;
-            return (
-              <li
-                key={project.id}
-                className="reveal border-b border-[var(--line)]"
-                style={{ "--i": Math.min(index, 5) } as React.CSSProperties}
-              >
-                <h3>
-                  <button
-                    type="button"
-                    onClick={() => setOpenId(open ? null : project.id)}
-                    aria-expanded={open}
-                    aria-controls={panelId}
-                    className="group flex w-full items-center gap-4 py-6 text-left sm:gap-6"
-                  >
-                    <span
-                      className={`h-2.5 w-2.5 shrink-0 rounded-full border-2 transition-all duration-500 ${
-                        open
-                          ? "border-[var(--glow)] bg-[var(--glow)] shadow-[0_0_0.9rem_rgb(var(--glow-rgb)/0.7)]"
-                          : "border-[var(--line-strong)] group-hover:border-[var(--glow)]"
-                      }`}
-                      aria-hidden="true"
-                    />
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-[clamp(1.45rem,3.4vw,2.1rem)] font-semibold leading-tight tracking-[-0.03em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">
-                        {project.name}
-                      </span>
-                      <span className="mt-0.5 block text-sm text-[var(--smoke)]">{project.category}</span>
-                    </span>
-                    <span className="hidden text-sm text-[var(--ash)] md:block">{project.lang}</span>
-                    <span
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                        open
-                          ? "rotate-45 border-[var(--glow)] text-[var(--glow)]"
-                          : "border-[var(--line-strong)] text-[var(--ash)] group-hover:border-[var(--ash)] group-hover:text-[var(--chalk)]"
-                      }`}
-                      aria-hidden="true"
-                    >
-                      <Plus className="h-4 w-4" />
-                    </span>
-                  </button>
-                </h3>
-
-                <AnimatePresence initial={false}>
-                  {open && (
-                    <motion.div
-                      key="panel"
-                      id={panelId}
-                      className="overflow-hidden"
-                      initial={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                      animate={reduceMotion ? { opacity: 1 } : { height: "auto", opacity: 1 }}
-                      exit={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                      transition={{
-                        height: { duration: 0.55, ease },
-                        opacity: { duration: 0.35, ease: "easeOut" },
-                      }}
-                    >
-                      <motion.div
-                        initial={reduceMotion ? false : { y: 12 }}
-                        animate={{ y: 0 }}
-                        exit={reduceMotion ? undefined : { y: 8 }}
-                        transition={{ duration: 0.55, ease }}
-                      >
-                        <ProjectBody project={project} />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+    <ul className="grid grid-cols-1 gap-x-6 gap-y-9 sm:grid-cols-2">
+      {projects.map((project) => (
+        <li key={project.id} className="group min-w-0">
+          <Thumb project={project} />
+          <div className="mt-3 flex items-baseline gap-x-3">
+            <h3 className="type-item min-w-0 transition-colors duration-150 group-hover:text-accent">
+              {project.url ? (
+                <a href={project.url} {...external}>
+                  {project.name}
+                </a>
+              ) : (
+                project.name
+              )}
+            </h3>
+            <p className="type-meta ml-auto shrink-0">
+              {project.aur ? (
+                <a
+                  href={`https://aur.archlinux.org/packages/${project.aur}`}
+                  {...external}
+                  title={`${project.aur} on the Arch User Repository`}
+                  aria-label={`${project.name} on the Arch User Repository`}
+                  className="link-quiet"
+                >
+                  aur
+                </a>
+              ) : (
+                project.status
+              )}
+            </p>
+          </div>
+          <p className="type-small mt-1.5 text-muted">{project.description}</p>
+          <ul className="type-meta mt-2 flex flex-wrap gap-x-3">
+            {project.stack.map((tool) => (
+              <li key={tool} className="whitespace-nowrap">
+                {tool}
               </li>
-            );
-          })}
-        </ol>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
-        <a
-          href="https://github.com/talhacaglar?tab=repositories"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="reveal mt-10 inline-flex items-center gap-3 text-[var(--ash)]"
-        >
-          <GithubIcon className="h-5 w-5" aria-hidden="true" />
-          <span className="soft-link">Everything else is on GitHub</span>
-        </a>
-      </div>
-    </section>
+/** Text-only rows for smaller projects. */
+export function ProjectRows({ projects }: { projects: Project[] }) {
+  return (
+    <ul className="divide-y divide-line">
+      {projects.map((project) => (
+        <li key={project.id} className="py-4">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+            <h3 className="type-item">
+              <a href={project.url} {...external} className="link-quiet">
+                {project.name}
+              </a>
+            </h3>
+            <p className="type-meta w-full sm:ml-auto sm:w-auto">{project.stack.join(" · ")}</p>
+          </div>
+          <p className="type-small mt-1 max-w-[78ch] text-muted">{project.description}</p>
+        </li>
+      ))}
+    </ul>
   );
 }
