@@ -16,7 +16,7 @@
   body {
     width: 210mm;
     min-height: 297mm;
-    padding: 9.5mm 15mm 7.5mm;
+    padding: 11mm 15mm 9mm;
     color: var(--ink);
     font-family: "Times New Roman", "Liberation Serif", Times, serif;
     font-size: 10pt;
@@ -33,7 +33,7 @@
   .contact span { white-space: nowrap; }
   .contact span + span::before { content: "·"; margin: 0 1mm; }
 
-  section { margin-top: 2.4mm; }
+  section { margin-top: 2.6mm; }
   h2 {
     margin-bottom: 1.1mm;
     padding-bottom: 0.4mm;
@@ -84,46 +84,42 @@ const T = {
   tr: {
     headline: "AI Mühendisi Adayı | LLM Uygulamaları · Python · Açık Kaynak",
     location: "Bursa, Türkiye",
-    h: { profile: "Profil", training: "AI Mühendisliği Eğitimleri", projects: "AI Projeleri", exp: "Deneyim", edu: "Eğitim", skills: "Teknik Yetkinlikler", certs: "Sertifikalar ve Başarılar" },
+    h: { profile: "Profil", training: "Kurslar", projects: "AI Projeleri", exp: "Deneyim", edu: "Eğitim", skills: "Teknik Yetkinlikler", certs: "Sertifikalar ve Başarılar" },
     profile:
-      "Yapay zekâ (AI) mühendisliğine yönelen Bilgisayar Mühendisliği 4. sınıf öğrencisi. Yapılandırılmış LLM çıktıları, şema doğrulama ve çok sağlayıcılı " +
-      "entegrasyon üzerine uygulamalar geliştiriyor; AI mühendisliği eğitimleri alıyor. Üç stajda web güvenliği testi, kurumsal yazılım geliştirme " +
-      "ve BT altyapısı üzerinde çalıştı. Açık kaynak uygulamalarından dördü AUR'da.",
+      "Python ve FastAPI ile LLM tabanlı uygulamalar geliştiren son sınıf Bilgisayar Mühendisliği öğrencisi; beklenen mezuniyet Haziran 2027. " +
+      "Projelerinde yapılandırılmış çıktı, Pydantic doğrulaması ve çok sağlayıcılı entegrasyon kullanıyor. Üç stajda kurumsal yazılım, web güvenliği " +
+      "ve BT altyapısı deneyimi edindi. Dört açık kaynak uygulaması AUR'da paketli.",
     training: [
       {
         title: "Building with the Claude API", role: "Anthropic Academy", meta: "Eki 2026 – Devam ediyor",
-        text: "Tamamlanan: Claude API kullanımı, prompt değerlendirme (test veri kümesi, kod ve model tabanlı puanlama), prompt mühendisliği. Devam eden: tool use, RAG, prompt caching, MCP, agent ve workflow kalıpları.",
-      },
-      {
-        title: "AI Engineer Eğitim Programı", role: "Bireysel, proje tabanlı", meta: "Eki 2026 – Şub 2027 (Beklenen)",
-        text: "LLM API, RAG, agent ve MCP, değerlendirme ve yayına alma; her aşama bitmiş bir projeyle kapanır. Sıradaki kurslar: Retrieval Augmented Generation (DeepLearning.AI), Introduction to MCP (Anthropic), AI Agents Course (Hugging Face).",
+        text: "Tamamlanan konular: API kullanımı, prompt mühendisliği ve prompt değerlendirme.",
       },
     ],
     projects: [
       {
         title: "Akıllı Ekstre", role: "Python, FastAPI, Pydantic, OpenAI API, Next.js", meta: "Özel depo",
         points: [
-          "Banka ekstresi analizinde finansal hesapları deterministik serviste tutup üstüne isteğe bağlı LLM açıklama katmanı kurdu; model sayı veya serbest metin üretmez, onaylı metin kataloğundan seçim yapar.",
-          "Structured Outputs ve Pydantic doğrulamasından geçmeyen yanıtlar kullanıcıya ve önbelleğe ulaşmaz. Allowlist sayesinde isim, IBAN ve işlem metni sağlayıcıya gitmez; içe aktarılan metin talimatlardan ayrı tutulur.",
+          "Banka ekstresi analizinde finansal hesapları deterministik servislerde tuttu; isteğe bağlı LLM katmanını onaylı açıklama kataloğundan seçim yapmakla sınırlandırdı.",
+          "Structured Outputs ve Pydantic doğrulamasından geçmeyen yanıtların kullanıcıya ve önbelleğe ulaşmasını engelledi; sağlayıcıya giden alanları sınırlayarak isim, IBAN ve işlem metnini dışarıda tuttu.",
         ],
       },
       {
         title: "Short Video Automation", role: "Python, Gemini, Claude, OpenRouter, faster-whisper, FFmpeg", meta: "Özel depo",
         points: [
-          "İki hat: konudan seslendirmeli, altyazılı dikey video üretimi; uzun videoyu transkript üzerinden LLM ile kliplere bölme.",
-          "Üç LLM sağlayıcısını tek katmanda soyutladı; yapılandırılmış JSON, önbellek, doğruluk denetimi ve insan onayı ekledi.",
+          "Konudan seslendirmeli ve altyazılı dikey video üreten, uzun videolardan transkript üzerinden kısa klipler çıkaran iki iş akışı geliştirdi.",
+          "Üç LLM sağlayıcısını tek katmanda birleştirdi; senaryodaki iddialar ayrı bir LLM doğruluk denetiminden ve insan onayından geçmeden video üretilmez.",
+        ],
+      },
+      {
+        title: "Lexis", role: "Python, PyQt6, Gemini, SQLite", link: repo("Lexis", " · AUR: lexis-git"),
+        points: [
+          "Verisini yerelde tutan sözlük uygulaması: isteğe bağlı Gemini yanıtları Pydantic şemasıyla doğrulanır; hatada artan aralıklarla yeniden dener, SM-2 ile aralıklı tekrar yapar.",
         ],
       },
       {
         title: "ClarSec", role: "Python, Typer, Pydantic, httpx, pytest", meta: "Geliştiriliyor",
         points: [
           "Kayıtlı Nmap çıktısını deterministik ayrıştırıp kural tabanlı bulgu üreten terminal asistanı; isteğe bağlı LLM analizi tipli JSON doğrulama ve birebir kanıt eşleştirmesinden geçer, sağlayıcı hatasında kurallarla devam eder.",
-        ],
-      },
-      {
-        title: "Lexis", role: "Python, PyQt6, Gemini, SQLite", link: repo("Lexis", " · AUR: lexis-git"),
-        points: [
-          "Local-first sözlük uygulaması: isteğe bağlı Gemini ile Pydantic şemalı JSON, üstel geri çekilmeli retry, SM-2 tekrar.",
         ],
       },
     ],
@@ -153,8 +149,8 @@ const T = {
     ],
     skills: [
       ["LLM ve AI", "Claude, OpenAI, Gemini API'leri; Structured Outputs, Pydantic, prompt mühendisliği ve değerlendirme"],
-      ["AI Araçları", "Claude Code, Codex; hook, skill ve MCP entegrasyonları; kalıcı hafızalı ajan ortamı (ClarchOS)"],
       ["Yazılım", "Python (FastAPI, PyQt6), TypeScript (Next.js), JavaScript (Electron), C++ (Qt), SQLite, pytest, Git"],
+      ["AI Araçları", "Claude Code, Codex; hook, skill ve MCP entegrasyonları; kalıcı hafızalı ajan ortamı (ClarchOS)"],
       ["Linux ve Ağ", "Arch Linux, Bash, AUR paketleme, TCP/IP, VLAN, DNS/DHCP, SNMP, LDAP/Active Directory"],
       ["Güvenlik", "OWASP Top 10, web uygulama testleri, zafiyet analizi · Burp Suite, Nmap, Wireshark"],
       ["Dil", "Türkçe (ana dil), İngilizce (B2)"],
@@ -171,46 +167,42 @@ const T = {
   en: {
     headline: "AI Engineer Candidate | LLM Applications · Python · Open Source",
     location: "Bursa, Türkiye",
-    h: { profile: "Profile", training: "AI Engineering Training", projects: "AI Projects", exp: "Experience", edu: "Education", skills: "Technical Skills", certs: "Certifications & Achievements" },
+    h: { profile: "Profile", training: "Courses", projects: "AI Projects", exp: "Experience", edu: "Education", skills: "Technical Skills", certs: "Certifications & Achievements" },
     profile:
-      "Final-year Computer Engineering student moving into AI engineering. Builds applications around structured LLM output, schema validation " +
-      "and multi-provider integration, and is taking AI engineering courses. Three internships across web security testing, enterprise software and " +
-      "IT infrastructure. Four open-source apps are packaged on the AUR.",
+      "Final-year Computer Engineering student building LLM applications with Python and FastAPI; expected graduation June 2027. " +
+      "Uses structured outputs, Pydantic validation and multi-provider integrations in projects. Experience across enterprise software, " +
+      "web security and IT infrastructure through three internships. Four open-source apps are packaged on the AUR.",
     training: [
       {
-        title: "Building with the Claude API", role: "Anthropic Academy", meta: "Oct 2026 – In progress",
-        text: "Completed: accessing Claude through the API, prompt evaluation (test datasets, code and model-based grading), prompt engineering. Remaining: tool use, RAG, prompt caching, MCP, agent and workflow patterns.",
-      },
-      {
-        title: "AI Engineer Study Program", role: "Self-directed, project-based", meta: "Oct 2026 – Feb 2027 (Expected)",
-        text: "LLM APIs, RAG, agents and MCP, evaluation and deployment; each stage ends with a finished project. Next courses: Retrieval Augmented Generation (DeepLearning.AI), Introduction to MCP (Anthropic), AI Agents Course (Hugging Face).",
+        title: "Building with the Claude API", role: "Anthropic Academy", meta: "Oct 2026 – Present",
+        text: "Topics completed: API usage, prompt engineering and prompt evaluation.",
       },
     ],
     projects: [
       {
         title: "Akıllı Ekstre", role: "Python, FastAPI, Pydantic, OpenAI API, Next.js", meta: "Private repository",
         points: [
-          "Kept the financial calculations of a bank statement analyzer in deterministic services and added an optional LLM explanation layer; the model writes no numbers or free text and only selects from a catalog of approved copy.",
-          "Responses that fail Structured Outputs and Pydantic validation never reach the user or the cache. An allowlist keeps names, IBANs and transaction text away from the provider; imported text stays separate from instructions.",
+          "Kept bank-statement calculations in deterministic services and restricted the optional LLM layer to selecting explanations from an approved catalog.",
+          "Blocked responses that fail Structured Outputs and Pydantic validation from reaching users or the cache; limited provider-bound fields to keep names, IBANs and transaction text out.",
         ],
       },
       {
         title: "Short Video Automation", role: "Python, Gemini, Claude, OpenRouter, faster-whisper, FFmpeg", meta: "Private repository",
         points: [
-          "Two pipelines: topic to voiced, captioned vertical video; long video to short clips via LLM selection over a transcript.",
-          "Abstracted three LLM providers behind one layer; added structured JSON, caching, fact-checking and human approval.",
+          "Built two workflows: generating narrated, captioned vertical videos from a topic, and extracting short clips from longer videos through transcript-based LLM selection.",
+          "Unified three LLM providers behind one layer; no video renders until every claim in the script passes a separate LLM fact-check and a person approves it.",
+        ],
+      },
+      {
+        title: "Lexis", role: "Python, PyQt6, Gemini, SQLite", link: repo("Lexis", " · AUR: lexis-git"),
+        points: [
+          "Dictionary app that keeps its data local: optional Gemini answers are validated against Pydantic schemas, failed calls retry with backoff, and SM-2 drives spaced repetition.",
         ],
       },
       {
         title: "ClarSec", role: "Python, Typer, Pydantic, httpx, pytest", meta: "In development",
         points: [
           "Terminal assistant that parses saved Nmap output deterministically and produces rule-based findings; optional LLM analysis passes typed JSON validation and exact evidence matching, and falls back to the rules on provider errors.",
-        ],
-      },
-      {
-        title: "Lexis", role: "Python, PyQt6, Gemini, SQLite", link: repo("Lexis", " · AUR: lexis-git"),
-        points: [
-          "Local-first dictionary app: optional Gemini assistance with Pydantic-schema JSON, backoff retries, SM-2 repetition.",
         ],
       },
     ],
@@ -240,8 +232,8 @@ const T = {
     ],
     skills: [
       ["LLM & AI", "Claude, OpenAI, Gemini APIs; Structured Outputs, Pydantic, prompt engineering and evaluation"],
-      ["AI Tooling", "Claude Code, Codex; hook, skill and MCP integrations; persistent-memory agent setup (ClarchOS)"],
       ["Software", "Python (FastAPI, PyQt6), TypeScript (Next.js), JavaScript (Electron), C++ (Qt), SQLite, pytest, Git"],
+      ["AI Tooling", "Claude Code, Codex; hook, skill and MCP integrations; persistent-memory agent setup (ClarchOS)"],
       ["Linux & Network", "Arch Linux, Bash, AUR packaging, TCP/IP, VLAN, DNS/DHCP, SNMP, LDAP/Active Directory"],
       ["Security", "OWASP Top 10, web application testing, vulnerability analysis · Burp Suite, Nmap, Wireshark"],
       ["Languages", "Turkish (native), English (B2)"],
@@ -278,8 +270,6 @@ document.getElementById("cv").innerHTML = `
 
   <section><h2>${T.h.profile}</h2><p class="entry-text">${esc(T.profile)}</p></section>
 
-  <section><h2>${T.h.training}</h2>${T.training.map(entry).join("")}</section>
-
   <section><h2>${T.h.projects}</h2>
     ${T.projects.map(entry).join("")}
     <p class="more"><b>${esc(T.more[0])}</b> ${esc(T.more[1])}</p>
@@ -292,6 +282,8 @@ document.getElementById("cv").innerHTML = `
   <section><h2>${T.h.skills}</h2>
     <dl class="skills">${T.skills.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
   </section>
+
+  <section><h2>${T.h.training}</h2>${T.training.map(entry).join("")}</section>
 
   <section class="certs"><h2>${T.h.certs}</h2>${T.certs.map(entry).join("")}</section>
 `;
