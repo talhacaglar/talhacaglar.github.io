@@ -111,13 +111,13 @@ const T = {
         ],
       },
       {
-        title: "Lexis", role: "Python, PyQt6, Gemini, SQLite", link: repo("Lexis", " · AUR: lexis-git"),
+        title: "Lexis", role: "Python, PyQt6, Gemini, SQLite", link: { label: "Açık kaynak · github.com/talhacaglar/Lexis", href: "https://github.com/talhacaglar/Lexis" },
         points: [
-          "Verisini yerelde tutan sözlük uygulaması: isteğe bağlı Gemini yanıtları Pydantic şemasıyla doğrulanır; hatada artan aralıklarla yeniden dener, SM-2 ile aralıklı tekrar yapar.",
+          "Kelimeleri ve tekrar geçmişini yerel SQLite veritabanında tutan sözlük uygulaması; isteğe bağlı Gemini'ye yalnızca aranan kelimeyi gönderir ve yanıtı Pydantic şemasıyla doğrular. SM-2 ile aralıklı tekrar; AUR'da lexis-git olarak paketli.",
         ],
       },
       {
-        title: "ClarSec", role: "Python, Typer, Pydantic, httpx, pytest", meta: "Geliştiriliyor",
+        title: "ClarSec", role: "Python, Typer, Pydantic, httpx, pytest", meta: "Geliştiriliyor, henüz yayımlanmadı",
         points: [
           "Kayıtlı Nmap çıktısını deterministik ayrıştırıp kural tabanlı bulgu üreten terminal asistanı; isteğe bağlı LLM analizi tipli JSON doğrulama ve birebir kanıt eşleştirmesinden geçer, sağlayıcı hatasında kurallarla devam eder.",
         ],
@@ -180,7 +180,7 @@ const T = {
     ],
     projects: [
       {
-        title: "Akıllı Ekstre", role: "Python, FastAPI, Pydantic, OpenAI API, Next.js", meta: "Private repository",
+        title: "Akıllı Ekstre (Bank Statement Analyzer)", role: "Python, FastAPI, Pydantic, OpenAI API, Next.js", meta: "Private repository",
         points: [
           "Kept bank-statement calculations in deterministic services and restricted the optional LLM layer to selecting explanations from an approved catalog.",
           "Blocked responses that fail Structured Outputs and Pydantic validation from reaching users or the cache; limited the fields sent to the provider so that names, IBANs and transaction text stay out.",
@@ -194,13 +194,13 @@ const T = {
         ],
       },
       {
-        title: "Lexis", role: "Python, PyQt6, Gemini, SQLite", link: repo("Lexis", " · AUR: lexis-git"),
+        title: "Lexis", role: "Python, PyQt6, Gemini, SQLite", link: { label: "Open source · github.com/talhacaglar/Lexis", href: "https://github.com/talhacaglar/Lexis" },
         points: [
-          "Dictionary app that keeps its data local: optional Gemini answers are validated against Pydantic schemas, failed calls retry with backoff, and SM-2 drives spaced repetition.",
+          "Dictionary app that stores words and review history in local SQLite; optional Gemini help gets only the looked-up word, and its answers pass Pydantic schema validation. SM-2 spaced repetition; on the AUR as lexis-git.",
         ],
       },
       {
-        title: "ClarSec", role: "Python, Typer, Pydantic, httpx, pytest", meta: "In development",
+        title: "ClarSec", role: "Python, Typer, Pydantic, httpx, pytest", meta: "In development, not yet published",
         points: [
           "Terminal assistant that parses saved Nmap output deterministically and produces rule-based findings; optional LLM analysis passes typed JSON validation and exact evidence matching, and falls back to the rules on provider errors.",
         ],
