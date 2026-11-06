@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CertificateGrid } from "@/components/Certificates";
 import { CvMenu } from "@/components/CvMenu";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
@@ -142,21 +143,7 @@ export default function Home() {
           </Section>
 
           <Section id="certificates" title="Certificates" list>
-            <ul className="divide-y divide-line">
-              {certifications.map((cert) => (
-                <li key={cert.id} className="py-4">
-                  <div className="flex items-baseline gap-x-3">
-                    <h3 className="type-item min-w-0">{cert.name}</h3>
-                    <a href={cert.url} {...external} className="type-meta link-quiet ml-auto shrink-0">
-                      verify
-                    </a>
-                  </div>
-                  <p className="type-small mt-1 text-muted">
-                    {cert.detail} <span className="type-meta ml-1">{cert.date}</span>
-                  </p>
-                </li>
-              ))}
-            </ul>
+            <CertificateGrid certifications={certifications} />
           </Section>
 
           <Section id="contact" title="Contact">
