@@ -39,6 +39,14 @@ export const certifications: Certification[] = [
     image: { src: "/certs/capt-preview.jpg", alt: "Hackviser CAPT certificate" },
   },
   {
+    id: "cisco-networking-basics",
+    name: "Networking Basics",
+    detail: "Cisco Networking Academy · certificate of completion",
+    date: "2025.08",
+    url: "https://www.credly.com/badges/282ce09e-2a2f-4b44-9e28-52516f78225d",
+    image: { src: "/certs/cisco-networking-preview.jpg", alt: "Cisco Networking Academy Networking Basics certificate" },
+  },
+  {
     id: "dijital-genc-deep-learning",
     name: "Deep Learning for Image Processing",
     detail: "Dijital Genç AI Ecosystem, Presidency of Türkiye Digital Transformation Office",
