@@ -15,6 +15,14 @@ export interface Certification {
 /** Newest first. */
 export const certifications: Certification[] = [
   {
+    id: "claude-api",
+    name: "Building with the Claude API",
+    detail: "Claude Academy (Anthropic)",
+    date: "2026.11",
+    url: "https://academy.claude.com/verify/0eb94a29031810ca89a439666dd7465b",
+    image: { src: "/certs/claude-api-preview.jpg", alt: "Claude Academy course completion badge for Building with the Claude API" },
+  },
+  {
     id: "siber-vatan-2026",
     name: "Türkiye Siber Vatan Program 2026",
     detail: "Certificate of participation",
