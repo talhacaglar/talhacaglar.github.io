@@ -15,6 +15,22 @@ export interface Certification {
 /** Newest first. */
 export const certifications: Certification[] = [
   {
+    id: "claude-code-in-action",
+    name: "Claude Code in Action",
+    detail: "Claude Academy (Anthropic)",
+    date: "2026.11",
+    url: "https://academy.claude.com/verify/73205977afc1ecb35be4f453e96d0dcb",
+    image: { src: "/certs/claude-code-in-action-preview.jpg", alt: "Claude Academy course completion badge for Claude Code in Action" },
+  },
+  {
+    id: "introduction-to-mcp",
+    name: "Introduction to Model Context Protocol",
+    detail: "Claude Academy (Anthropic)",
+    date: "2026.11",
+    url: "https://academy.claude.com/verify/4ce2f86204ad203049617a583bbaa610",
+    image: { src: "/certs/introduction-to-model-context-protocol-preview.jpg", alt: "Claude Academy course completion badge for Introduction to Model Context Protocol" },
+  },
+  {
     id: "claude-api",
     name: "Building with the Claude API",
     detail: "Claude Academy (Anthropic)",
