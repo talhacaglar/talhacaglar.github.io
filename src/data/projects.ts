@@ -63,20 +63,20 @@ export const featuredProjects: Project[] = [
     id: "omarchy-focus",
     name: "Omarchy Focus",
     description:
-      "Pomodoro timer, task queue and site blocker for Omarchy, with a native bar widget, a TUI and a CLI sharing one SQLite database.",
-    stack: ["Python", "Textual", "QML", "SQLite"],
+      "Pomodoro timer, task queue and site blocker that live in the Omarchy bar. Click the pill for focus, tasks, sites and stats; a CLI shares the same SQLite database.",
+    stack: ["Python", "QML", "SQLite"],
     url: "https://github.com/talhacaglar/omarchy-focus",
     aur: "omarchy-focus",
     image: {
       src: "/projects/omarchy-focus.webp",
-      alt: "Omarchy Focus terminal dashboard with the next task and a queue of sample tasks",
+      alt: "Omarchy Focus bar panel during a session, with a countdown, session controls and a queue of sample tasks",
     },
   },
   {
     id: "pritingo",
     name: "Pritingo",
     description:
-      "Print on Canon PIXMA E400-series printers from Linux: one page per job so nothing gets dropped, with guided two-sided printing.",
+      "Print on Canon PIXMA E400-series printers from Linux: one page per job so nothing gets dropped, with guided two-sided printing, many files as one document and a preview of each sheet.",
     stack: ["C++", "Qt", "QML"],
     url: "https://github.com/talhacaglar/pritingo",
     aur: "pritingo",
@@ -101,7 +101,7 @@ export const featuredProjects: Project[] = [
     id: "stretch-buddies",
     name: "Stretch Buddies",
     description:
-      "Stardew-style stretch breaks for Omarchy. Rigo, Mochi and Porcini pop up every 20 minutes and lead a one-minute neck and back stretch.",
+      "Stardew-style stretch breaks for Omarchy. Six pixel-art buddies take turns popping up every 20 minutes to lead a one-minute neck and back stretch, in eight languages.",
     stack: ["QML"],
     url: "https://github.com/talhacaglar/stretch-buddies",
     image: {
