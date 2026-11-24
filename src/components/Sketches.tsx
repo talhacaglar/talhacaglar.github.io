@@ -156,26 +156,6 @@ function ShortVideo() {
   );
 }
 
-function ClarSec() {
-  return (
-    <>
-      <Box col={0} y={ROW.top} label="Nmap scan" />
-      <Box col={1} y={ROW.top} label="parser" />
-      <Box col={2} y={ROW.top} label="findings" />
-      <Step from={0} y={ROW.top} />
-      <Step from={1} y={ROW.top} />
-
-      <Edge points={[[midX(1), ROW.top + HEIGHT], [midX(1), ROW.bottom]]} />
-      <Box col={1} y={ROW.bottom} label="LLM" model />
-      <Box col={2} y={ROW.bottom} label="evidence" />
-      <Step from={1} y={ROW.bottom} />
-      <Edge points={[[midX(2), ROW.bottom], [midX(2), ROW.top + HEIGHT]]} />
-
-      <Note>optional · provider error: rules only</Note>
-    </>
-  );
-}
-
 const sketches: Record<SketchName, { label: string; draw: () => React.ReactNode }> = {
   "akilli-ekstre": {
     label:
@@ -186,11 +166,6 @@ const sketches: Record<SketchName, { label: string; draw: () => React.ReactNode 
     label:
       "Flow of Short Video Automation. A topic and a transcript go through one LLM layer over Gemini, Claude and OpenRouter, producing a video and clips, with structured JSON, caching, fact-checking and human approval.",
     draw: ShortVideo,
-  },
-  clarsec: {
-    label:
-      "Flow of ClarSec. An Nmap scan goes through a parser to findings without a model. Optional LLM analysis must pass an evidence check, and provider errors fall back to the rules.",
-    draw: ClarSec,
   },
 };
 

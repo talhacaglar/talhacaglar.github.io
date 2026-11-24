@@ -1,4 +1,4 @@
-export type SketchName = "akilli-ekstre" | "short-video" | "clarsec";
+export type SketchName = "akilli-ekstre" | "short-video";
 
 export interface Project {
   id: string;
@@ -36,15 +36,6 @@ export const featuredProjects: Project[] = [
     stack: ["Python", "Gemini", "Claude", "OpenRouter", "faster-whisper", "FFmpeg"],
     status: "private repo",
     sketch: "short-video",
-  },
-  {
-    id: "clarsec",
-    name: "ClarSec",
-    description:
-      "Terminal assistant that parses saved Nmap output into rule-based findings. Optional LLM analysis has to pass typed JSON validation and exact evidence matching.",
-    stack: ["Python", "Typer", "Pydantic", "httpx", "pytest"],
-    status: "in development",
-    sketch: "clarsec",
   },
   {
     id: "lexis",
@@ -113,6 +104,22 @@ export const featuredProjects: Project[] = [
 
 /** Listed on /projects only. */
 export const otherProjects: Project[] = [
+  {
+    id: "certification-coach",
+    name: "Certification Coach Skill",
+    description:
+      "Claude Code skill that coaches a day-by-day learning plan with term checks, spaced-repetition cards, diagnostics and interview practice drawn from your own notes and commits.",
+    stack: ["Markdown", "Python"],
+    url: "https://github.com/talhacaglar/claude-skill-certification-coach",
+  },
+  {
+    id: "lugat",
+    name: "lugat",
+    description:
+      "Keyboard-first terminal app for the TDK Turkish dictionary. Type a word to see meanings, examples, origin, compounds and idioms on one screen; search works without Turkish accents and needs no API key.",
+    stack: ["Python", "Textual"],
+    url: "https://github.com/talhacaglar/lugat",
+  },
   {
     id: "notion-dictionary",
     name: "Notion Dictionary Automation",
