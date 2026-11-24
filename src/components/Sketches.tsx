@@ -164,7 +164,7 @@ const sketches: Record<SketchName, { label: string; draw: () => React.ReactNode 
   },
   "short-video": {
     label:
-      "Flow of Short Video Automation. A topic and a transcript go through one LLM layer over Gemini, Claude and OpenRouter, producing a video and clips, with structured JSON, caching, fact-checking and human approval.",
+      "Flow of Short Video Automation. A topic and a transcript go through one LLM layer over Gemini, Claude, OpenRouter and the Claude Code CLI, producing a video and clips, with structured JSON, caching, fact-checking and human approval.",
     draw: ShortVideo,
   },
 };

@@ -32,7 +32,7 @@ export const featuredProjects: Project[] = [
     id: "short-video",
     name: "Short Video Automation",
     description:
-      "Turns a topic into a voiced, captioned vertical video, and a long video into short clips an LLM selects from the transcript. Three providers sit behind one layer.",
+      "Turns a topic into a voiced, captioned vertical video, and a long video into short clips an LLM selects from the transcript. Four providers sit behind one layer.",
     stack: ["Python", "Gemini", "Claude", "OpenRouter", "faster-whisper", "FFmpeg"],
     status: "private repo",
     sketch: "short-video",
