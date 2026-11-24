@@ -12,7 +12,7 @@ export interface Certification {
   image: { src: string; alt: string };
 }
 
-/** Newest first. */
+/** AI certificates first, then the rest; newest first within each group. */
 export const certifications: Certification[] = [
   {
     id: "claude-code-in-action",
@@ -37,6 +37,34 @@ export const certifications: Certification[] = [
     date: "2026.11",
     url: "https://academy.claude.com/verify/0eb94a29031810ca89a439666dd7465b",
     image: { src: "/certs/claude-api-preview.jpg", alt: "Claude Academy course completion badge for Building with the Claude API" },
+  },
+  {
+    id: "dijital-genc-deep-learning",
+    name: "Deep Learning for Image Processing",
+    detail: "Dijital Genç AI Ecosystem, Presidency of Türkiye Digital Transformation Office",
+    date: "2024.10",
+    files: [
+      { label: "pdf", href: "/certs/dijital-genc-deep-learning-achievement.pdf" },
+      { label: "participation", href: "/certs/dijital-genc-deep-learning-participation.pdf" },
+    ],
+    image: {
+      src: "/certs/dijital-genc-deep-learning-preview.jpg",
+      alt: "Dijital Genç certificate of achievement for Deep Learning for Image Processing",
+    },
+  },
+  {
+    id: "dijital-genc-machine-learning",
+    name: "Machine Learning",
+    detail: "Dijital Genç AI Ecosystem, Presidency of Türkiye Digital Transformation Office",
+    date: "2024.10",
+    files: [
+      { label: "pdf", href: "/certs/dijital-genc-machine-learning-achievement.pdf" },
+      { label: "participation", href: "/certs/dijital-genc-machine-learning-participation.pdf" },
+    ],
+    image: {
+      src: "/certs/dijital-genc-machine-learning-preview.jpg",
+      alt: "Dijital Genç certificate of achievement for Machine Learning",
+    },
   },
   {
     id: "siber-vatan-2026",
@@ -69,34 +97,6 @@ export const certifications: Certification[] = [
     date: "2025.08",
     url: "https://www.credly.com/badges/282ce09e-2a2f-4b44-9e28-52516f78225d",
     image: { src: "/certs/cisco-networking-preview.jpg", alt: "Cisco Networking Academy Networking Basics certificate" },
-  },
-  {
-    id: "dijital-genc-deep-learning",
-    name: "Deep Learning for Image Processing",
-    detail: "Dijital Genç AI Ecosystem, Presidency of Türkiye Digital Transformation Office",
-    date: "2024.10",
-    files: [
-      { label: "pdf", href: "/certs/dijital-genc-deep-learning-achievement.pdf" },
-      { label: "participation", href: "/certs/dijital-genc-deep-learning-participation.pdf" },
-    ],
-    image: {
-      src: "/certs/dijital-genc-deep-learning-preview.jpg",
-      alt: "Dijital Genç certificate of achievement for Deep Learning for Image Processing",
-    },
-  },
-  {
-    id: "dijital-genc-machine-learning",
-    name: "Machine Learning",
-    detail: "Dijital Genç AI Ecosystem, Presidency of Türkiye Digital Transformation Office",
-    date: "2024.10",
-    files: [
-      { label: "pdf", href: "/certs/dijital-genc-machine-learning-achievement.pdf" },
-      { label: "participation", href: "/certs/dijital-genc-machine-learning-participation.pdf" },
-    ],
-    image: {
-      src: "/certs/dijital-genc-machine-learning-preview.jpg",
-      alt: "Dijital Genç certificate of achievement for Machine Learning",
-    },
   },
   {
     id: "teknofest-2024",
