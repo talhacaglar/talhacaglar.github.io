@@ -28,11 +28,12 @@ and rows where a section title sits in a narrow column beside its content.
 - Motion is limited to the hero rising once on load and small hover changes
 - Rows are the default layout. The home page order is Learning, Projects,
   Experience, Certificates, Contact; `/projects/` adds the smaller projects
-- Project cards use a real 16:9 screenshot (`public/projects/*.webp`). Projects
-  with no public repository draw their pipeline in `src/components/Sketches.tsx`
-  instead, and every box in a sketch has to be a step the CV describes
-- `src/data/learning.ts` is a log: move topics from `next` to `done` as courses
-  progress
+- Project cards use 16:9 screenshots or demo stills (`public/projects/*.webp`).
+  Pipeline sketches in `src/components/Sketches.tsx` show steps described in
+  the CV
+- `src/data/learning.ts` tracks the current learning focus and planned courses.
+  Completed Claude Academy courses use the dates and verification links in
+  `src/data/certifications.ts`.
 - Copy stays short, plain and factual
 - Open Graph image, sitemap and structured data ship with the export
 

@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const title = "Talha Çağlar · AI Engineer Candidate";
+const title = "Talha Çağlar · AI Engineering Portfolio";
 const description =
-  "Final-year computer engineering student moving into AI engineering. Builds LLM applications around structured output, schema validation and multi-provider integration.";
+  "Final-year computer engineering student building AI tools in Python, including a bank statement analyzer and a Gemini chat app using MCP.";
 
 export const metadata: Metadata = {
   title: { default: title, template: "%s · Talha Çağlar" },
@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     "Talha Çağlar",
     "AI engineering",
     "LLM applications",
+    "Model Context Protocol",
     "structured output",
     "Python",
     "FastAPI",

@@ -12,8 +12,7 @@ export interface Certification {
   image: { src: string; alt: string };
 }
 
-/** AI certificates first, then the rest; newest first within each group. */
-export const certifications: Certification[] = [
+export const claudeCertifications: Certification[] = [
   {
     id: "claude-code-in-action",
     name: "Claude Code in Action",
@@ -38,6 +37,11 @@ export const certifications: Certification[] = [
     url: "https://academy.claude.com/verify/0eb94a29031810ca89a439666dd7465b",
     image: { src: "/certs/claude-api-preview.jpg", alt: "Claude Academy course completion badge for Building with the Claude API" },
   },
+];
+
+/** AI certificates first, then the rest; newest first within each group. */
+export const certifications: Certification[] = [
+  ...claudeCertifications,
   {
     id: "dijital-genc-deep-learning",
     name: "Deep Learning for Image Processing",

@@ -8,7 +8,7 @@ export interface Project {
   /** Public repository. Private projects have no link to show. */
   url?: string;
   /** Shown when there is no public repository. */
-  status?: "private repo" | "in development";
+  status?: "private repo" | "in development" | "learning project";
   /** AUR package name, where one exists. */
   aur?: string;
   /** A real application screenshot, 16:9. */
@@ -27,6 +27,18 @@ export const featuredProjects: Project[] = [
     stack: ["Python", "FastAPI", "Pydantic", "OpenAI API", "Next.js"],
     status: "private repo",
     sketch: "akilli-ekstre",
+  },
+  {
+    id: "mcp-chat-gemini",
+    name: "MCP Chat for Gemini",
+    description:
+      "A terminal chat app that lets Gemini read and edit sample documents through an MCP server. Adapted from Claude Academy's API course project.",
+    stack: ["Python", "Gemini API", "MCP", "prompt_toolkit"],
+    status: "learning project",
+    image: {
+      src: "/projects/mcp-chat-gemini.webp",
+      alt: "Terminal demo of Gemini answering questions about sample documents and handling a missing file",
+    },
   },
   {
     id: "short-video",

@@ -17,12 +17,13 @@ const jsonLd = {
   name: "Talha Çağlar",
   url: "https://talhacaglar.github.io/",
   email: `mailto:${EMAIL}`,
-  jobTitle: "AI Engineer Candidate",
+  jobTitle: "Computer Engineering Student",
   homeLocation: { "@type": "Place", name: "Bursa, Türkiye" },
   sameAs: socials.map((social) => social.href),
   knowsAbout: [
     "AI Engineering",
     "LLM Applications",
+    "Model Context Protocol",
     "Structured Outputs",
     "Prompt Engineering",
     "Python",
@@ -39,15 +40,6 @@ const jsonLd = {
       codeRepository: project.url,
     })),
 };
-
-function Topics({ label, items, done = false }: { label: string; items: string[]; done?: boolean }) {
-  return (
-    <p className="type-meta mt-1 flex gap-2">
-      <span className="w-8 shrink-0">{label}</span>
-      <span className={done ? "text-accent" : undefined}>{items.join(" · ")}</span>
-    </p>
-  );
-}
 
 function CourseRow({ course }: { course: Course }) {
   return (
@@ -66,12 +58,6 @@ function CourseRow({ course }: { course: Course }) {
           {course.provider}
           {course.summary && `. ${course.summary}`}
         </p>
-        {course.done && (
-          <div className="mt-2.5">
-            <Topics label="done" items={course.done} done />
-            {course.next && <Topics label="next" items={course.next} />}
-          </div>
-        )}
       </div>
       <p className="type-meta flex shrink-0 items-center gap-2 self-start sm:pt-1">
         <span className="chip">{course.status}</span>
@@ -94,9 +80,9 @@ export default function Home() {
           <section className="px-6 py-16 md:px-10 md:py-20">
             <h1 className="type-display rise">Talha Çağlar</h1>
             <p className="type-lead rise mt-5 max-w-[58ch] text-muted">
-              Final-year computer engineering student moving into AI engineering. I build LLM applications that check
-              the model&apos;s output before it&apos;s used: a bank statement analyzer, a video pipeline, an Nmap
-              assistant. Mostly Python, FastAPI and Pydantic.
+              I&apos;m a final-year computer engineering student building AI tools in Python. My projects include
+              a bank statement analyzer that validates model responses and a Gemini chat app that uses MCP to
+              work with sample documents from the terminal.
             </p>
             <div className="rise mt-8 flex flex-wrap gap-2 sm:gap-3">
               <a href="#projects" className="btn btn-solid">
