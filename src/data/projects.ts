@@ -104,12 +104,12 @@ export const featuredProjects: Project[] = [
     id: "stretch-buddies",
     name: "Stretch Buddies",
     description:
-      "Stardew-style stretch breaks for Omarchy. Six pixel-art buddies take turns popping up every 20 minutes to lead a one-minute neck and back stretch, in eight languages.",
+      "Stardew-style stretch breaks for Omarchy. Twelve pixel-art buddies take turns popping up every 20 minutes to lead a one-minute desk stretch, in eight languages.",
     stack: ["QML"],
     url: "https://github.com/talhacaglar/stretch-buddies",
     image: {
       src: "/projects/stretch-buddies.webp",
-      alt: "Stretch Buddies dialog with a pixel-art character leading a seated twist",
+      alt: "Stretch Buddies dialog with pixel-art characters leading a seated twist stretch",
     },
   },
 ];
